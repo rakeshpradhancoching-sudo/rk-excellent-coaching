@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odisha Toppers: 60-Min 50 MCQ Mock Test</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background-color: #f0f2f5; line-height: 1.6; }
+        .quiz-container { max-width: 850px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .header { text-align: center; border-bottom: 3px solid #007bff; margin-bottom: 25px; padding-bottom: 15px; position: sticky; top: 0; background: white; z-index: 100; border-radius: 0 0 10px 10px; }
+        .timer-box { background: #d9534f; color: white; display: inline-block; padding: 10px 20px; border-radius: 50px; font-size: 1.3em; font-weight: bold; margin-top: 10px; }
+        .question-box { margin-bottom: 30px; padding: 20px; background: #fff; border: 1px solid #e1e4e8; border-left: 5px solid #007bff; border-radius: 8px; transition: 0.3s; }
+        .question-box:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .question-text { font-size: 1.15em; font-weight: 600; margin-bottom: 15px; color: #2c3e50; }
+        .options-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+        .option-item { display: flex; align-items: center; background: #f8f9fa; padding: 12px; border-radius: 6px; cursor: pointer; border: 1px solid #dee2e6; transition: 0.2s; }
+        .option-item:hover { background: #e9ecef; border-color: #adb5bd; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.3); cursor: pointer; }
+        #result { margin-top: 30px; padding: 30px; border-radius: 12px; text-align: center; display: none; }
+        .btn-submit { display: block; width: 100%; padding: 18px; background: #28a745; color: white; border: none; font-size: 1.3em; border-radius: 10px; cursor: pointer; font-weight: bold; margin-top: 30px; box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3); }
+        .btn-submit:hover { background: #218838; transform: translateY(-2px); }
+        .score-circle { width: 120px; height: 120px; line-height: 120px; border-radius: 50%; background: #28a745; color: white; font-size: 2em; margin: 20px auto; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <div class="header">
+        <h1 style="margin:0; color:#007bff;">Odisha Toppers: Class 10 Mock Test</h1>
+        <p style="color:#666;">Full English Syllabus (50 Questions)</p>
+        <div class="timer-box">⏳ <span id="time">60:00</span></div>
+    </div>
+
+    <form id="quizForm">
+        <div id="quiz-content"></div>
+        <button type="button" class="btn-submit" onclick="calculateScore()">Finish and Show Result</button>
+    </form>
+
+    <div id="result">
+        <h2 id="resultTitle">Test Completed!</h2>
+        <div class="score-circle" id="scoreValue">0</div>
+        <p id="feedbackText" style="font-size: 1.2em; font-weight: 500;"></p>
+        <button onclick="location.reload()" style="background:#6c757d; border:none; padding:12px 25px; color:white; border-radius:8px; cursor:pointer; font-weight:bold;">Try Again</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        // 1-10: Environment & Prose
+        { q: "How much pollution do automobiles release in Greater Kolkata daily?", a: "C", opts: ["1000 tons", "1200 tons", "1500 tons", "2000 tons"] },
+        { q: "Changing raw materials in industries is a ____ measure for air pollution.", a: "A", opts: ["Preventive", "Curative", "Temporary", "Useless"] },
+        { q: "To whom is the message in 'School's Good Bye' addressed?", a: "C", opts: ["Teachers", "Parents", "Students leaving school", "New students"] },
+        { q: "What does 'Hard Times' refer to in the lesson?", a: "B", opts: ["Summer season", "Periods of difficulty", "Exam time", "Working hours"] },
+        { q: "Why did Gandhi request the headmaster to exempt him from gymnastics?", a: "B", opts: ["He was sick", "To serve his father", "He liked cricket", "He wanted to study"] },
+        { q: "Gandhi was a ____ student by character.", a: "C", opts: ["Jealous", "Dishonest", "Careful/Guarded", "Lazy"] },
+        { q: "Where was Lencho's house situated?", a: "C", opts: ["In a valley", "On a river bank", "On the top of a low hill", "In a city"] },
+        { q: "Who opened Lencho's second letter?", a: "A", opts: ["Postmaster", "Postman", "His son", "God"] },
+        { q: "What brightens up the sky in 'All Things Bright and Beautiful'?", a: "B", opts: ["The stars", "The sunset and morning", "The rain", "The moon"] },
+        { q: "The 'glowing colors' in the poem are related to ____.", a: "B", opts: ["Birds", "Flowers", "Mountains", "Trees"] },
+        
+        // 11-20: Poetry & Supplementary
+        { q: "What is the tone of the Solitary Reaper's song?", a: "B", opts: ["Joyful", "Melancholy", "Angry", "Fast"] },
+        { q: "Why does the poet ask passers-by to 'stop here or gently pass'?", a: "B", opts: ["The girl is sleeping", "To avoid disturbing her", "The road is blocked", "To listen better"] },
+        { q: "In 'Village Song', what does the mother want for her daughter?", a: "B", opts: ["Education", "Worldly pleasures", "A job", "Jewelry"] },
+        { q: "Where do lotus and lilies glisten?", a: "B", opts: ["In the garden", "In river isles", "In a vase", "In the forest"] },
+        { q: "Which instrument is compared to the 'booming of bamboos'?", a: "B", opts: ["Flute", "Bamboo bagpipes", "Drum", "Guitar"] },
+        { q: "What should we avoid while driving?", a: "C", opts: ["Helmets", "Seatbelts", "Cellphones", "Mirrors"] },
+        { q: "What was Vicky's life motto?", a: "B", opts: ["Live and let live", "No pain, no gain", "Work is worship", "Time is money"] },
+        { q: "The 'luxurious camp' in 'A Tiger in the House' was for ____.", a: "B", opts: ["The Grandfather", "British Viceroy", "Local hunters", "The Tiger"] },
+        { q: "Why did people keep distance from Timothy during walks?", a: "B", opts: ["He was small", "He was dangerous", "He was dirty", "He was shy"] },
+        { q: "How did Toto the monkey react to Timothy?", a: "B", opts: ["He was scared", "He pulled his tail", "He bit him", "He ran away"] },
+
+        // 21-30: Supplementary & Stories
+        { q: "What weakened Lushkoff physically and morally?", a: "B", opts: ["Hard work", "Drinking alcohol", "Hunger", "Cold weather"] },
+        { q: "What job did Sergei finally arrange for Lushkoff?", a: "B", opts: ["Wood chopping", "Copying work", "Cleaning", "Cooking"] },
+        { q: "What did Jumman's aunt threaten to do?", a: "B", opts: ["Leave the house", "Call a Panchayat", "Call the police", "Sell the land"] },
+        { q: "What happened to Algu's bullock after the Panchayat?", a: "C", opts: ["It ran away", "It was sold", "It died suddenly", "It got sick"] },
+        { q: "How was the first old peasant described?", a: "C", opts: ["Strong", "Young", "Old, weak, and on crutches", "Wealthy"] },
+        { q: "According to the second peasant, how was food obtained in his day?", a: "C", opts: ["Buying", "Stealing", "Growing and sharing", "From the King"] },
+        { q: "Who said 'We knew nothing of money'?", a: "C", opts: ["The King", "The 1st Peasant", "Old man's grandfather", "Lencho"] },
+        { q: "A strong spinning wind that causes damage is a ____.", a: "B", opts: ["Breeze", "Cyclone/Tornado", "Rain", "Fog"] },
+        { q: "Lencho's house was 'solitary'. Replace it with ____.", a: "B", opts: ["Crowded", "Lonely", "Big", "Broken"] },
+        { q: "Human wants are 'not limited'. Use one word:", a: "B", opts: ["Limited", "Unlimited", "Small", "Fixed"] },
+
+        // 31-40: Grammar & Language
+        { q: "Gandhi's Persian teacher was ____ to students.", a: "B", opts: ["Strict", "Considerate", "Angry", "Lazy"] },
+        { q: "People pray to God to ____ evil spirits.", a: "B", opts: ["Call", "Drive away", "Invite", "Love"] },
+        { q: "A group of people meeting to worship is a ____.", a: "B", opts: ["Crowd", "Congregation", "Army", "Team"] },
+        { q: "The catalytic converter changes ____ into harmless substances.", a: "B", opts: ["Water", "Pollutants", "Fuel", "Air"] },
+        { q: "What does 'Precipitation' include?", a: "B", opts: ["Only rain", "Rain, snow, or hail", "Wind", "Sunlight"] },
+        { q: "Replace 'Recreation' with another word:", a: "B", opts: ["Work", "Hobby", "Sleep", "Food"] },
+        { q: "People choose their ____ based on skills.", a: "B", opts: ["Clothes", "Occupation", "Color", "Game"] },
+        { q: "Kohli said, 'I go to gym'. Indirect speech:", a: "A", opts: ["Kohli said that he goes to gym", "Kohli says he went", "Kohli told he go", "Kohli says I go"] },
+        { q: "If I ____ worked hard, I would have passed.", a: "B", opts: ["Have", "Had", "Will", "Am"] },
+        { q: "Success comes to those ____ work hard.", a: "B", opts: ["Which", "Who", "Whom", "Whose"] },
+
+        // 41-50: Final Polish
+        { q: "Mr. Sahu gave ____ smoking.", a: "C", opts: ["In", "Out", "Up", "Away"] },
+        { q: "The letter was written ____ a blue pen.", a: "B", opts: ["By", "With", "In", "From"] },
+        { q: "Would you mind ____ your number?", a: "B", opts: ["Share", "Sharing", "Shared", "To share"] },
+        { q: "Either you or your friend ____ my pen.", a: "B", opts: ["Have taken", "Has taken", "Is taking", "Take"] },
+        { q: "Pick the correct sentence:", a: "B", opts: ["He both bats well", "He not only bats but also bowls well", "He bats well but", "He is bat well"] },
+        { q: "I ____ him since yesterday.", a: "C", opts: ["Not saw", "Did not see", "Have not seen", "Am not seeing"] },
+        { q: "Acid rain contains oxides of ____ and nitrogen.", a: "B", opts: ["Oxygen", "Sulphur", "Carbon", "Hydrogen"] },
+        { q: "What did the postmaster feel when he gave money to Lencho?", a: "B", opts: ["Anger", "Contentment", "Fear", "Sadness"] },
+        { q: "The flower seeds are sown in ____.", a: "C", opts: ["Winter", "Summer", "Spring", "Monsoon"] },
+        { q: "Which part of the car reduces pollution?", a: "B", opts: ["Engine", "Catalytic converter", "Tyres", "Mirror"] }
+    ];
+
+    const quizDiv = document.getElementById('quiz-content');
+
+    // Rendering 50 Questions
+    questions.forEach((item, index) => {
+        let html = `<div class="question-box">
+            <div class="question-text">${index + 1}. ${item.q}</div>
+            <div class="options-grid">`;
+        item.opts.forEach((opt, i) => {
+            let val = String.fromCharCode(65 + i);
+            html += `<label class="option-item">
+                <input type="radio" name="q${index}" value="${val}"> <strong>${val}.</strong> &nbsp; ${opt}
+            </label>`;
+        });
+        html += `</div></div>`;
+        quizDiv.innerHTML += html;
+    });
+
+    // UPDATED TIMER: 60 Minutes (60 * 60 seconds)
+    let timeLimit = 60 * 60; 
+    const timerDisplay = document.getElementById('time');
+
+    const countdown = setInterval(() => {
+        let minutes = Math.floor(timeLimit / 60);
+        let seconds = timeLimit % 60;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        timerDisplay.innerHTML = `${minutes}:${seconds}`;
+        
+        if (timeLimit <= 0) {
+            clearInterval(countdown);
+            alert("Time's up! Your answers are being submitted.");
+            calculateScore();
+        }
+        timeLimit--;
+    }, 1000);
+
+    function calculateScore() {
+        clearInterval(countdown);
+        let score = 0;
+        questions.forEach((item, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            if (selected && selected.value === item.a) {
+                score++;
+            }
+        });
+
+        document.getElementById('quizForm').style.display = 'none';
+        document.querySelector('.header').style.display = 'none';
+        
+        const resDiv = document.getElementById('result');
+        resDiv.style.display = 'block';
+        
+        const scoreVal = document.getElementById('scoreValue');
+        scoreVal.innerHTML = score;
+        
+        let feedback = "";
+        if(score >= 45) {
+            feedback = "Wow! You are truly a Topper. Excellent preparation! 🏆";
+            scoreVal.style.background = "#28a745";
+        } else if(score >= 30) {
+            feedback = "Great job! You have a good command over the subjects. 👍";
+            scoreVal.style.background = "#007bff";
+        } else {
+            feedback = "Keep practicing! Revision is the key to success. 📚";
+            scoreVal.style.background = "#dc3545";
+        }
+        
+        document.getElementById('feedbackText').innerHTML = feedback;
+        window.scrollTo(0,0);
+    }
+</script>
+
+</body>
+</html>
+
