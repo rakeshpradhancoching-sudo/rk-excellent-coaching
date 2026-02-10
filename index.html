@@ -75,9 +75,10 @@ section{
 }
 h2{
   color:#000000;
+  margin-top: 0;
 }
 
-/* ===== BUTTON ===== */
+/* ===== BUTTONS & TEST GRID ===== */
 .btn{
   display:inline-block;
   margin:6px 6px 0 0;
@@ -88,6 +89,30 @@ h2{
   border-radius:6px;
 }
 .btn.black{background:#000000;}
+
+.test-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  margin-top: 15px;
+}
+.test-btn {
+  background: #0d6efd;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.test-btn:hover {
+  background: #000;
+  transform: translateY(-2px);
+}
+.test-btn.active-test {
+  background: #28a745; /* Green color for Odia Test */
+}
 
 /* ===== FOOTER ===== */
 footer{
@@ -118,19 +143,18 @@ footer{
   <a href="#test">Test</a>
   <a href="#jobs">Job Alert</a>
   <a href="#contact">Contact</a>
-   <a href="admission.html">Admission apply</a>
+  <a href="admission.html" style="color: #00e5ff;">Admission Apply</a>
 </nav>
 
 <section id="home">
   <div class="card">
      <img
        src="./IMG_20260208_182154-1.jpg"
-       alt="Rakesh Pradhan"style="width: 120px;
+       alt="Rakesh Pradhan" style="width: 120px;
        height: 120px; object-fit: cover;
        border-radius: 10px; border: 2px solid
-         #0d6efd; margin-bottom: 10px; display:
-         block;">
-class="welcome-photo">
+       #0d6efd; margin-bottom: 10px; display:
+       block;">
     <h2>Welcome</h2> 
     <p>RK Excellent Coaching provides quality education and result-oriented guidance for students.</p>
   </div>
@@ -158,28 +182,21 @@ class="welcome-photo">
 <section id="test">
   <div class="card">
     <h2>Online Test Series</h2>
-    <p>Chapter-wise tests & full syllabus mock tests.</p>
+    <p>Chapter-wise tests & full syllabus mock tests. Select your class to start.</p>
+    
+    <div class="test-grid">
+      <a href="#" class="test-btn">Class 5th</a>
+      <a href="#" class="test-btn">Class 6th</a>
+      <a href="#" class="test-btn">Class 7th</a>
+      <a href="#" class="test-btn">Class 8th</a>
+      <a href="#" class="test-btn">Class 9th</a>
+      <a href="odia-test.html" class="test-btn active-test">Class 10th (Odia)</a>
+    </div>
   </div>
 </section>
   
 <section id="jobs">
-  <div class="test-grid">
-<a href="#"
-  class="test-btn">Class 5th</a>
-     <a href="#"
-    class="test-btn">Class 6th</a>
-<a href="#"
-  class="test-btn">Class 7th</a>
-    <a href="#"
-      class="test-btn">Class 8th</a>
-     <a href="#"
-       class="test-btn">Class 9th</a>
-    <a href="#"
-      class="test-btn">Class 10th</a>
-  </div>
-</div>
-  </section>
-
+  <div class="card">
     <h2>Latest Job Alert</h2>
     <p>Daily updates of Government & Private Jobs, Admit Card & Result.</p>
   </div>
@@ -189,7 +206,7 @@ class="welcome-photo">
   <div class="card">
     <h2>Contact Details</h2>
     <p><b>Owner:</b> Rakesh Pradhan</p>
-    <p><b>WhatsApp:</b> </p>
+    <p><b>WhatsApp:</b> +91 8144818898</p>
     <p><b>Email:</b> pradhan8987@gmail.com</p>
     <p><b>Address:</b> Bargarh District, Odisha</p>
 
