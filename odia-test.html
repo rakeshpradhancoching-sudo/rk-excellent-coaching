@@ -3,108 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Class 10th MIL Odia Mock Test 2026</title>
+    <title>10th MIL Odia Professional Mock Test-01</title>
     <style>
-        :root { --p: #2c3e50; --s: #3498db; --w: #ffffff; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; }
-        .container { max-width: 800px; margin: auto; background: var(--w); padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: var(--p); border-bottom: 3px solid var(--s); padding-bottom: 10px; }
-        .quiz-info { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 20px; background: #eef7ff; padding: 10px; border-radius: 8px; }
-        .question-box { margin-bottom: 30px; padding: 15px; border-left: 5px solid var(--s); background: #fafafa; }
-        .options label { display: block; padding: 10px; margin: 5px 0; border: 1px solid #ddd; border-radius: 5px; cursor: pointer; transition: 0.2s; }
-        .options label:hover { background: #dff0ff; }
-        .btn-submit { display: block; width: 100%; padding: 15px; background: var(--p); color: white; border: none; border-radius: 8px; font-size: 18px; cursor: pointer; }
-        .btn-submit:hover { background: #1a252f; }
-        #result { display: none; text-align: center; padding: 20px; margin-top: 20px; background: #d4edda; border-radius: 8px; }
-        .answer-key { display: none; margin-top: 20px; border-top: 2px solid #ccc; padding-top: 20px; }
-        .correct { color: green; font-weight: bold; }
+        :root {
+            --primary: #1a2a6c;
+            --accent: #f39c12;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --bg: #f4f7f6;
+        }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); margin: 0; padding: 10px; }
+        .container { max-width: 750px; margin: 20px auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); border-top: 8px solid var(--primary); }
+        h1 { text-align: center; color: var(--primary); margin-bottom: 5px; font-size: 1.8rem; }
+        .test-meta { text-align: center; color: #555; margin-bottom: 20px; font-size: 0.9rem; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        #timer { font-size: 1.3rem; color: var(--danger); font-weight: bold; text-align: right; margin-bottom: 15px; display: none; background: #fff5f5; padding: 5px 15px; border-radius: 50px; display: inline-block; float: right; }
+        #entry-screen { text-align: center; padding: 50px 20px; }
+        input[type="text"] { padding: 15px; width: 80%; border: 2px solid #ddd; border-radius: 10px; margin-bottom: 25px; font-size: 1.1rem; outline: none; }
+        #quiz-section { display: none; clear: both; }
+        .question-text { font-size: 1.3rem; font-weight: 600; margin-bottom: 20px; color: #222; line-height: 1.5; }
+        .option { background: #f9f9f9; border: 2px solid #ececec; padding: 15px; margin-bottom: 12px; border-radius: 12px; cursor: pointer; transition: 0.2s; font-size: 1.1rem; display: flex; align-items: center; }
+        .option:hover { border-color: var(--primary); background: #f0f4ff; }
+        .option.selected { background: var(--primary); color: white; border-color: var(--primary); }
+        #result-box { display: none; text-align: center; }
+        .score-circle { font-size: 4rem; color: var(--success); margin: 20px 0; font-weight: bold; }
+        .answer-key { text-align: left; margin-top: 30px; border-top: 2px solid #eee; padding-top: 20px; max-height: 500px; overflow-y: auto; background: #fafafa; padding: 15px; border-radius: 10px; }
+        .key-item { margin-bottom: 15px; padding: 15px; border-bottom: 1px solid #ddd; background: white; border-radius: 8px; }
+        .correct-ans { color: var(--success); font-weight: bold; }
+        button { background: var(--primary); color: white; border: none; padding: 14px 30px; border-radius: 8px; cursor: pointer; font-size: 1.1rem; font-weight: bold; transition: 0.3s; }
+        .nav-btns { display: flex; justify-content: space-between; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Class 10 MIL (Odia) Mock Test</h1>
-    
-    <div class="quiz-info">
-        <span>Total Questions: 50</span>
-        <div id="timer">Time Left: 45:00</div>
+    <div id="entry-screen">
+        <h1>ଦଶମ ଶ୍ରେଣୀ MIL ଓଡ଼ିଆ ମକ୍ ଟେଷ୍ଟ-୦୧</h1>
+        <p class="test-meta">Board Exam 2026 Special - Full 50 Questions</p>
+        <input type="text" id="student-name" placeholder="ଆପଣଙ୍କ ନାମ ଲେଖନ୍ତୁ..." required>
+        <br>
+        <button onclick="startQuiz()">Start Test</button>
     </div>
 
-    <form id="quizForm"></form>
+    <div id="quiz-section">
+        <div id="timer-display" style="overflow: hidden;">
+            <div id="timer">Time Left: 60:00</div>
+        </div>
+        <div id="progress" style="font-weight: bold; color: #666; margin-bottom: 15px; font-size: 1.1rem;"></div>
+        <div id="question-container"></div>
+        <div class="nav-btns">
+            <button id="prev-btn" onclick="changeQuestion(-1)" style="background: #7f8c8d;">Back</button>
+            <button id="next-btn" onclick="changeQuestion(1)">Next</button>
+            <button id="submit-btn" style="background: var(--success); display:none;" onclick="finishQuiz()">Submit Test</button>
+        </div>
+    </div>
 
-    <button type="button" class="btn-submit" onclick="submitQuiz()">Submit Test</button>
-
-    <div id="result">
-        <h2 id="scoreText"></h2>
-        <button onclick="toggleAnswers()" style="padding: 10px; cursor: pointer;">Show/Hide Answer Key</button>
-        <div id="answerKey" class="answer-key"></div>
+    <div id="result-box">
+        <h2 id="congrats-msg">ପରୀକ୍ଷା ସମାପ୍ତ!</h2>
+        <div class="score-circle" id="final-score">0/50</div>
+        <button onclick="showAnswerKey()" style="background: var(--accent);">View Answer Key</button>
+        <button onclick="location.reload()" style="background:#95a5a6;">Retake</button>
+        <div id="key-section" class="answer-key" style="display:none;">
+            <h3>Answer Key Analysis:</h3>
+            <div id="key-list"></div>
+        </div>
     </div>
 </div>
 
 <script>
-// 50 Questions Data from Video & Syllabus
-const quizData = [
-    { q: "କାହାକୁ 'କାନ୍ତକବି' କୁହାଯାଏ?", a: "ଲକ୍ଷ୍ମୀକାନ୍ତ ମହାପାତ୍ର", options: ["ରାଧାନାଥ ରାୟ", "ଲକ୍ଷ୍ମୀକାନ୍ତ ମହାପାତ୍ର", "ମଧୁସୂଦନ ରାଓ", "ଗୋପବନ୍ଧୁ ଦାସ"] },
-    { q: "'ବନ୍ଦେ ଉତ୍କଳ ଜନନୀ' କେବେ ରାଜ୍ୟ ସଙ୍ଗୀତ ମାନ୍ୟତା ପାଇଲା?", a: "୨୦୨୦", options: ["୨୦୧୮", "୨୦୧୯", "୨୦୨୦", "୨୦୨୧"] },
-    { q: "ଲକ୍ଷ୍ମୀକାନ୍ତଙ୍କ ଆରାଧ୍ୟ ଦେବତା କିଏ ଥିଲେ?", a: "ଗୋପୀନାଥ", options: ["ଜଗନ୍ନାଥ", "ଗୋପୀନାଥ", "ଶିବ", "ରାମ"] },
-    { q: "ନରେନ୍ଦ୍ରନାଥଙ୍କ ପିତାଙ୍କ ନାମ କଣ?", a: "ବିଶ୍ୱନାଥ ଦତ୍ତ", options: ["ରବୀନ୍ଦ୍ରନାଥ ଦତ୍ତ", "ବିଶ୍ୱନାଥ ଦତ୍ତ", "ରାମକୃଷ୍ଣ ଦତ୍ତ", "ହରିନାଥ ଦତ୍ତ"] },
-    { q: "କାହାକୁ 'ଉତ୍କଳ ଗୌରବ' କୁହାଯାଏ?", a: "ମଧୁସୂଦନ ଦାସ", options: ["ମଧୁସୂଦନ ଦାସ", "ଗୋପବନ୍ଧୁ ଦାସ", "ଫକୀର ମୋହନ", "ହରେକୃଷ୍ଣ ମହତାବ"] },
-    // Yahan maine 5 sample diye hain, isi tarah niche list mein 50 tak questions repeat/add honge
-];
+    const quizData = [
+        // 1-10
+        { q: "‘ବନ୍ଦେ ଉତ୍କଳ ଜନନୀ’ କବିତାରେ ‘ଶୁଭ୍ର ତଟିନୀ’ କାହାକୁ କୁହାଯାଇଛି?", a: "ନଦୀ", options: ["ନଦୀ", "ସମୁଦ୍ର", "ପାହାଡ଼", "ବଣ"] },
+        { q: "ଉତ୍କଳ ଜନନୀଙ୍କ ଶରୀରକୁ କିଏ ଧୋଇଦେଉଛି?", a: "ସମୁଦ୍ର ଜଳ", options: ["ପବନ", "ସମୁଦ୍ର ଜଳ", "ବର୍ଷା", "ପକ୍ଷୀ"] },
+        { q: "‘ଭୀମଙ୍କ ସିଂହନାଦ ରଡ଼ି’ କେଉଁ ପୁରାଣରୁ ଆସିଛି?", a: "ମହାଭାରତ", options: ["ରାମାୟଣ", "ମହାଭାରତ", "ଭାଗବତ", "ହରିବଂଶ"] },
+        { q: "ଭୀମ କାହାର ଅନୁମତି ନେଇ ସିଂହନାଦ କରିଥିଲେ?", a: "ଶ୍ରୀକୃଷ୍ଣ", options: ["ଶ୍ରୀକୃଷ୍ଣ", "ଯୁଧିଷ୍ଠିର", "ଅର୍ଜୁନ", "ଶିବ"] },
+        { q: "ରାଘବଙ୍କ ଲଙ୍କା ଯାତ୍ରା ସମୟରେ କିଏ ଦୂତ ଥିଲେ?", a: "ଶୁକ ଓ ସାରଣ", options: ["ହନୁମାନ", "ଅଙ୍ଗଦ", "ଶୁକ ଓ ସାରଣ", "ବିଭୀଷଣ"] },
+        { q: "‘ଚିଲିକା ରେ ସାୟନ୍ତନ ଦୃଶ୍ୟ’ର କବି କିଏ?", a: "ରାଧାନାଥ ରାୟ", options: ["ରାଧାନାଥ ରାୟ", "ମଧୁସୂଦନ ରାଓ", "ଗଙ୍ଗାଧର ମେହେର", "ଫକୀର ମୋହନ"] },
+        { q: "ମୀନଜୀବୀମାନଙ୍କ ନୌକା କେଉଁଠାରେ ଦେଖାଯାଉଛି?", a: "ଚିଲିକା ବକ୍ଷରେ", options: ["ନଦୀରେ", "ଚିଲିକା ବକ୍ଷରେ", "ବିଲରେ", "ପୁଷ୍କରିଣୀରେ"] },
+        { q: "‘ଜନ୍ମଭୂମି’ ପ୍ରବନ୍ଧର ଲେଖକ କିଏ?", a: "କୃଷ୍ଣଚନ୍ଦ୍ର ପାଣିଗ୍ରାହୀ", options: ["କୃଷ୍ଣଚନ୍ଦ୍ର ପାଣିଗ୍ରାହୀ", "ଚିତ୍ତରଞ୍ଜନ ଦାସ", "ଗୋପୀନାଥ ମହାନ୍ତି", "ବୈଷ୍ଣବ ପାଣି"] },
+        { q: "ଲେଖକ କେଉଁଟିକୁ ଜନ୍ମଭୂମି ବୋଲି କହିଛନ୍ତି?", a: "ନିଜ ଗାଁ", options: ["ନିଜ ଗାଁ", "ସହର", "ଜିଲ୍ଲା", "ବିଦେଶ"] },
+        { q: "ଗାନ୍ଧିଜୀଙ୍କ ପ୍ରିୟ ଭଜନ କ’ଣ?", a: "ରଘୁପତି ରାଘବ", options: ["ରଘୁପତି ରାଘବ", "ଜନ ଗଣ ମନ", "ବନ୍ଦେ ମାତରମ", "ଉତ୍କଳ ଗାଥା"] },
+        // 11-20
+        { q: "ଶ୍ରୀରାମକୃଷ୍ଣ କାହାକୁ ‘ନରେନ୍’ ବୋଲି ଡାକୁଥିଲେ?", a: "ବିବେକାନନ୍ଦ", options: ["ରାଧାକୃଷ୍ଣନ", "ବିବେକାନନ୍ଦ", "ସୁଭାଷ ବୋଷ", "ଗାନ୍ଧିଜୀ"] },
+        { q: "ନରେନ୍ଦ୍ରଙ୍କ ଗୁରୁ କିଏ ଥିଲେ?", a: "ରାମକୃଷ୍ଣ ପରମହଂସ", options: ["ରାମକୃଷ୍ଣ ପରମହଂସ", "ଶଙ୍କରାଚାର୍ଯ୍ୟ", "ବିବେକାନନ୍ଦ", "ଚୈତନ୍ୟ"] },
+        { q: "କାନ୍ତକବିଙ୍କ ପ୍ରସିଦ୍ଧ ସଙ୍ଗୀତ କେଉଁଟି?", a: "ବନ୍ଦେ ଉତ୍କଳ ଜନନୀ", options: ["ବନ୍ଦେ ଉତ୍କଳ ଜନନୀ", "ମାତୃଭୂମି", "ଓଡ଼ିଶା ମୋ ଗର୍ବ", "ସୁଜଳା ସୁଫଳା"] },
+        { q: "ପ୍ରଥମ ଓଡ଼ିଆ ଉପନ୍ୟାସ କ’ଣ?", a: "ପଦ୍ମମାଳୀ", options: ["ଛ’ମାଣ ଆଠଗୁଣ୍ଠ", "ପଦ୍ମମାଳୀ", "ମାଟିର ମଣିଷ", "ଦାନାପାଣି"] },
+        { q: "‘ଅକାଶ କୁସୁମ’ ର ଅର୍ଥ କ’ଣ?", a: "ଅସମ୍ଭବ କଥା", options: ["ଅସମ୍ଭବ କଥା", "ସୁନ୍ଦର ସ୍ୱପ୍ନ", "ଦୁର୍ଲଭ ଫୁଲ", "ଆକାଶର ତାରା"] },
+        { q: "ବାକ୍ୟର ସର୍ବନିମ୍ନ ଏକକ କ’ଣ?", a: "ଧ୍ୱନି", options: ["ଧ୍ୱନି", "ବର୍ଣ୍ଣ", "ଅକ୍ଷର", "ପଦ"] },
+        { q: "ଓଡ଼ିଆ ବ୍ୟାସକବି କିଏ?", a: "ଫକୀର ମୋହନ ସେନାପତି", options: ["ରାଧାନାଥ ରାୟ", "ଫକୀର ମୋହନ ସେନାପତି", "ସାରଳା ଦାସ", "ମଧୁସୂଦନ ରାଓ"] },
+        { q: "‘କପଟାଚାର’ ଏହି ଶବ୍ଦର ଅର୍ଥ କ’ଣ?", a: "ଛଳନା", options: ["ସତ୍ୟ", "ଛଳନା", "ପ୍ରେମ", "କ୍ରୋଧ"] },
+        { q: "ସମୁଦ୍ରରେ କିଏ ସେତୁ ବାନ୍ଧିଥିଲେ?", a: "ବାନର ସୈନ୍ୟ", options: ["ବାନର ସୈନ୍ୟ", "ରାକ୍ଷସ", "ଦେବତା", "ମଣିଷ"] },
+        { q: "ସତ୍ୟବାଦୀ ବନ ବିଦ୍ୟାଳୟ କିଏ ପ୍ରତିଷ୍ଠା କରିଥିଲେ?", a: "ଗୋପବନ୍ଧୁ ଦାସ", options: ["ଗୋପବନ୍ଧୁ ଦାସ", "ମଧୁସୂଦନ ଦାସ", "ରାଧାନାଥ ରାୟ", "ଗଙ୍ଗାଧର ମେହେର"] },
+        // 21-30
+        { q: "ବିଶ୍ୱନାଥ କର କେଉଁ ପତ୍ରିକାର ସମ୍ପାଦକ ଥିଲେ?", a: "ଉତ୍କଳ ସାହିତ୍ୟ", options: ["ଉତ୍କଳ ଦୀପିକା", "ସମ୍ବାଦ ବାହିକା", "ଉତ୍କଳ ସାହିତ୍ୟ", "ସମାଜ"] },
+        { q: "‘ଛ’ ମାଣ ଆଠ ଗୁଣ୍ଠ’ ର ଲେଖକ କିଏ?", a: "ଫକୀର ମୋହନ ସେନାପତି", options: ["ଫକୀର ମୋହନ ସେନାପତି", "ଗୋପୀନାଥ ମହାନ୍ତି", "ରାଧାନାଥ ରାୟ", "ପ୍ରତିଭା ରାୟ"] },
+        { q: "ବାକ୍ୟରେ କ୍ରିୟା ପଦ କେଉଁଠାରେ ବସେ?", a: "ଶେଷରେ", options: ["ଆରମ୍ଭରେ", "ମଝିରେ", "ଶେଷରେ", "କର୍ତ୍ତା ପୂର୍ବରୁ"] },
+        { q: "‘ଅନ୍ଧର ଲଉଡ଼ି’ ରୂଢିର ଅର୍ଥ କ’ଣ?", a: "ଏକମାତ୍ର ସାହାଯ୍ୟ", options: ["ଏକମାତ୍ର ସାହାଯ୍ୟ", "ବାଡ଼ି", "ଅସହାୟ", "ଭାଗ୍ୟ"] },
+        { q: "ଯେଉଁ ବାକ୍ୟରେ ଗୋଟିଏ ସମାପିକା କ୍ରିୟା ଥାଏ ତାକୁ କ’ଣ କହନ୍ତି?", a: "ସରଳ ବାକ୍ୟ", options: ["ସରଳ ବାକ୍ୟ", "ଜଟିଳ ବାକ୍ୟ", "ଯୌଗିକ ବାକ୍ୟ", "ମିଶ୍ର ବାକ୍ୟ"] },
+        { q: "ସମ୍ବୋଧନ ପଦ ବାକ୍ୟର କେଉଁଠାରେ ବସେ?", a: "ଆରମ୍ଭରେ ବା ଶେଷରେ", options: ["କେବଳ ଆରମ୍ଭରେ", "କେବଳ ଶେଷରେ", "ଆରମ୍ଭରେ ବା ଶେଷରେ", "ମଝିରେ"] },
+        { q: "ଓଡ଼ିଆ ଭାଷାରେ ସ୍ୱରବର୍ଣ୍ଣ କେତୋଟି?", a: "୧୧", options: ["୮", "୧୦", "୧୧", "୧୩"] },
+        { q: "କ୍ରିୟାର ମୂଳ ପିଣ୍ଡକୁ କ’ଣ କୁହାଯାଏ?", a: "ଧାତୁ", options: ["ଶବ୍ଦ", "ଧାତୁ", "ଅବ୍ୟୟ", "ବିଭକ୍ତି"] },
+        { q: "‘ଭାଗବତ’ କିଏ ଲେଖିଥିଲେ?", a: "ଜଗନ୍ନାଥ ଦାସ", options: ["ସାରଳା ଦାସ", "ଜଗନ୍ନାଥ ଦାସ", "ବଳରାମ ଦାସ", "ଅଚ୍ୟୁତାନନ୍ଦ"] },
+        { q: "ସ୍ନେହ ଓ ଭକ୍ତିର ଜନନୀ କିଏ?", a: "ଉତ୍କଳ ଜନନୀ", options: ["ପୃଥିବୀ", "ଭାରତ ମାତା", "ଉତ୍କଳ ଜନନୀ", "ସରସ୍ୱତୀ"] },
+        // 31-40
+        { q: "ଗୋଟିଏ ମାତ୍ର ସମାପିକା କ୍ରିୟା ଥିବା ବାକ୍ୟକୁ କ’ଣ କୁହାଯାଏ?", a: "ସରଳ ବାକ୍ୟ", options: ["ସରଳ ବାକ୍ୟ", "ଜଟିଳ ବାକ୍ୟ", "ଯୌଗିକ ବାକ୍ୟ", "ମିଶ୍ର ବାକ୍ୟ"] },
+        { q: "ବାକ୍ୟରେ କର୍ତ୍ତା ପଦ କେଉଁଠାରେ ରହେ?", a: "ବାକ୍ୟର ଆରମ୍ଭରେ", options: ["ବାକ୍ୟର ଆରମ୍ଭରେ", "ଶେଷରେ", "ମଝିରେ", "କ୍ରିୟା ପରେ"] },
+        { q: "ଶବ୍ଦର ସର୍ବନିମ୍ନ ଅର୍ଥବୋଧକ ଏକକ କ’ଣ?", a: "ରୂପିମ", options: ["ଧ୍ୱନି", "ଅକ୍ଷର", "ରୂପିମ", "ପଦ"] },
+        { q: "‘ଲକ୍ଷ୍ମୀର ଅଭିସାର’ କାହାର ରଚନା?", a: "କୁନ୍ତଳା କୁମାରୀ ସାବତ", options: ["ପ୍ରତିଭା ରାୟ", "କୁନ୍ତଳା କୁମାରୀ ସାବତ", "ଅନ୍ନପୂର୍ଣ୍ଣା", "ନନ୍ଦିନୀ ଶତପଥୀ"] },
+        { q: "‘କାଳକ୍ରମେ’ ଶବ୍ଦଟି କି ପ୍ରକାର ଅବ୍ୟୟ?", a: "ସମୟ ସୂଚକ", options: ["ସମୟ ସୂଚକ", "ସମ୍ବୋଧନ", "ପ୍ରଶ୍ନବାଚକ", "ନିଷେଧାର୍ଥକ"] },
+        { q: "ସାରଳା ଦାସ କେଉଁ ମହାପୁରାଣ ରଚନା କରିଥିଲେ?", a: "ମହାଭାରତ", options: ["ରାମାୟଣ", "ମହାଭାରତ", "ଭାଗବତ", "ପଦ୍ମ ପୁରାଣ"] },
+        { q: "ଉତ୍କଳ ମଣି ଭାବେ କିଏ ପରିଚିତ?", a: "ଗୋପବନ୍ଧୁ ଦାସ", options: ["ଗୋପବନ୍ଧୁ ଦାସ", "ମଧୁସୂଦନ ଦାସ", "ହରେକୃଷ୍ଣ ମହତାବ", "ବିଜୁ ପଟ୍ଟନାୟକ"] },
+        { q: "‘ଗଙ୍ଗା’ ଏକ କି ପ୍ରକାର ବିଶେଷ୍ୟ?", a: "ନାମବାଚକ", options: ["ଜାତିବାଚକ", "ନାମବାଚକ", "ବସ୍ତୁବାଚକ", "ଗୁଣବାଚକ"] },
+        { q: "‘ସୁନ୍ଦର’ ଏକ କି ପ୍ରକାର ପଦ?", a: "ବିଶେଷଣ", options: ["ବିଶେଷ୍ୟ", "ବିଶେଷଣ", "ସର୍ବନାମ", "ଅବ୍ୟୟ"] },
+        { q: "ଓଡ଼ିଶାର ରାଜ୍ୟ ସଙ୍ଗୀତ କ’ଣ?", a: "ବନ୍ଦେ ଉତ୍କଳ ଜନନୀ", options: ["ବନ୍ଦେ ମାତରମ", "ବନ୍ଦେ ଉତ୍କଳ ଜନନୀ", "ମାତୃଭୂମି", "ଆମେ ଓଡ଼ିଆ"] },
+        // 41-50
+        { q: "ଚିଲିକାରେ କେଉଁ ସମୟର ଦୃଶ୍ୟ ବର୍ଣ୍ଣନା କରାଯାଇଛି?", a: "ସନ୍ଧ୍ୟା", options: ["ସକାଳ", "ଦ୍ୱିପ୍ରହର", "ସନ୍ଧ୍ୟା", "ରାତି"] },
+        { q: "‘ନରେନ୍ଦ୍ର ରୁ ବିବେକାନନ୍ଦ’ କି ପ୍ରକାର ରଚନା?", a: "ଜୀବନୀ", options: ["ଗଳ୍ପ", "କବିତା", "ଜୀବନୀ", "ଭ୍ରମଣ କାହାଣୀ"] },
+        { q: "ଗୁରୁଙ୍କ ପାଖରେ ନରେନ୍ଦ୍ର କ’ଣ ଖୋଜୁଥିଲେ?", a: "ଈଶ୍ୱରଙ୍କ ଦର୍ଶନ", options: ["ଧନ", "ବିଦ୍ୟା", "ଈଶ୍ୱରଙ୍କ ଦର୍ଶନ", "ମୁକ୍ତି"] },
+        { q: "କୃଷ୍ଣଚନ୍ଦ୍ର ପାଣିଗ୍ରାହୀ କିଏ?", a: "ପ୍ରାବନ୍ଧିକ", options: ["କବି", "ପ୍ରାବନ୍ଧିକ", "ନାଟ୍ୟକାର", "ଔପନ୍ୟାସିକ"] },
+        { q: "କିଏ ନିଜ ଜନ୍ମମାଟିକୁ ଭୁଲି ପାରିବ ନାହିଁ?", a: "କୃତଜ୍ଞ ମଣିଷ", options: ["କୃତଜ୍ଞ ମଣିଷ", "ପଶୁ", "ପକ୍ଷୀ", "ରାଜା"] },
+        { q: "ରାବଣ କାହାକୁ ବନ୍ଦୀ କରି ରଖିଥିଲା?", a: "ସୀତା", options: ["ଲକ୍ଷ୍ମୀ", "ସୀତା", "ପାର୍ବତୀ", "ରାଧା"] },
+        { q: "ଭୀମ କେଉଁଠାରେ ଲୁଚି ରହିଥିଲେ?", a: "ବ୍ୟାସ ସରୋବର", options: ["କୈଳାସ", "ହିମାଳୟ", "ବ୍ୟାସ ସରୋବର", "ଗୁମ୍ଫା"] },
+        { q: "ବାକ୍ୟରେ କେତୋଟି ମୁଖ୍ୟ ଅଙ୍ଗ ଥାଏ?", a: "୨", options: ["୧", "୨", "୩", "୪"] },
+        { q: "ଓଡ଼ିଆରେ କେତୋଟି ବିଭକ୍ତି ଅଛି?", a: "୭", options: ["୫", "୬", "୭", "୮"] },
+        { q: "ଓଡ଼ିଶାର ଗୌରବ କିଏ?", a: "ଉତ୍କଳ ଜନନୀ", options: ["ହିମାଳୟ", "ଗଙ୍ଗା", "ଉତ୍କଳ ଜନନୀ", "ରାବଣ"] }
+    ];
 
-// Automatically generate 50 questions (Demo placeholders added to make it 50)
-for(let i=6; i<=50; i++) {
-    quizData.push({
-        q: `Odia Question Number ${i} (Based on Syllabus Topic)`,
-        a: "Option A",
-        options: ["Option A", "Option B", "Option C", "Option D"]
-    });
-}
+    let currentIdx = 0;
+    let userAnswers = new Array(quizData.length).fill(null);
+    let timeLeft = 3600;
+    let timerInterval;
 
-const form = document.getElementById('quizForm');
-quizData.forEach((data, index) => {
-    let qDiv = document.createElement('div');
-    qDiv.className = 'question-box';
-    qDiv.innerHTML = `<p>${index + 1}. ${data.q}</p>
-        <div class="options">
-            ${data.options.map(opt => `<label><input type="radio" name="q${index}" value="${opt}"> ${opt}</label>`).join('')}
-        </div>`;
-    form.appendChild(qDiv);
-});
+    function startQuiz() {
+        const name = document.getElementById('student-name').value;
+        if(!name.trim()) { alert("Please enter your name!"); return; }
+        document.getElementById('entry-screen').style.display = 'none';
+        document.getElementById('quiz-section').style.display = 'block';
+        document.getElementById('timer').style.display = 'block';
+        startTimer();
+        renderQuestion();
+    }
 
-function submitQuiz() {
-    let score = 0;
-    let answerHtml = "<h3>Correct Answers:</h3>";
-    
-    quizData.forEach((data, index) => {
-        const selected = document.querySelector(`input[name="q${index}"]:checked`);
-        if (selected && selected.value === data.a) {
-            score++;
+    function startTimer() {
+        timerInterval = setInterval(() => {
+            let mins = Math.floor(timeLeft / 60);
+            let secs = timeLeft % 60;
+            document.getElementById('timer').innerText = `Time: ${mins}:${secs < 10 ? '0'+secs : secs}`;
+            if(timeLeft <= 0) finishQuiz();
+            timeLeft--;
+        }, 1000);
+    }
+
+    function renderQuestion() {
+        const container = document.getElementById('question-container');
+        const q = quizData[currentIdx];
+        document.getElementById('progress').innerText = `Question ${currentIdx + 1} of 50`;
+        container.innerHTML = `
+            <div class="question-text">${currentIdx + 1}. ${q.q}</div>
+            <div class="options-list">
+                ${q.options.map(opt => `
+                    <div class="option ${userAnswers[currentIdx] === opt ? 'selected' : ''}" onclick="selectOpt('${opt}')">
+                        ${opt}
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        document.getElementById('prev-btn').style.visibility = currentIdx === 0 ? 'hidden' : 'visible';
+        if(currentIdx === quizData.length - 1) {
+            document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('submit-btn').style.display = 'block';
+        } else {
+            document.getElementById('next-btn').style.display = 'block';
+            document.getElementById('submit-btn').style.display = 'none';
         }
-        answerHtml += `<p>${index+1}. ${data.q} <br> <span class="correct">Ans: ${data.a}</span></p>`;
-    });
+    }
 
-    document.getElementById('result').style.display = 'block';
-    document.getElementById('scoreText').innerText = `Your Score: ${score} / 50`;
-    document.getElementById('answerKey').innerHTML = answerHtml;
-    window.scrollTo(0, document.body.scrollHeight);
-}
+    function selectOpt(opt) {
+        userAnswers[currentIdx] = opt;
+        renderQuestion();
+    }
 
-function toggleAnswers() {
-    const key = document.getElementById('answerKey');
-    key.style.display = key.style.display === 'block' ? 'none' : 'block';
-}
+    function changeQuestion(step) {
+        currentIdx += step;
+        renderQuestion();
+    }
 
-// Timer Logic (45 Minutes)
-let time = 45 * 60;
-setInterval(() => {
-    let min = Math.floor(time / 60);
-    let sec = time % 60;
-    document.getElementById('timer').innerText = `Time Left: ${min}:${sec < 10 ? '0' : ''}${sec}`;
-    if(time > 0) time--;
-}, 1000);
+    function finishQuiz() {
+        clearInterval(timerInterval);
+        let score = 0;
+        userAnswers.forEach((ans, i) => { if(ans === quizData[i].a) score++; });
+        document.getElementById('quiz-section').style.display = 'none';
+        document.getElementById('result-box').style.display = 'block';
+        document.getElementById('final-score').innerText = `${score} / 50`;
+    }
+
+    function showAnswerKey() {
+        const list = document.getElementById('key-list');
+        list.innerHTML = quizData.map((item, i) => `
+            <div class="key-item">
+                <strong>Q${i+1}:</strong> ${item.q}<br>
+                <span class="correct-ans">Sahi Uttar: ${item.a}</span><br>
+                <span>Apananka Uttar: <span style="color:${userAnswers[i] === item.a ? 'green' : 'red'}">${userAnswers[i] || 'Not Answered'}</span></span>
+            </div>
+        `).join('');
+        document.getElementById('key-section').style.display = 'block';
+    }
 </script>
-
 </body>
 </html>
-
