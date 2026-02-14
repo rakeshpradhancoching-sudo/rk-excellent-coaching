@@ -35,7 +35,7 @@ header {
 header img {
   width: 110px;
   height: 110px;
-  border-radius: 15px; /* Logo ko bhi thoda rounded square touch diya */
+  border-radius: 15px;
   border: 3px solid var(--accent-cyan);
   background: white;
   padding: 5px;
@@ -115,22 +115,17 @@ section {
   border-radius: 10px;
 }
 
-/* ===== FOUNDER IMAGE (SQUARE ROUNDED) ===== */
+/* ===== IMAGES & CARDS ===== */
 .founder-img {
   width: 250px;
   height: 250px;
-  border-radius: 30px; /* Yeh hai rounded square effect */
+  border-radius: 30px;
   object-fit: cover;
   border: 8px solid white;
   box-shadow: var(--card-shadow);
   transition: transform 0.3s ease;
 }
 
-.founder-img:hover {
-  transform: scale(1.02);
-}
-
-/* ===== COLORFUL TEST GRID ===== */
 .test-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -153,57 +148,69 @@ section {
   justify-content: center;
 }
 
-.test-btn:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-}
+.test-btn:hover { transform: translateY(-8px); }
 
 .btn-navodaya { background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%); }
-.btn-c10-en { background: linear-gradient(45deg, #434343 0%, #000000 100%); }
 .btn-c10-od { background: linear-gradient(45deg, #00b09b 0%, #96c93d 100%); }
+.btn-c10-en { background: linear-gradient(45deg, #434343 0%, #000000 100%); }
 .btn-c9 { background: linear-gradient(45deg, #2193b0 0%, #6dd5ed 100%); }
 .btn-c8 { background: linear-gradient(45deg, #8e2de2 0%, #4a00e0 100%); }
-.btn-c7 { background: linear-gradient(45deg, #eb3349 0%, #f45c43 100%); }
-.btn-c6 { background: linear-gradient(45deg, #1d976c 0%, #93f9b9 100%); }
-.btn-c5 { background: linear-gradient(45deg, #ff8c00 0%, #ff0080 100%); }
 
-/* ===== CARDS ===== */
-.grid-2 {
+.grid-2, .grid-3 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
 }
 
-.card-yt {
+.card-item {
   background: #fff;
   border-radius: 25px;
-  padding: 35px;
+  padding: 30px;
   text-align: center;
   border: 1px solid #f0f0f0;
   box-shadow: var(--card-shadow);
-}
-
-.yt-link {
-  background: #FF0000;
-  color: white;
-  padding: 14px 30px;
-  text-decoration: none;
-  border-radius: 12px;
-  display: inline-block;
-  font-weight: 600;
-  margin-top: 20px;
   transition: 0.3s;
 }
 
-.yt-link:hover { opacity: 0.9; transform: scale(1.05); }
+.card-item:hover { transform: translateY(-5px); }
 
-/* ===== FLOATING WHATSAPP ===== */
+.btn-link {
+  background: var(--primary-blue);
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 10px;
+  display: inline-block;
+  font-weight: 600;
+  margin-top: 15px;
+}
+
+/* ===== FEEDBACK FORM ===== */
+.feedback-form input, .feedback-form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-family: inherit;
+}
+
+.feedback-btn {
+  background: var(--primary-blue);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  width: 100%;
+}
+
 .float-wa {
   position: fixed;
   bottom: 25px;
   right: 25px;
   background: #25d366;
-  color: white;
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -212,23 +219,20 @@ section {
   justify-content: center;
   box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
   z-index: 1000;
-  transition: 0.3s;
 }
-
-.float-wa:hover { transform: scale(1.1); }
 
 footer {
   background: #000;
   color: #bbb;
   text-align: center;
-  padding: 60px 20px;
+  padding: 40px 20px;
 }
 
-footer b { color: #fff; font-size: 18px; }
+footer a { color: #888; text-decoration: none; margin: 0 10px; font-size: 13px; }
+footer a:hover { color: var(--accent-cyan); }
 
 @media (max-width: 768px) {
   header { padding: 40px 15px; }
-  .grid-2 { gap: 20px; }
   section { padding: 50px 20px; }
 }
 </style>
@@ -246,7 +250,9 @@ footer b { color: #fff; font-size: 18px; }
 <nav>
   <a href="#home">Home</a>
   <a href="#test">Online Test</a>
-  <a href="#study">Study Material</a>
+  <a href="#study-material">Study Material</a>
+  <a href="#blog">Blog</a>
+  <a href="#feedback">Feedback</a>
   <a href="#contact">Contact</a>
   <a href="admission.html" style="color: var(--accent-cyan); font-weight: bold;">Apply Now</a>
 </nav>
@@ -256,76 +262,117 @@ footer b { color: #fff; font-size: 18px; }
     <div style="text-align: center;">
       <img src="./IMG_20260208_182154-1.jpg" alt="Rakesh Pradhan" class="founder-img">
       <h3 style="margin-top:20px; margin-bottom:5px; font-size: 24px;">Rakesh Pradhan</h3>
-      <p style="color:var(--primary-blue); font-weight:600; letter-spacing: 1px;">Founder & Teacher</p>
+      <p style="color:var(--primary-blue); font-weight:600;">Founder & Teacher</p>
     </div>
     <div>
       <h2 style="margin-top: 0;">Start Your Success Journey</h2>
-      <p style="line-height: 1.8; color: #555;">RK Excellent Coaching provides top-quality education for students from Class 5 to 10. Our goal is to make every student a topper with personalized guidance and regular mock tests.</p>
+      <p style="line-height: 1.8; color: #555;">RK Excellent Coaching provides top-quality education for students from Class 5 to 10. Our goal is to make every student a topper with personalized guidance.</p>
       <div style="background: #f8f9fa; padding: 20px; border-radius: 15px; border-left: 5px solid var(--primary-blue);">
-        <p style="margin: 5px 0;">✅ <b>Daily Live Classes</b></p>
-        <p style="margin: 5px 0;">✅ <b>Chapter-wise Online Tests</b></p>
-        <p style="margin: 5px 0;">✅ <b>Specialized Navodaya Prep</b></p>
+        <p style="margin: 5px 0;">✅ Daily Live Classes</p>
+        <p style="margin: 5px 0;">✅ Chapter-wise Online Tests</p>
+        <p style="margin: 5px 0;">✅ Specialized Navodaya Prep</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="test" style="background: #fafafa; border-radius: 50px 50px 0 0;">
+<section id="test" style="background: #fafafa; border-radius: 50px;">
   <div class="section-title">
     <h2>Explore Mock Tests</h2>
     <p>Apni class select karein aur test shuru karein.</p>
   </div>
-  
   <div class="test-grid">
-    <a href="navodaya_test.html" class="test-btn btn-navodaya">Navodaya Prep 🏆</a>
+    <a href="navodaya_test.html" class="test-btn btn-navodaya">Navodaya Prep</a>
     <a href="Math-test.html" class="test-btn btn-c10-od">Class 10th Odia</a>
     <a href="english.html" class="test-btn btn-c10-en">Class 10th English</a>
-    <a href="odia-test.html" class="test-btn btn-c10-od">Class 10th Odia</a>
+    <a href="class8/mock-test.html" class="test-btn btn-c8">Class 8th Mock</a>
     <a href="#" class="test-btn btn-c9">Class 9th Mock</a>
-    <a href="class8/mock-test.html" class="test-btn btn-c8">Class 8th Mock 🔥</a>
-    <a href="#" class="test-btn btn-c7">Class 7th Mock</a>
-    <a href="#" class="test-btn btn-c6">Class 6th Mock</a>
-    <a href="#" class="test-btn btn-c5">Class 5th Mock</a>
   </div>
 </section>
 
-<section id="study">
+<section id="study-material">
   <div class="section-title">
-    <h2>Learning Hub</h2>
+    <h2>Study Material</h2>
+    <p>Aapki taiyari ke liye best resources.</p>
+  </div>
+  <div class="grid-3">
+    <div class="card-item">
+      <h3 style="color: #e67e22;">PDF Notes 📚</h3>
+      <p>Class-wise chapter notes download karein.</p>
+      <a href="notes.html" class="btn-link" style="background: #e67e22;">Download PDF</a>
+    </div>
+    <div class="card-item">
+      <h3 style="color: #e74c3c;">Video Classes 🎥</h3>
+      <p>Concepts samajhne ke liye video lectures dekhein.</p>
+      <a href="https://www.youtube.com/@rkexcellentcoaching" target="_blank" class="btn-link" style="background: #e74c3c;">Watch Now</a>
+    </div>
+    <div class="card-item">
+      <h3 style="color: #2ecc71;">Previous Year Papers 📝</h3>
+      <p>Board aur Navodaya ke purane papers solve karein.</p>
+      <a href="papers.html" class="btn-link" style="background: #2ecc71;">Get Papers</a>
+    </div>
+  </div>
+</section>
+
+<section id="blog" style="background: #fafafa; border-radius: 50px;">
+  <div class="section-title">
+    <h2>Latest From Our Blog</h2>
+    <p>Tips, Tricks aur Exam Updates.</p>
   </div>
   <div class="grid-2">
-    <div class="card-yt">
-      <h3 style="margin-top:0; color: #FF0000;">YouTube Channel</h3>
-      <p>Latest educational videos aur updates ke liye hamare channel ko subscribe karein.</p>
-      <a href="https://www.youtube.com/@rkexcellentcoaching" target="_blank" class="yt-link">Subscribe Now</a>
+    <div class="card-item" style="text-align: left;">
+      <h3 style="color: var(--primary-blue);">Navodaya Exam Guide 2026</h3>
+      <p>Exam crack karne ke liye best books aur daily routine kaise banayein...</p>
+      <a href="#" style="color: black; font-weight: bold; text-decoration: none;">Read More →</a>
     </div>
-    <div class="card-yt">
-      <h3 style="margin-top:0; color: #333;">Download Notes</h3>
-      <p>PDF notes aur study material download karne ke liye yahan click karein.</p>
-      <a href="class10th.pdf" class="yt-link" style="background:#000;">Download PDF</a>
+    <div class="card-item" style="text-align: left;">
+      <h3 style="color: var(--primary-blue);">Board Exam Writing Tips</h3>
+      <p>Board exams me acche marks lane ke liye answer sheet kaise likhein...</p>
+      <a href="#" style="color: black; font-weight: bold; text-decoration: none;">Read More →</a>
     </div>
   </div>
 </section>
 
-<section id="contact">
+<section id="feedback">
+  <div class="section-title">
+    <h2>Student Feedback</h2>
+    <p>Hum aapke reviews ki kadar karte hain.</p>
+  </div>
+  <div style="max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: var(--card-shadow);">
+    <form class="feedback-form">
+      <input type="text" placeholder="Aapka Naam" required>
+      <textarea rows="4" placeholder="RK Excellent Coaching ke baare me kuch kahein..." required></textarea>
+      <button type="submit" class="feedback-btn">Submit Review</button>
+    </form>
+  </div>
+</section>
+
+<section id="contact" style="background: #f4f7fe; border-radius: 50px;">
   <div class="section-title">
     <h2>Contact Us</h2>
   </div>
   <div class="grid-2" style="text-align: center;">
     <div style="background: white; padding: 30px; border-radius: 20px; box-shadow: var(--card-shadow);">
-      <h4 style="margin-bottom:10px; color: var(--primary-blue);">WhatsApp / Call</h4>
-      <p style="font-size:22px; font-weight:bold; color: #333;">+91 8144818898</p>
+      <h4 style="color: var(--primary-blue);">WhatsApp / Call</h4>
+      <p style="font-size:22px; font-weight:bold;">+91 8144818898</p>
     </div>
     <div style="background: white; padding: 30px; border-radius: 20px; box-shadow: var(--card-shadow);">
-      <h4 style="margin-bottom:10px; color: var(--primary-blue);">Location</h4>
-      <p style="font-size:18px;">Bargarh District, Odisha</p>
+      <h4 style="color: var(--primary-blue);">Location</h4>
+      <p>Bargarh District, Odisha</p>
     </div>
   </div>
 </section>
 
 <footer>
   <b>RK Excellent Coaching</b><br>
-  <p style="margin-top: 10px;">Education for a better tomorrow.</p>
+  <p style="margin-top: 10px; font-size: 14px;">Education for a better tomorrow.</p>
+  
+  <div style="margin: 15px 0;">
+    <a href="privacy.html">Privacy Policy</a> | 
+    <a href="terms.html">Terms of Service</a> | 
+    <a href="legal.html">Legal Disclaimer</a>
+  </div>
+
   <hr style="width: 50px; border: 1px solid var(--accent-cyan); margin: 20px auto;">
   © 2026 RK Excellent Coaching. All Rights Reserved.
 </footer>
