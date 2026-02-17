@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="or">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSSSC CRE Exam Portal - 50 Questions Mock</title>
+    <style>
+        :root { --primary: #003366; --accent: #3498db; --success: #28a745; --danger: #dc3545; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f4f7f6; margin: 0; }
+        
+        /* Step 1: Login Screen */
+        #login-screen { display: flex; justify-content: center; align-items: center; height: 100vh; background: linear-gradient(135deg, #003366, #3498db); }
+        .login-box { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center; width: 380px; }
+        input[type="text"] { width: 100%; padding: 12px; margin: 20px 0; border: 2px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
+
+        /* Step 2: Exam Interface */
+        .navbar { background: var(--primary); color: white; padding: 15px 30px; display: none; justify-content: space-between; align-items: center; position: sticky; top: 0; }
+        .container { display: none; max-width: 1100px; margin: 20px auto; gap: 20px; padding: 0 15px; }
+        .quiz-card { flex: 2; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .sidebar { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+        .timer-card, .palette-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        
+        .question-text { font-size: 1.25rem; color: #2c3e50; margin-bottom: 25px; line-height: 1.6; min-height: 100px; }
+        .option { padding: 15px; border: 2px solid #eee; border-radius: 8px; cursor: pointer; margin-bottom: 12px; transition: 0.2s; display: flex; align-items: center; }
+        .option:hover { border-color: var(--accent); background: #f0f8ff; }
+        .option.selected { border-color: var(--accent); background: #e1f0fa; font-weight: bold; }
+
+        .btn { padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .btn-next { background: var(--accent); color: white; }
+        .btn-submit { background: var(--success); color: white; }
+
+        /* Step 3: Result & Answer Key */
+        #result-screen { display: none; max-width: 900px; margin: 40px auto; background: white; padding: 40px; border-radius: 15px; text-align: center; }
+        .review-item { text-align: left; border-bottom: 1px solid #eee; padding: 20px 0; }
+        .correct-ans { color: var(--success); font-weight: bold; margin-left: 10px; }
+        .wrong-ans { color: var(--danger); font-weight: bold; }
+        
+        .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+        .p-btn { width: 35px; height: 35px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 4px; font-size: 12px; }
+        .p-btn.active { background: var(--primary); color: white; }
+        .p-btn.done { background: var(--success); color: white; }
+    </style>
+</head>
+<body>
+
+<div id="login-screen">
+    <div class="login-box">
+        <h2 style="color: var(--primary);">OSSSC CRE Mock Test</h2>
+        <p>ପରୀକ୍ଷା ଦେବା ପାଇଁ ନିଜର ପୂରା ନାମ ଲେଖନ୍ତୁ:</p>
+        <input type="text" id="user-name" placeholder="Enter Your Name..." required>
+        <button class="btn btn-next" onclick="startTest()" style="width: 100%;">Start Exam</button>
+    </div>
+</div>
+
+<div class="navbar" id="nav">
+    <div id="welcome-msg">Candidate: </div>
+    <div style="font-size: 20px;">Time Left: <span id="timer" style="color: #ff9933;">45:00</span></div>
+</div>
+
+<div class="container" id="exam-ui">
+    <div class="quiz-card">
+        <div id="q-info" style="margin-bottom: 15px; font-weight: bold; color: #7f8c8d;">Question 1 of 50</div>
+        <div class="question-text" id="q-text">Loading...</div>
+        <div id="options-box"></div>
+        <div style="margin-top: 30px; display: flex; justify-content: space-between;">
+            <button class="btn" style="background:#95a5a6; color:white;" onclick="move(-1)">Previous</button>
+            <button class="btn btn-next" id="next-btn" onclick="move(1)">Save & Next</button>
+            <button class="btn btn-submit" id="submit-btn" style="display:none;" onclick="confirmSubmit()">Submit Test</button>
+        </div>
+    </div>
+    <div class="sidebar">
+        <div class="palette-card">
+            <h4 style="margin-top: 0;">Question Palette</h4>
+            <div class="palette-grid" id="palette"></div>
+        </div>
+    </div>
+</div>
+
+<div id="result-screen">
+    <h1 style="color: var(--primary);">Exam Result</h1>
+    <h2 id="final-name">Candidate Name</h2>
+    <div style="font-size: 48px; margin: 20px 0;" id="final-score">0.00 / 50</div>
+    <p id="stat-summary"></p>
+    <hr>
+    <h3 style="text-align: left;">Detailed Answer Key:</h3>
+    <div id="answer-key"></div>
+    <button class="btn btn-next" onclick="location.reload()" style="margin-top: 20px;">Re-take Test</button>
+</div>
+
+<script>
+    const questions = [
+        // Mathematics
+        { q: "ଏକ ସିଲିଣ୍ଡରାକାର ପାତ୍ରର ଆୟତନ 8910 cm³ ଏବଂ ଉଚ୍ଚତା 35 cm ହେଲେ ଏହାର ବ୍ୟାସାର୍ଦ୍ଧ କେତେ?", o: ["7 cm", "9 cm", "10 cm", "12 cm"], a: 1 },
+        { q: "8 ଜଣ ଛାତ୍ରଙ୍କ ହାରାହାରି ଉଚ୍ଚତା 136 cm। 124 cm ଏବଂ 156 cm ର ଦୁଇଜଣ ଯୋଗଦେଲେ ଓ 132 cm ହାରାହାରିର 5 ଜଣ ଗଲେ। ନୂଆ ହାରାହାରି କେତେ?", o: ["141.6", "139.4", "143.2", "140.5"], a: 0 },
+        { q: "ସାଧାରଣ ବର୍ଷରେ 53 ଟି ରବିବାର ରହିବାର ସମ୍ଭାବନା କେତେ?", o: ["2/7", "3/7", "1/7", "5/7"], a: 2 },
+        { q: "ଏକ ବର୍ଗକ୍ଷେତ୍ରର ପରିସୀମା 48 cm ହେଲେ ଏହାର କ୍ଷେତ୍ରଫଳ (cm² ରେ) କେତେ?", o: ["121", "144", "169", "100"], a: 1 },
+        { q: "ଆୟତକ୍ଷେତ୍ରର ଲମ୍ବ ପ୍ରସ୍ଥର 3 ଗୁଣ। କ୍ଷେତ୍ରଫଳ 6075 ହେଲେ ଲମ୍ବ କେତେ?", o: ["135", "45", "150", "90"], a: 0 },
+        { q: "5 ଟି କଲମର କ୍ରୟ ମୂଲ୍ୟ 4 ଟିର ବିକ୍ରୟ ମୂଲ୍ୟ ସହ ସମାନ। ଲାଭ ହାର କେତେ?", o: ["20%", "25%", "15%", "30%"], a: 1 },
+        { q: "ଗୋଲକର ବ୍ୟାସାର୍ଦ୍ଧ 7 cm ହେଲେ ପୃଷ୍ଠତଳ କ୍ଷେତ୍ରଫଳ କେତେ?", o: ["154", "616", "308", "462"], a: 1 },
+        { q: "280m ଲମ୍ବର ଟ୍ରେନ୍ 63 km/h ବେଗରେ 32 ସେକେଣ୍ଡରେ ପ୍ଲାଟଫର୍ମ ଅତିକ୍ରମ କରେ। ପ୍ଲାଟଫର୍ମ ଲମ୍ବ କେତେ?", o: ["280 m", "320 m", "250 m", "300 m"], a: 0 },
+        { q: "80 km କୁ 16 ଘଣ୍ଟା ଲାଗେ। ଚାଲିଲେ 4 km/h, ସାଇକେଲରେ 8 km/h। ସାଇକେଲ ଦୂରତା କେତେ?", o: ["40", "32", "20", "48"], a: 1 },
+        { q: "ଯଦି 28, 32, 6, 12 ପ୍ରତ୍ୟେକରେ x ଯୋଗ କଲେ ସମାନୁପାତ ହୁଏ, ତେବେ x ର ମୂଲ୍ୟ କେତେ?", o: ["2", "4", "3", "5"], a: 1 },
+
+        // GS
+        { q: "ସମ୍ବିଧାନର କେଉଁ ଅନୁଚ୍ଛେଦରେ 'India, that is Bharat' ଉଲ୍ଲେଖ ଅଛି?", o: ["Article 1", "Article 2", "Article 3", "Article 4"], a: 0 },
+        { q: "NH 5 ର ନୂତନ ନାମ କଣ?", o: ["NH 16", "NH 55", "NH 20", "NH 49"], a: 0 },
+        { q: "କାର୍ଲପାଟ ଅଭୟାରଣ୍ୟ ଓଡ଼ିଶାର କେଉଁ ଜିଲ୍ଲାରେ ଅବସ୍ଥିତ?", o: ["କଳାହାଣ୍ଡି", "କୋରାପୁଟ", "ଗଞ୍ଜାମ", "ମୟୂରଭଞ୍ଜ"], a: 0 },
+        { q: "ଓଡ଼ିଶାର ସିଲ୍କ ସିଟି କାହାକୁ କୁହାଯାଏ?", o: ["କଟକ", "ସମ୍ବଲପୁର", "ବ୍ରହ୍ମପୁର", "ସୋନପୁର"], a: 2 },
+        { q: "ସୁପ୍ରିମକୋର୍ଟ ବିଚାରପତିଙ୍କ ଅବସର ବୟସ କେତେ?", o: ["60", "62", "65", "70"], a: 2 },
+        { q: "ମୌଳିକ କର୍ତ୍ତବ୍ୟ କେଉଁ ଭାଗରେ ବର୍ଣ୍ଣିତ?", o: ["Part III", "Part IV-A", "Part V", "Part IV"], a: 1 },
+        { q: "ବନ୍ଦେ ଉତ୍କଳ ଜନନୀ କିଏ ଲେଖିଛନ୍ତି?", o: ["ରାଧାନାଥ ରାୟ", "ଫକୀର ମୋହନ", "ଲକ୍ଷ୍ମୀକାନ୍ତ ମହାପାତ୍ର", "ମଧୁବାବୁ"], a: 2 },
+        { q: "ଭାରତର ସର୍ବପ୍ରାଚୀନ ପର୍ବତମାଳା କେଉଁଟି?", o: ["ହିମାଳୟ", "ଆରାବଳୀ", "ନୀଳଗିରି", "ସାତପୁରା"], a: 1 },
+        { q: "କେଉଁଟି Financial Committee ନୁହେଁ?", o: ["Estimates Committee", "Public Accounts Committee", "Ethics Committee", "Public Undertakings Committee"], a: 2 },
+        { q: "2025 ଗଗନଯାନ ମିଶନର ମୁଖ୍ୟ ଲକ୍ଷ୍ୟ କଣ?", o: ["ଚନ୍ଦ୍ର ପୃଷ୍ଠକୁ ଯିବା", "ସୁରକ୍ଷା ବ୍ୟବସ୍ଥା ପରୀକ୍ଷଣ", "ମଙ୍ଗଳ ଅଭିଯାନ", "ସୂର୍ଯ୍ୟ ଅଭିଯାନ"], a: 1 },
+
+        // Odia 
+        { q: "'ଅପଚୟ' ଶବ୍ଦର ବିପରୀତ କଣ?", o: ["ଆୟ", "ଉପଚୟ", "ସଞ୍ଚୟ", "ବ୍ୟୟ"], a: 1 },
+        { q: "'ସଂଶୟ' ଶବ୍ଦର ବିପରୀତ କଣ?", o: ["ନିଶ୍ଚୟ", "ସନ୍ଦେହ", "ଭୟ", "ବିଶ୍ୱାସ"], a: 0 },
+        { q: "'ଆରୋହଣ' ଶବ୍ଦର ବିପରୀତ କଣ?", o: ["ଅବରୋହଣ", "ଆରୋହୀ", "ଚଢିବା", "ଓହ୍ଲାଇବା"], a: 0 },
+        { q: "'ଉନ୍ନତି' ଶବ୍ଦର ବିପରୀତ କଣ?", o: ["ପ୍ରଗତି", "ଅବନତି", "ଦୁର୍ନତି", "ବିକାଶ"], a: 1 },
+        { q: "'ସୌଭାଗ୍ୟ' ଶବ୍ଦର ବିପରୀତ କଣ?", o: ["ଦୁର୍ଭାଗ୍ୟ", "ଅଭାଗ୍ୟ", "ମନ୍ଦଭାଗ୍ୟ", "ଭାଗ୍ୟ"], a: 0 },
+        { q: "ଶୁଦ୍ଧ ଶବ୍ଦ ବାଛ: ", o: ["ଆର୍ଶିବାଦ", "ଆଶୀର୍ବାଦ", "ଅଶିର୍ବାଦ", "ଆଶିବାଦ"], a: 1 },
+        { q: "କ୍ରିୟା ପଦ ବାଛ: 'ରାମ ବହି ପଢୁଛି'", o: ["ରାମ", "ବହି", "ପଢୁଛି", "କୌଣସିଟି ନୁହେଁ"], a: 2 },
+        { q: "'ପାବକ' କାହାର ସମାର୍ଥକ ଶବ୍ଦ?", o: ["ଜଳ", "ପବନ", "ନିଆଁ", "ଆକାଶ"], a: 2 },
+        { q: "ସନ୍ଧି ବିଚ୍ଛେଦ କର: 'ଦିଗନ୍ତ'", o: ["ଦିଗ୍ + ଅନ୍ତ", "ଦିକ୍ + ଅନ୍ତ", "ଦିଗ + ଅନ୍ତ", "ଦି + ଗନ୍ତ"], a: 1 },
+        { q: "'ଘୋଡା' ର ବହୁବଚନ କଣ?", o: ["ଘୋଡାଏ", "ଘୋଡାମାନେ", "ଘୋଡାଗୁଡିକ", "ଉଭୟ B ଏବଂ C"], a: 3 },
+
+        // English
+        { q: "Translate: 'He is the only child of his parents.'", o: ["ସେ ପିତାମାତାଙ୍କ ପିଲା", "ସେ ତାଙ୍କ ପିତାମାତାଙ୍କ ଏକମାତ୍ର ସନ୍ତାନ", "ସେ ଜଣେ ଶିଶୁ", "ସେ ପିତାଙ୍କ ପୁଅ"], a: 1 },
+        { q: "Translate: 'Honesty is the best policy.'", o: ["ସାଧୁ ରୁହ", "ସାଧୁତା ହିଁ ସର୍ବୋତ୍ତମ ପନ୍ଥା", "ସାଧୁ ନୀତି", "ସାଧୁତା ଭଲ"], a: 1 },
+        { q: "Passive: 'Mohan read the article.'", o: ["Article read by Mohan", "The article was read by Mohan", "Article reading Mohan", "Mohan reads article"], a: 1 },
+        { q: "Translate: 'I reached home safely.'", o: ["ମୁଁ ଘରେ ପହଞ୍ଚିଲି", "ମୁଁ ନିରାପଦରେ ଘରେ ପହଞ୍ଚିଲି", "ଘରେ ପହଞ୍ଚିବା ଭଲ", "ସୁରକ୍ଷିତ ଘର"], a: 1 },
+        { q: "Opposite of 'Success'", o: ["Victory", "Failure", "Win", "Loss"], a: 1 },
+        { q: "Translate: 'Keep quiet.'", o: ["ଚୁପ୍ ରୁହ", "ଶବ୍ଦ କର", "ପାଟି କର", "ଆସ"], a: 0 },
+        { q: "Plural of 'Mouse'", o: ["Mouses", "Mice", "Micey", "Mices"], a: 1 },
+        { q: "Correct spelling:", o: ["Recieve", "Receive", "Recive", "Receve"], a: 1 },
+        { q: "Translate: 'I will call you soon.'", o: ["ମୁଁ ଫୋନ୍ କରିବି", "ମୁଁ ଶୀଘ୍ର ତୁମକୁ ଫୋନ୍ କରିବି", "ତୁମେ ଫୋନ୍ କର", "ଶୀଘ୍ର ଆସ"], a: 1 },
+        { q: "Translate: 'God is Great.'", o: ["ଈଶ୍ୱର ଅଛନ୍ତି", "ଈଶ୍ୱର ମହାନ", "ଭଗବାନ ଭଲ", "ଈଶ୍ୱର ଜଣେ"], a: 1 },
+
+        // Reasoning / Computer
+        { q: "D is G's brother. G is K's father. P is K's son. Relation of D with P's father?", o: ["Uncle", "Brother", "Wife's father's brother", "Father"], a: 2 },
+        { q: "62-56x8+8/7 = ? (If +,- and x,/ interchange)", o: ["13", "11", "12", "14"], a: 0 },
+        { q: "A, C, F, J, ?", o: ["L", "M", "N", "O"], a: 3 },
+        { q: "ROSE=84, LILY=104, LOTUS=?", o: ["150", "154", "160", "145"], a: 1 },
+        { q: "Brain of Computer?", o: ["RAM", "CPU", "HDD", "Monitor"], a: 1 },
+        { q: "Input device among these?", o: ["Printer", "Monitor", "Scanner", "Speaker"], a: 2 },
+        { q: "Shortcut for PASTE?", o: ["Ctrl+P", "Ctrl+V", "Ctrl+C", "Ctrl+X"], a: 1 },
+        { q: "Shortcut for COPY?", o: ["Ctrl+V", "Ctrl+X", "Ctrl+C", "Ctrl+A"], a: 2 },
+        { q: "Which is System Software?", o: ["Operating System", "MS Word", "Excel", "Tally"], a: 0 },
+        { q: "Volatile memory is?", o: ["ROM", "RAM", "HDD", "SSD"], a: 1 }
+    ];
+
+    let currentQ = 0;
+    let userAns = new Array(50).fill(null);
+    let timeLeft = 45 * 60;
+    let timerID;
+
+    function startTest() {
+        const name = document.getElementById('user-name').value;
+        if(!name) { alert("Please enter your name!"); return; }
+        
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('nav').style.display = 'flex';
+        document.getElementById('exam-ui').style.display = 'flex';
+        document.getElementById('welcome-msg').innerText = "Candidate: " + name;
+        
+        renderPalette();
+        loadQ();
+        startTimer();
+    }
+
+    function renderPalette() {
+        const p = document.getElementById('palette');
+        p.innerHTML = '';
+        for(let i=0; i<50; i++) {
+            const b = document.createElement('div');
+            b.className = `p-btn ${i === currentQ ? 'active' : ''} ${userAns[i] !== null ? 'done' : ''}`;
+            b.innerText = i + 1;
+            b.onclick = () => { currentQ = i; loadQ(); };
+            p.appendChild(b);
+        }
+    }
+
+    function loadQ() {
+        const q = questions[currentQ];
+        document.getElementById('q-info').innerText = `Question ${currentQ + 1} / 50`;
+        document.getElementById('q-text').innerText = q.q;
+        
+        const optBox = document.getElementById('options-box');
+        optBox.innerHTML = '';
+        q.o.forEach((opt, idx) => {
+            const div = document.createElement('div');
+            div.className = `option ${userAns[currentQ] === idx ? 'selected' : ''}`;
+            div.innerHTML = `<strong>${String.fromCharCode(65+idx)}.</strong> &nbsp; ${opt}`;
+            div.onclick = () => { userAns[currentQ] = idx; loadQ(); renderPalette(); };
+            optBox.appendChild(div);
+        });
+
+        document.getElementById('next-btn').style.display = currentQ === 49 ? 'none' : 'block';
+        document.getElementById('submit-btn').style.display = currentQ === 49 ? 'block' : 'none';
+        renderPalette();
+    }
+
+    function move(step) {
+        currentQ += step;
+        if(currentQ < 0) currentQ = 0;
+        if(currentQ > 49) currentQ = 49;
+        loadQ();
+    }
+
+    function startTimer() {
+        timerID = setInterval(() => {
+            let m = Math.floor(timeLeft / 60);
+            let s = timeLeft % 60;
+            document.getElementById('timer').innerText = `${m}:${s < 10 ? '0'+s : s}`;
+            if(timeLeft <= 0) { clearInterval(timerID); showResult(); }
+            timeLeft--;
+        }, 1000);
+    }
+
+    function confirmSubmit() {
+        if(confirm("Are you sure you want to submit?")) showResult();
+    }
+
+    function showResult() {
+        clearInterval(timerID);
+        document.getElementById('nav').style.display = 'none';
+        document.getElementById('exam-ui').style.display = 'none';
+        document.getElementById('result-screen').style.display = 'block';
+
+        let correct = 0, wrong = 0, skipped = 0;
+        let html = '';
+
+        questions.forEach((q, i) => {
+            const u = userAns[i];
+            const isCorrect = u === q.a;
+            if(u === null) skipped++;
+            else if(isCorrect) correct++;
+            else wrong++;
+
+            html += `<div class="review-item">
+                <p><strong>Q${i+1}:</strong> ${q.q}</p>
+                <p>Your Answer: <span class="${u === null ? '' : (isCorrect ? 'correct-ans' : 'wrong-ans')}">${u === null ? 'Not Attempted' : q.o[u]}</span></p>
+                <p>Correct Answer: <span class="correct-ans">${q.o[q.a]}</span></p>
+            </div>`;
+        });
+
+        const score = (correct * 1) - (wrong * 0.33);
+        document.getElementById('final-name').innerText = document.getElementById('user-name').value;
+        document.getElementById('final-score').innerText = `${score.toFixed(2)} / 50.00`;
+        document.getElementById('stat-summary').innerText = `Correct: ${correct} | Wrong: ${wrong} | Skipped: ${skipped}`;
+        document.getElementById('answer-key').innerHTML = html;
+    }
+</script>
+
+</body>
+</html>
