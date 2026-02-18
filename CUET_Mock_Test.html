@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUET 2022 Part-A Mock with Answer Key</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --bg: #f1f4f6;
+        }
+
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); display: flex; flex-direction: column; height: 100vh; }
+
+        /* Header */
+        header { background: var(--primary); color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        #timer { background: #e67e22; padding: 4px 12px; border-radius: 4px; font-weight: bold; font-size: 0.9rem; }
+
+        /* Quiz Layout */
+        .main-container { flex: 1; overflow-y: auto; padding: 15px; padding-bottom: 120px; }
+        .question-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: none; margin-bottom: 20px; }
+        .question-card.active { display: block; }
+
+        .q-meta { color: #7f8c8d; font-size: 0.85rem; font-weight: bold; margin-bottom: 10px; display: block; }
+        .q-text { font-size: 1.15rem; margin-bottom: 20px; color: #2c3e50; line-height: 1.5; }
+
+        .options-list { list-style: none; padding: 0; }
+        .options-list li { margin-bottom: 12px; padding: 15px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; display: flex; align-items: center; transition: all 0.2s; }
+        .options-list li:hover { border-color: var(--secondary); background: #f0f7ff; }
+        .options-list li.selected { border-color: var(--secondary); background: #ebf5ff; font-weight: bold; }
+        .options-list input { margin-right: 15px; transform: scale(1.3); pointer-events: none; }
+
+        /* Navigation */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: white; border-top: 1px solid #ddd; padding: 10px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
+        .nav-grid { display: flex; overflow-x: auto; gap: 10px; padding: 0 15px 10px; scrollbar-width: none; }
+        .nav-btn { min-width: 42px; height: 42px; border: 1px solid #ccc; background: white; border-radius: 50%; font-weight: bold; flex-shrink: 0; cursor: pointer; }
+        .nav-btn.answered { background: var(--success); color: white; border-color: var(--success); }
+        .nav-btn.current { border: 2px solid var(--secondary); color: var(--secondary); transform: scale(1.1); }
+
+        .btn-group { display: flex; gap: 10px; padding: 0 15px; }
+        .btn { flex: 1; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.95rem; }
+        .btn-prev { background: #dcdde1; }
+        .btn-next { background: var(--secondary); color: white; }
+        .btn-submit { background: var(--danger); color: white; }
+
+        /* Modal & Result List */
+        #modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: white; z-index: 2000; overflow-y: auto; padding: 20px; flex-direction: column; align-items: center; }
+        .summary-card { text-align: center; margin-bottom: 30px; padding: 20px; border-radius: 15px; background: var(--bg); width: 100%; max-width: 500px; }
+        .review-section { width: 100%; max-width: 600px; }
+        .review-item { margin-bottom: 15px; padding: 15px; border-bottom: 1px solid #eee; }
+        .tag { padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; color: white; margin-right: 5px; }
+        .tag-correct { background: var(--success); }
+        .tag-wrong { background: var(--danger); }
+    </style>
+</head>
+<body>
+
+<header>
+    <span><strong>CUET 2022</strong> (Part-A)</span>
+    <div id="timer">20:00</div>
+</header>
+
+<div class="main-container">
+    <div id="quiz-box"></div>
+</div>
+
+<div class="bottom-nav">
+    <div class="nav-grid" id="nav-grid"></div>
+    <div class="btn-group">
+        <button class="btn btn-prev" onclick="move(-1)">Previous</button>
+        <button class="btn btn-next" onclick="move(1)">Next</button>
+        <button class="btn btn-submit" onclick="finish()">Submit</button>
+    </div>
+</div>
+
+<div id="modal">
+    <div class="summary-card">
+        <h2>Exam Result</h2>
+        <h1 id="final-score" style="font-size: 3rem; color: var(--primary); margin: 10px 0;">0/25</h1>
+        <p id="final-msg" style="font-weight: bold;"></p>
+        <button class="btn btn-next" style="max-width: 200px;" onclick="location.reload()">Re-appear Test</button>
+    </div>
+    
+    <div class="review-section">
+        <h3>Detailed Review & Answer Key</h3>
+        <div id="answer-key-list"></div>
+    </div>
+</div>
+
+<script>
+const questions = [
+    { q: "I had sent the application five days ______", a: "A", o: ["ago", "before", "since", "hence"] },
+    { q: "The maintenance ______ law and order is the state's responsibility.", a: "B", o: ["for", "of", "about", "with"] },
+    { q: "It is a month since the holidays ______", a: "C", o: ["has begun", "may begin", "began", "have begin"] },
+    { q: "Can you ______ all the questions?", a: "D", o: ["solved", "solving", "able to solved", "solve"] },
+    { q: "Great emphasis has to be ______ on the building of our student's character.", a: "B", o: ["lain", "laid", "lied", "layed"] },
+    { q: "Hardly ______ I left the house, when it began to rain.", a: "C", o: ["did", "do", "had", "have"] },
+    { q: "Your ______ in class is compulsory.", a: "A", o: ["presence", "presense", "present", "presenting"] },
+    { q: "She is absolutely ______ in our welfare.", a: "A", o: ["indifferent", "disinterested", "unattached", "reluctant"] },
+    { q: "His parents will never give their ______ to such a proposal.", a: "C", o: ["evidence", "willingness", "consent", "agreement"] },
+    { q: "Send in ______ is next in the queue.", a: "D", o: ["whomever", "whichever", "who so ever", "whoever"] },
+    { q: "Electricity is produced from dry cell through:", a: "A", o: ["Chemical Energy", "Thermal Energy", "Mechanical Energy", "Nuclear Energy"] },
+    { q: "Lift was invented by:", a: "C", o: ["J. J. Thompson", "Mavie Curie", "E.G. Otis", "Von-Kleef"] },
+    { q: "The science of making maps is called:", a: "B", o: ["Morphography", "Cartography", "Calligraphy", "Geography"] },
+    { q: "The temple of Buddhists is called:", a: "B", o: ["Madrasa", "Vihara", "Uplisa", "Naurau"] },
+    { q: "Bodh Gaya is situated in:", a: "B", o: ["Nepal", "Bihar", "Rajasthan", "Sri Lanka"] },
+    { q: "Chairperson of State Bank of India (2022) was:", a: "A", o: ["Arundhati Bhattacharya", "Naina Lal Kidwai", "Kiran Majumdar", "Chanda Kocchar"] },
+    { q: "Which of the following Sikh Gurus instituted the Khalsa Panth?", a: "A", o: ["Guru Gobind Singh", "Guru Teg Bahadur", "Guru Arjun Dev", "Guru Nanak Dev"] },
+    { q: "Which of the following is known as 'Morning Star'?", a: "D", o: ["Saturn", "Mars", "Mercury", "Venus"] },
+    { q: "In a row of boys, A is 10th left, B is 9th right. Exchange makes A 15th left. Total:", a: "A", o: ["23", "26", "27", "28"] },
+    { q: "The Chairperson of NHRC (2022) was:", a: "B", o: ["K.G. Balkrishnan", "H.L. Dattu", "D.J. Pandian", "Ashok Chawla"] },
+    { q: "Author of 'The Turbulent Years 1980-1996' is:", a: "C", o: ["Kapil Sibal", "P.V. Rao", "Pranab Mukharjee", "Kaushik Basu"] },
+    { q: "Which metal was first used by the Vedic people?", a: "C", o: ["Gold", "Silver", "Copper", "Iron"] },
+    { q: "Next term: AOP, CQR, EST, GUV, ______", a: "C", o: ["JYZ", "HWX", "IWX", "JWX"] },
+    { q: "Shyam walks 40m South, turns Left, 30m. Direction from Start (P) to Q?", a: "C", o: ["North-East", "South-West", "South-East", "North-West"] },
+    { q: "M-N*T+Q. Which is FALSE? (A-B Mother, A*B Father, A+B Daughter)", a: "B", o: ["T is N's daughter", "N is wife of Q", "M is mother-in-law of Q", "Q is wife of N"] }
+];
+
+let currentIdx = 0;
+let userAnswers = new Array(questions.length).fill(null);
+
+function loadQuiz() {
+    const box = document.getElementById('quiz-box');
+    const grid = document.getElementById('nav-grid');
+    questions.forEach((item, i) => {
+        const card = document.createElement('div');
+        card.className = `question-card ${i===0?'active':''}`;
+        card.id = `q${i}`;
+        card.innerHTML = `<span class="q-meta">QUESTION ${i+1} / ${questions.length}</span>
+            <div class="q-text">${item.q}</div>
+            <ul class="options-list">
+                ${item.o.map((opt, idx) => {
+                    const label = String.fromCharCode(65+idx);
+                    return `<li onclick="select(${i}, '${label}')"><input type="radio" name="rad${i}" id="rad${i}${label}"> ${label}) ${opt}</li>`
+                }).join('')}
+            </ul>`;
+        box.appendChild(card);
+
+        const btn = document.createElement('button');
+        btn.className = `nav-btn ${i===0?'current':''}`;
+        btn.id = `nb${i}`;
+        btn.innerText = i+1;
+        btn.onclick = () => jump(i);
+        grid.appendChild(btn);
+    });
+    startTimer(1200);
+}
+
+function select(qIdx, val) {
+    userAnswers[qIdx] = val;
+    document.getElementById(`nb${qIdx}`).classList.add('answered');
+    const options = document.querySelectorAll(`#q${qIdx} li`);
+    options.forEach(li => li.classList.remove('selected'));
+    
+    const selectedLi = Array.from(options).find(li => li.innerText.trim().startsWith(val));
+    selectedLi.classList.add('selected');
+    selectedLi.querySelector('input').checked = true;
+}
+
+function jump(idx) {
+    document.getElementById(`q${currentIdx}`).classList.remove('active');
+    document.getElementById(`nb${currentIdx}`).classList.remove('current');
+    currentIdx = idx;
+    document.getElementById(`q${currentIdx}`).classList.add('active');
+    document.getElementById(`nb${currentIdx}`).classList.add('current');
+    document.getElementById(`nb${currentIdx}`).scrollIntoView({behavior:'smooth', inline:'center'});
+}
+
+function move(dir) {
+    let next = currentIdx + dir;
+    if(next >= 0 && next < questions.length) jump(next);
+}
+
+function startTimer(sec) {
+    const disp = document.getElementById('timer');
+    const interval = setInterval(() => {
+        let m = Math.floor(sec/60), s = sec%60;
+        disp.innerText = `${m}:${s<10?'0':''}${s}`;
+        if(sec-- <= 0) { clearInterval(interval); finish(); }
+    }, 1000);
+}
+
+function finish() {
+    let score = 0;
+    const reviewBox = document.getElementById('answer-key-list');
+    reviewBox.innerHTML = '';
+
+    questions.forEach((item, i) => {
+        const isCorrect = userAnswers[i] === item.a;
+        if(isCorrect) score++;
+
+        const div = document.createElement('div');
+        div.className = 'review-item';
+        div.innerHTML = `
+            <div><strong>Q${i+1}:</strong> ${item.q}</div>
+            <div style="margin-top:10px;">
+                <span class="tag ${isCorrect?'tag-correct':'tag-wrong'}">${isCorrect?'Correct':'Incorrect'}</span>
+                Your Answer: <b>${userAnswers[i] || 'Not Attempted'}</b> | 
+                Correct Answer: <b style="color:var(--success)">${item.a}</b>
+            </div>
+        `;
+        reviewBox.appendChild(div);
+    });
+
+    document.getElementById('final-score').innerText = `${score} / 25`;
+    document.getElementById('final-msg').innerText = score > 15 ? "Congratulation! You passed." : "Better luck next time.";
+    document.getElementById('modal').style.display = 'flex';
+    window.scrollTo(0,0);
+}
+
+loadQuiz();
+</script>
+</body>
+</html>
