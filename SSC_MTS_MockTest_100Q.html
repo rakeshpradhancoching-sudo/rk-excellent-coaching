@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSC MTS -1- Professional Mock Test</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --success-color: #27ae60;
+            --error-color: #e74c3c;
+            --bg-color: #f4f7f6;
+            --white: #ffffff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        h1 { text-align: center; margin-bottom: 20px; color: var(--primary-color); border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; }
+
+        .hidden { display: none; }
+
+        /* Login Screen */
+        #login-screen { text-align: center; padding: 40px 0; }
+        input[type="text"] {
+            width: 80%;
+            padding: 12px;
+            margin: 20px 0;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        /* Quiz Header */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border: 1px solid #ddd;
+        }
+
+        .timer { font-weight: bold; color: var(--error-color); font-size: 1.2rem; }
+
+        /* Question Styles */
+        .question-block {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #edf2f7;
+            border-radius: 8px;
+            background: #fff;
+        }
+
+        .question-text { font-size: 1.1rem; font-weight: 600; margin-bottom: 15px; }
+
+        .options-container { display: grid; grid-template-columns: 1fr; gap: 10px; }
+
+        .option-label {
+            display: block;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-label:hover { background-color: #f1f5f9; border-color: var(--accent-color); }
+
+        input[type="radio"] { margin-right: 10px; transform: scale(1.2); }
+
+        input[type="radio"]:checked + span { font-weight: bold; color: var(--accent-color); }
+
+        .selected-option { background-color: #ebf8ff; border-color: var(--accent-color); }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn:hover { background-color: #2980b9; }
+        .btn-submit { background-color: var(--success-color); width: 100%; margin-top: 20px; }
+        .btn-submit:hover { background-color: #219150; }
+
+        /* Results Page */
+        .result-card { text-align: center; }
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+            text-align: left;
+        }
+        .result-item { padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 5px solid var(--accent-color); }
+        .percentage-display { font-size: 3rem; font-weight: bold; color: var(--accent-color); margin: 20px 0; }
+
+        @media (max-width: 600px) {
+            .result-grid { grid-template-columns: 1fr; }
+            input[type="text"] { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="login-screen">
+        <h1>SSC MTS Mock Test 2023</h1>
+        <p>Instructions: 100 Questions | 60 Minutes | Multiple Choice</p>
+        <input type="text" id="student-name" placeholder="Enter Your Full Name" autocomplete="off">
+        <br>
+        <button class="btn" onclick="startTest()">Start Mock Test</button>
+    </div>
+
+    <div id="test-interface" class="hidden">
+        <div class="quiz-header">
+            <div>Student: <span id="display-name" style="font-weight:bold;"></span></div>
+            <div class="timer" id="time-display">Time Left: 60:00</div>
+            <div>Questions: <span id="q-counter">0/100</span></div>
+        </div>
+
+        <form id="quiz-form">
+            <div id="questions-container">
+                </div>
+            <button type="button" class="btn btn-submit" onclick="submitTest()">Submit Final Test</button>
+        </form>
+    </div>
+
+    <div id="result-page" class="hidden">
+        <div class="result-card">
+            <h1>Test Report</h1>
+            <p>Well done, <span id="res-name" style="font-weight:bold; color: var(--accent-color);"></span>!</p>
+            
+            <div class="percentage-display" id="res-percent">0%</div>
+            
+            <div class="result-grid">
+                <div class="result-item"><strong>Total Questions:</strong> <span id="res-total">100</span></div>
+                <div class="result-item"><strong>Correct Answers:</strong> <span id="res-correct" style="color:green">0</span></div>
+                <div class="result-item"><strong>Wrong Answers:</strong> <span id="res-wrong" style="color:red">0</span></div>
+                <div class="result-item"><strong>Final Score:</strong> <span id="res-score">0</span> / 100</div>
+            </div>
+
+            <button class="btn" onclick="window.location.reload()">Take Test Again</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    /* DATA ARRAY: 100 QUESTIONS 
+       Contains 40 questions extracted from the provided PDF content (Maths, Reasoning, GK, English)
+       + 60 supplementary questions following the SSC MTS 2023 pattern and difficulty.
+    */
+    const quizData = [
+        // --- MATHS (Extracted & Pattern) ---
+        { q: "The surface area of a sphere is 5544 cm². If the radius of the sphere is doubled, then find the surface area of the new sphere (in cm²).", a: "22,176", b: "22,761", c: "20,761", d: "20,176", correct: "a" },
+        { q: "A sailor rows a boat 36 km downstream and 24 km upstream in 6 hours. When it rows 24 km downstream and 36 km upstream the sailor takes 6.5 hours. Speed of the current is:", a: "1 km/h", b: "2 km/h", c: "3 km/h", d: "2.5 km/h", correct: "b" },
+        { q: "Find the value of (0.5 \u00D7 0.5 \u00D7 0.5 + 0.6 \u00D7 0.6 \u00D7 0.6) / (0.5 \u00D7 0.5 - 0.5 \u00D7 0.6 + 0.6 \u00D7 0.6).", a: "0.1", b: "1.1", c: "1.2", d: "0.9", correct: "b" },
+        { q: "The average of 10 numbers is 12. If each number is multiplied by 3, what will be the new average?", a: "12", b: "15", c: "36", d: "30", correct: "c" },
+        { q: "If the cost price of 12 articles is equal to the selling price of 10 articles, the profit percentage is:", a: "10%", b: "20%", c: "25%", d: "15%", correct: "b" },
+        { q: "Calculate the simple interest on Rs. 5000 at 10% per annum for 2 years.", a: "Rs. 500", b: "Rs. 1000", c: "Rs. 1200", d: "Rs. 800", correct: "b" },
+        { q: "Two pipes A and B can fill a tank in 20 minutes and 30 minutes respectively. If both pipes are opened together, the tank will be filled in:", a: "10 min", b: "12 min", c: "15 min", d: "25 min", correct: "b" },
+        { q: "The ratio of two numbers is 3:4 and their HCF is 4. Their LCM is:", a: "12", b: "16", c: "24", d: "48", correct: "d" },
+        { q: "A sum of money doubles itself in 5 years at simple interest. In how many years will it become fourfold?", a: "10 years", b: "12 years", c: "15 years", d: "20 years", correct: "c" },
+        { q: "The area of a square is 144 sq cm. What is its perimeter?", a: "48 cm", b: "36 cm", c: "24 cm", d: "60 cm", correct: "a" },
+
+        // --- REASONING (Extracted & Pattern) ---
+        { q: "Select the figure that will come next in the following series: (Square, Triangle, Circle, Square, Triangle, ...)", a: "Hexagon", b: "Rectangle", c: "Circle", d: "Pentagon", correct: "c" },
+        { q: "In a certain code, 'APPLE' is written as 'EPPLA'. How is 'GRAPE' written?", a: "EPARG", b: "EPARG", c: "EPGAR", d: "GPARE", correct: "a" },
+        { q: "If '+' means '\u00D7', '-' means '+', '\u00D7' means '\u00F7' and '\u00F7' means '-', then 6 + 4 - 5 \u00D7 2 \u00F7 1 = ?", a: "24", b: "25.5", c: "23", d: "28", correct: "b" },
+        { q: "Pointing to a man, a woman said, 'His mother is the only daughter of my mother.' How is the woman related to the man?", a: "Sister", b: "Grandmother", c: "Mother", d: "Aunt", correct: "c" },
+        { q: "Choose the odd one out: 64, 125, 216, 340", a: "64", b: "125", c: "216", d: "340", correct: "d" },
+        { q: "Find the missing number: 2, 6, 12, 20, 30, ?", a: "40", b: "42", c: "44", d: "46", correct: "b" },
+        { q: "Which of the following Venn diagrams represents: Animals, Cows, Dogs?", a: "Three separate circles", b: "One big circle containing two separate circles", c: "Three overlapping circles", d: "One circle inside another circle", correct: "b" },
+        { q: "If Monday falls on 1st Jan, what day will it be on 31st Jan?", a: "Wednesday", b: "Thursday", c: "Tuesday", d: "Friday", correct: "a" },
+        { q: "Arrange in logical order: 1. Rain, 2. Cloud, 3. Sun, 4. Rainbow", a: "3, 2, 1, 4", b: "1, 2, 3, 4", c: "4, 3, 2, 1", d: "2, 3, 1, 4", correct: "a" },
+        { q: "A is taller than B, B is taller than C. Who is the tallest?", a: "A", b: "B", c: "C", d: "None", correct: "a" },
+
+        // --- GENERAL AWARENESS (Extracted & Pattern) ---
+        { q: "If 7 N force is applied on a brick and it moves through 5 m, then what will be the work done?", a: "35 J", b: "25 J", c: "12 J", d: "35 Erg", correct: "a" },
+        { q: "Which of the following is celebrated in Jharkhand immediately after Diwali on the new moon day in the honour of cattle?", a: "Sohrai", b: "Makar", c: "Rohini", d: "Bhagta Parab", correct: "a" },
+        { q: "Who is the ex-officio Chairman of the Rajya Sabha?", a: "President", b: "Vice President", c: "Prime Minister", d: "Speaker", correct: "b" },
+        { q: "The Battle of Plassey was fought in the year:", a: "1757", b: "1764", c: "1857", d: "1526", correct: "a" },
+        { q: "Vitamin C deficiency leads to which disease?", a: "Rickets", b: "Scurvy", c: "Beriberi", d: "Night Blindness", correct: "b" },
+        { q: "Which planet is known as the 'Red Planet'?", a: "Venus", b: "Saturn", c: "Mars", d: "Jupiter", correct: "c" },
+        { q: "The Fundamental Duties were added to the Indian Constitution by which Amendment?", a: "42nd", b: "44th", c: "52nd", d: "73rd", correct: "a" },
+        { q: "In which state is the Kaziranga National Park located?", a: "Assam", b: "Gujarat", c: "Kerala", d: "Uttarakhand", correct: "a" },
+        { q: "Who wrote the book 'Discovery of India'?", a: "Mahatma Gandhi", b: "Jawaharlal Nehru", c: "Sardar Patel", d: "B.R. Ambedkar", correct: "b" },
+        { q: "The Siachen Glacier is located in which mountain range?", a: "Himalayas", b: "Karakoram", c: "Vindhyas", d: "Satpura", correct: "b" },
+
+        // --- ENGLISH (Extracted & Pattern) ---
+        { q: "Select the most appropriate option to fill in the blank: Photosynthesis is the _______ used by plants to turn sunlight into energy.", a: "process", b: "goal", c: "reason", d: "occasion", correct: "a" },
+        { q: "Choose the synonym of 'ABANDON':", a: "Keep", b: "Forsake", c: "Adopt", d: "Seize", correct: "b" },
+        { q: "Choose the antonym of 'GIANT':", a: "Huge", b: "Dwarf", c: "Large", d: "Strong", correct: "b" },
+        { q: "Select the correctly spelt word:", a: "Receive", b: "Recieve", c: "Receve", d: "Ricieve", correct: "a" },
+        { q: "Identify the part of speech for the underlined word: She runs *quickly*.", a: "Noun", b: "Verb", c: "Adjective", d: "Adverb", correct: "d" },
+        { q: "One who eats everything is called:", a: "Omnivorous", b: "Herbivorous", c: "Carnivorous", d: "Insolvent", correct: "a" },
+        { q: "Fill in the blank: I have been living here ______ 2010.", a: "for", b: "since", c: "from", d: "in", correct: "b" },
+        { q: "Change into Passive Voice: 'He opens the door.'", a: "The door was opened by him.", b: "The door is opened by him.", c: "The door is opening by him.", d: "The door opened him.", correct: "b" },
+        { q: "Select the most appropriate idiom for 'To feel under the weather':", a: "Feeling lucky", b: "Feeling sick", c: "Feeling hot", d: "Feeling happy", correct: "b" },
+        { q: "Which of these is a plural noun?", a: "Furniture", b: "Oxen", c: "News", d: "Mathematics", correct: "b" },
+
+        // --- MATHS (Part 2) ---
+        { q: "A cylinder has a radius of 7 cm and height of 10 cm. Find its volume.", a: "1540 cm³", b: "770 cm³", c: "1400 cm³", d: "154 cm³", correct: "a" },
+        { q: "Simplify: 15% of 200 + 10.", a: "40", b: "30", c: "20", d: "50", correct: "a" },
+        { q: "If A:B = 2:3 and B:C = 4:5, then A:B:C is:", a: "8:12:15", b: "2:4:5", c: "6:8:10", d: "8:10:12", correct: "a" },
+        { q: "The sum of the interior angles of a pentagon is:", a: "360°", b: "540°", c: "720°", d: "180°", correct: "b" },
+        { q: "A car covers 300 km in 5 hours. Its speed in m/s is:", a: "16.67", b: "60", c: "20", d: "15", correct: "a" },
+        { q: "The probability of drawing a red card from a deck of 52 cards is:", a: "1/4", b: "1/2", c: "1/13", d: "1/52", correct: "b" },
+        { q: "If x + y = 10 and x - y = 4, then x is:", a: "7", b: "3", c: "6", d: "14", correct: "a" },
+        { q: "The diagonal of a square is 10 cm. Its area is:", a: "100", b: "50", c: "25", d: "75", correct: "b" },
+        { q: "A tradesman marks his goods 20% above the CP and allows a 10% discount. Profit % is:", a: "10%", b: "12%", c: "8%", d: "5%", correct: "c" },
+        { q: "What is the HCF of 18, 24, and 36?", a: "6", b: "12", c: "3", d: "9", correct: "a" },
+
+        // --- GENERAL AWARENESS (Part 2) ---
+        { q: "Who was the first female Prime Minister of India?", a: "Pratibha Patil", b: "Indira Gandhi", c: "Sarojini Naidu", d: "Sushma Swaraj", correct: "b" },
+        { q: "Which river is known as the 'Ganges of the South'?", a: "Krishna", b: "Godavari", c: "Cauvery", d: "Narmada", correct: "b" },
+        { q: "The 'Dandi March' was initiated against which act?", a: "Salt Tax", b: "Rowlatt Act", c: "Forest Act", d: "Press Act", correct: "a" },
+        { q: "What is the SI unit of power?", a: "Joule", b: "Watt", c: "Newton", d: "Pascal", correct: "b" },
+        { q: "Which organ in the human body produces bile?", a: "Stomach", b: "Pancreas", c: "Liver", d: "Kidney", correct: "c" },
+        { q: "Which of the following is a Kharif crop?", a: "Wheat", b: "Rice", c: "Mustard", d: "Gram", correct: "b" },
+        { q: "Who is the author of 'The Guide'?", a: "R.K. Narayan", b: "Vikram Seth", c: "Amitav Ghosh", d: "Khushwant Singh", correct: "a" },
+        { q: "The Great Barrier Reef is located in which country?", a: "USA", b: "Australia", c: "Japan", d: "Brazil", correct: "b" },
+        { q: "What is the capital of France?", a: "Berlin", b: "Madrid", c: "Paris", d: "Rome", correct: "c" },
+        { q: "Which gas is most abundant in the Earth's atmosphere?", a: "Oxygen", b: "Carbon Dioxide", c: "Nitrogen", d: "Argon", correct: "c" },
+
+        // --- REASONING (Part 2) ---
+        { q: "If A = 1, CAT = 24, then DOG = ?", a: "24", b: "26", c: "22", d: "28", correct: "b" },
+        { q: "Complete the series: B, D, G, K, ?", a: "N", b: "O", c: "P", d: "Q", correct: "c" },
+        { q: "Select the odd word: Tiger, Lion, Elephant, Leopard", a: "Tiger", b: "Lion", c: "Elephant", d: "Leopard", correct: "c" },
+        { q: "Clock is to Time as Thermometer is to:", a: "Heat", b: "Temperature", c: "Radiation", d: "Energy", correct: "b" },
+        { q: "If South-East becomes North, North-East becomes West, what will West become?", a: "South-East", b: "North-West", c: "South-West", d: "South", correct: "a" },
+        { q: "Book is to Library as Soldier is to:", a: "Army", b: "Gun", c: "Battle", d: "Uniform", correct: "a" },
+        { q: "Statements: All Men are mortal. Socrates is a man. Conclusion: ?", a: "Socrates is mortal", b: "All mortals are men", c: "Men are Socrates", d: "None", correct: "a" },
+        { q: "Mirror image of 'PEAK':", a: "KAEP", b: "qƎAK", c: "ꓘAƎꟼ", d: "None", correct: "c" },
+        { q: "Number of triangles in a square with both diagonals drawn?", a: "4", b: "6", c: "8", d: "10", correct: "c" },
+        { q: "Find missing: 1, 4, 9, 16, 25, ?", a: "30", b: "36", c: "49", d: "40", correct: "b" },
+
+        // --- ENGLISH (Part 2) ---
+        { q: "Identify the noun in: 'Honesty is the best policy.'", a: "Honesty", b: "Best", c: "Is", d: "The", correct: "a" },
+        { q: "Choose the correct preposition: He is afraid ______ dogs.", a: "with", b: "of", c: "from", d: "to", correct: "b" },
+        { q: "Which sentence is correct?", a: "She don't like apples.", b: "She doesn't likes apples.", c: "She doesn't like apples.", d: "She not like apples.", correct: "c" },
+        { q: "Synonym of 'HAPPY':", a: "Sad", b: "Joyful", c: "Angry", d: "Tired", correct: "b" },
+        { q: "Antonym of 'ANCIENT':", a: "Old", b: "Modern", c: "Antique", d: "Historical", correct: "b" },
+        { q: "Meaning of the idiom 'A piece of cake':", a: "Very tasty", b: "Very easy", c: "Small portion", d: "Hard to get", correct: "b" },
+        { q: "One word substitution: A person who looks at the bright side of things.", a: "Pessimist", b: "Optimist", c: "Atheist", d: "Theist", correct: "b" },
+        { q: "Correct the sentence: 'He has been played for two hours.'", a: "He has been playing", b: "He had played", c: "He is playing", d: "No correction", correct: "a" },
+        { q: "Select the correctly spelled word:", a: "Accommodation", b: "Acomodation", c: "Accomodation", d: "Acommodation", correct: "a" },
+        { q: "Gender of 'Bitch':", a: "Male", b: "Female", c: "Common", d: "Neuter", correct: "b" },
+
+        // --- SUPPLEMENTARY 20 QUESTIONS (Syllabus Based) ---
+        { q: "Which festival is known as the festival of light?", a: "Holi", b: "Diwali", c: "Eid", d: "Christmas", correct: "b" },
+        { q: "National Sport of India is:", a: "Cricket", b: "Hockey", c: "Football", d: "Kabaddi", correct: "b" },
+        { q: "Who is the current Prime Minister of India (as of 2023)?", a: "Rahul Gandhi", b: "Narendra Modi", c: "Amit Shah", d: "Rajnath Singh", correct: "b" },
+        { q: "Largest desert in the world is:", a: "Thar", b: "Sahara", c: "Gobi", d: "Atacama", correct: "b" },
+        { q: "The chemical formula of Common Salt is:", a: "NaCl", b: "H2O", c: "CO2", d: "KCl", correct: "a" },
+        { q: "In which year did India get independence?", a: "1942", b: "1947", c: "1950", d: "1930", correct: "b" },
+        { q: "Who is known as the 'Iron Man of India'?", a: "B.R. Ambedkar", b: "Sardar Vallabhbhai Patel", c: "J.L. Nehru", d: "Bhagat Singh", correct: "b" },
+        { q: "What is the square root of 625?", a: "15", b: "25", c: "35", d: "45", correct: "b" },
+        { q: "Which part of the plant conducts water?", a: "Xylem", b: "Phloem", c: "Root hair", d: "Stomata", correct: "a" },
+        { q: "The planet nearest to the Sun is:", a: "Venus", b: "Mars", c: "Mercury", d: "Earth", correct: "c" },
+        { q: "Sound cannot travel through:", a: "Water", b: "Air", c: "Vacuum", d: "Steel", correct: "c" },
+        { q: "Who painted the 'Mona Lisa'?", a: "Picasso", b: "Leonardo da Vinci", c: "Van Gogh", d: "Michelangelo", correct: "b" },
+        { q: "Smallest continent is:", a: "Asia", b: "Europe", c: "Australia", d: "Africa", correct: "c" },
+        { q: "What is the boiling point of water at sea level?", a: "90\u00B0C", b: "100\u00B0C", c: "120\u00B0C", d: "80\u00B0C", correct: "b" },
+        { q: "Which animal is the 'Ship of the Desert'?", a: "Camel", b: "Horse", c: "Elephant", d: "Donkey", correct: "a" },
+        { q: "Who discovered Penicillin?", a: "Newton", b: "Einstein", c: "Alexander Fleming", d: "Pasteur", correct: "c" },
+        { q: "Gateway of India is in:", a: "Delhi", b: "Mumbai", c: "Chennai", d: "Kolkata", correct: "b" },
+        { q: "How many bones are in the adult human body?", a: "206", b: "300", c: "210", d: "195", correct: "a" },
+        { q: "Which state is known as 'God's Own Country'?", a: "Tamil Nadu", b: "Kerala", c: "Goa", d: "Punjab", correct: "b" },
+        { q: "What is the full form of CPU?", a: "Central Process Unit", b: "Central Processing Unit", c: "Core Processing Unit", d: "Computer Processing Unit", correct: "b" }
+    ];
+
+    let timer;
+    let timeRemaining = 3600; // 60 minutes
+    let studentName = "";
+
+    function startTest() {
+        studentName = document.getElementById('student-name').value.trim();
+        if (studentName === "") {
+            alert("Please enter your name to start.");
+            return;
+        }
+
+        document.getElementById('display-name').innerText = studentName;
+        document.getElementById('login-screen').classList.add('hidden');
+        document.getElementById('test-interface').classList.remove('hidden');
+
+        loadQuestions();
+        startTimer();
+    }
+
+    function loadQuestions() {
+        const container = document.getElementById('questions-container');
+        container.innerHTML = "";
+
+        quizData.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = "question-block";
+            div.innerHTML = `
+                <p class="question-text">${index + 1}. ${item.q}</p>
+                <div class="options-container">
+                    <label class="option-label">
+                        <input type="radio" name="q${index}" value="a"> <span>A. ${item.a}</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q${index}" value="b"> <span>B. ${item.b}</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q${index}" value="c"> <span>C. ${item.c}</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q${index}" value="d"> <span>D. ${item.d}</span>
+                    </label>
+                </div>
+            `;
+            container.appendChild(div);
+        });
+        
+        // Update Counter
+        document.getElementById('q-counter').innerText = `Total: ${quizData.length}`;
+        
+        // Option selection highlighting
+        const labels = document.querySelectorAll('.option-label');
+        labels.forEach(label => {
+            label.addEventListener('click', function() {
+                const parent = this.parentElement;
+                parent.querySelectorAll('.option-label').forEach(l => l.classList.remove('selected-option'));
+                this.classList.add('selected-option');
+            });
+        });
+    }
+
+    function startTimer() {
+        timer = setInterval(() => {
+            timeRemaining--;
+            let mins = Math.floor(timeRemaining / 60);
+            let secs = timeRemaining % 60;
+            document.getElementById('time-display').innerText = `Time Left: ${mins}:${secs < 10 ? '0' : ''}${secs}`;
+
+            if (timeRemaining <= 0) {
+                clearInterval(timer);
+                submitTest();
+                alert("Time is up! Your test has been submitted automatically.");
+            }
+        }, 1000);
+    }
+
+    function submitTest() {
+        clearInterval(timer);
+        const form = document.getElementById('quiz-form');
+        const formData = new FormData(form);
+        let correctCount = 0;
+        let wrongCount = 0;
+
+        quizData.forEach((item, index) => {
+            const selectedValue = formData.get(`q${index}`);
+            if (selectedValue === item.correct) {
+                correctCount++;
+            } else if (selectedValue !== null) {
+                wrongCount++;
+            }
+        });
+
+        const score = correctCount;
+        const percentage = (score / quizData.length) * 100;
+
+        showResults(correctCount, wrongCount, score, percentage);
+    }
+
+    function showResults(c, w, s, p) {
+        document.getElementById('test-interface').classList.add('hidden');
+        document.getElementById('result-page').classList.remove('hidden');
+
+        document.getElementById('res-name').innerText = studentName;
+        document.getElementById('res-correct').innerText = c;
+        document.getElementById('res-wrong').innerText = w;
+        document.getElementById('res-score').innerText = s;
+        document.getElementById('res-percent').innerText = p.toFixed(1) + "%";
+        document.getElementById('res-total').innerText = quizData.length;
+        
+        window.scrollTo(0, 0);
+    }
+</script>
+
+</body>
+</html>
