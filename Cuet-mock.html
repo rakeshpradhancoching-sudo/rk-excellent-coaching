@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>B.Ed Entrance Mock Test – Science (50 Q)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{font-family:Arial;background:#f2f4f8;margin:0}
+.container{max-width:900px;margin:20px auto;background:#fff;padding:20px;border-radius:8px}
+h1{text-align:center;color:#0a3d62}
+.question{margin:12px 0;padding:10px;border-bottom:1px solid #ddd}
+.question p{font-weight:bold}
+button{background:#0a3d62;color:#fff;padding:12px 25px;border:none;border-radius:5px;font-size:16px}
+.result{margin-top:20px;font-size:20px;font-weight:bold;color:green}
+.answer-key{margin-top:20px;padding:15px;background:#eef6ff;border-radius:6px}
+.answer-key h3{color:#0a3d62}
+.answer-key span{display:inline-block;width:60px}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h1>B.Ed Entrance Mock Test (Science)</h1>
+
+<label><b>Student Name:</b></label><br>
+<input type="text" id="name" style="width:100%;padding:8px"><br><br>
+
+<form id="quiz">
+
+<script>
+const questions = [
+["SI unit of force is?", ["Dyne","Newton","Joule","Watt"], 1],
+["Vitamin C deficiency causes?", ["Rickets","Scurvy","Beriberi","Night blindness"], 1],
+["pH of pure water is?", ["5","7","9","3"], 1],
+["Gas used in respiration?", ["Oxygen","Nitrogen","CO2","Hydrogen"], 0],
+["Speed of light is?", ["3×10⁸ m/s","3×10⁶ m/s","300 m/s","30 m/s"], 0],
+["Chemical symbol of Sodium?", ["So","Na","Sn","S"], 1],
+["Largest planet?", ["Earth","Mars","Jupiter","Saturn"], 2],
+["Unit of electric current?", ["Volt","Ohm","Ampere","Watt"], 2],
+["Blood purification organ?", ["Heart","Liver","Kidney","Lungs"], 2],
+["Discovered gravity?", ["Newton","Einstein","Galileo","Edison"], 0],
+["Vitamin A deficiency?", ["Scurvy","Night blindness","Rickets","Beriberi"], 1],
+["Plant food prepared in?", ["Root","Stem","Leaf","Flower"], 2],
+["Unit of resistance?", ["Ampere","Volt","Ohm","Watt"], 2],
+["Gas used in photosynthesis?", ["Oxygen","Nitrogen","CO2","Hydrogen"], 2],
+["Normal body temperature?", ["35°C","36°C","37°C","38°C"], 2],
+["Smallest bone?", ["Stapes","Femur","Ulna","Radius"], 0],
+["Hardest substance?", ["Gold","Iron","Diamond","Silver"], 2],
+["Earth rotates on?", ["Axis","Orbit","Pole","Center"], 0],
+["Unit of work?", ["Power","Joule","Newton","Watt"], 1],
+["Non-metal?", ["Iron","Copper","Sulphur","Aluminium"], 2],
+["Universal donor?", ["A","B","AB","O"], 3],
+["Energy of motion?", ["Potential","Heat","Kinetic","Solar"], 2],
+["Formula of water?", ["H2O","HO2","H2O2","OH"], 0],
+["Plant respiration?", ["Day","Night","Both","None"], 2],
+["Vitamin for bones?", ["A","B","C","D"], 3],
+["SI unit of power?", ["Joule","Watt","Volt","Ampere"], 1],
+["Liquid metal?", ["Iron","Mercury","Copper","Silver"], 1],
+["Heart chambers?", ["2","3","4","5"], 2],
+["Sound fastest in?", ["Air","Water","Steel","Vacuum"], 2],
+["Photosynthesis pigment?", ["Xanthophyll","Carotene","Chlorophyll","Anthocyanin"], 2],
+["Unit of frequency?", ["Second","Hertz","Meter","Volt"], 1],
+["Acid in lemon?", ["Acetic","Citric","Lactic","Oxalic"], 1],
+["Blood pump organ?", ["Liver","Brain","Heart","Kidney"], 2],
+["Heat transfer without medium?", ["Conduction","Convection","Radiation","None"], 2],
+["Renewable energy?", ["Coal","Petrol","Solar","Gas"], 2],
+["Wire metal?", ["Copper","Iron","Zinc","Lead"], 0],
+["Vitamin for clotting?", ["A","B","C","K"], 3],
+["Unit of pressure?", ["Pascal","Newton","Joule","Watt"], 0],
+["Largest organ?", ["Heart","Skin","Liver","Lung"], 1],
+["Baking soda?", ["Na2CO3","NaHCO3","NaOH","HCl"], 1],
+["Plant pores?", ["Stomata","Lenticel","Root hair","Veins"], 0],
+["Sound unit?", ["Decibel","Hertz","Watt","Pascal"], 0],
+["Magnetic metal?", ["Copper","Iron","Gold","Silver"], 1],
+["Vitamin B1 deficiency?", ["Beriberi","Rickets","Scurvy","Blindness"], 0],
+["Disease-fighting cells?", ["RBC","WBC","Platelets","Plasma"], 1],
+["SI unit of length?", ["Km","Cm","Meter","Mm"], 2],
+["Gas in LPG?", ["Methane","Butane","Ethane","Oxygen"], 1],
+["Study of plants?", ["Zoology","Botany","Biology","Ecology"], 1]
+];
+
+let html="";
+questions.forEach((q,i)=>{
+html+=`<div class="question">
+<p>${i+1}. ${q[0]}</p>
+${q[1].map((o,j)=>`<label><input type="radio" name="q${i}" value="${j}"> ${o}</label><br>`).join("")}
+</div>`;
+});
+document.write(html);
+</script>
+
+<button type="button" onclick="submitTest()">Submit Test</button>
+</form>
+
+<div class="result" id="result"></div>
+<div class="answer-key" id="answerKey" style="display:none"></div>
+
+</div>
+
+<script>
+function submitTest(){
+let score=0;
+let name=document.getElementById("name").value;
+if(name===""){alert("Enter Name");return;}
+
+let keyHtml="<h3>Answer Key</h3>";
+questions.forEach((q,i)=>{
+let ans=document.querySelector(`input[name="q${i}"]:checked`);
+if(ans && parseInt(ans.value)===q[2]) score++;
+keyHtml+=`<span>Q${i+1}:</span> ${q[1][q[2]]}<br>`;
+});
+
+document.getElementById("result").innerHTML=`Name: ${name}<br>Score: ${score} / 50`;
+document.getElementById("answerKey").style.display="block";
+document.getElementById("answerKey").innerHTML=keyHtml;
+}
+</script>
+
+</body>
+</html>
