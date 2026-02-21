@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Word Substitution Mock Test</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+        }
+
+        .student-info {
+            margin-bottom: 30px;
+            padding: 15px;
+            background: #eef2f3;
+            border-radius: 5px;
+        }
+
+        .student-info input {
+            padding: 8px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .question-block {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-left: 4px solid var(--secondary-color);
+            background: #fafafa;
+        }
+
+        .question-text {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .odia-text {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        label {
+            cursor: pointer;
+            padding: 5px;
+            display: block;
+        }
+
+        button#submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button#submit-btn:hover {
+            background-color: #2980b9;
+        }
+
+        #result-area {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background: #d4edda;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-box {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        @media (max-width: 600px) {
+            .options { grid-template-columns: 1fr; }
+            .container { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>One Word Substitution Mock Test</h1>
+    
+    <div class="student-info">
+        <label for="studentName">Student Name: </label>
+        <input type="text" id="studentName" placeholder="Enter your name">
+    </div>
+
+    <form id="quizForm">
+        <div id="questions-container"></div>
+        <button type="button" id="submit-btn" onclick="calculateResult()">Submit Test</button>
+    </form>
+
+    <div id="result-area">
+        <h2>Test Result</h2>
+        <div id="res-name" class="stat-box"></div>
+        <div id="res-total" class="stat-box"></div>
+        <div id="res-correct" class="stat-box"></div>
+        <div id="res-wrong" class="stat-box"></div>
+        <div id="res-percent" class="stat-box" style="font-weight: bold; color: #155724;"></div>
+        <button onclick="location.reload()" style="margin-top:20px; padding:10px;">Retake Test</button>
+    </div>
+</div>
+
+<script>
+    const quizData = [
+        { q: "Liable to be easily broken.", o: "ସହଜରେ ଭାଙ୍ଗିଯାଉଥିବା ଜିନିଷ |", a: ["Translucent", "Brittle", "Unhealthy", "Opaque"], c: 1 },
+        { q: "A room or building for the preservation of plants.", o: "ଗଛଲତା ସଂରକ୍ଷଣ ପାଇଁ ଉଦ୍ଦିଷ୍ଟ କୋଠା |", a: ["Plantation", "Farmyard", "Greenhouse", "Plantain"], c: 2 },
+        { q: "A large number of fish swimming together.", o: "ଏକାଠି ପହଁରୁଥିବା ମାଛଙ୍କ ଦଳ |", a: ["Troupe", "Swarm", "Litter", "Shoal"], c: 3 },
+        { q: "A list of things to be discussed at a meeting.", o: "ସଭାରେ ଆଲୋଚନା ହେବାକୁ ଥିବା ବିଷୟଗୁଡ଼ିକର ତାଲିକା |", a: ["Minutes", "Issues", "Agenda", "Data"], c: 2 },
+        { q: "A figure with many angles or sides.", o: "ଅନେକ କୋଣ କିମ୍ବା ବାହୁ ଥିବା ଚିତ୍ର |", a: ["Hexagon", "Octagon", "Polygon", "Pentagon"], c: 2 },
+        { q: "The Act of killing oneself.", o: "ନିଜକୁ ନିଜେ ହତ୍ୟା କରିବା କାର୍ଯ୍ୟ |", a: ["Suicide", "Murder", "Regicide", "Genocide"], c: 0 },
+        { q: "Having been legally declared financially insolvent is to be.", o: "ଆଇନଗତ ଭାବେ ଦେବାଳିଆ ଘୋଷିତ ହେବା |", a: ["Bankrupt", "Destitute", "Penniless", "Broke"], c: 0 },
+        { q: "Measures taken to please the people.", o: "ଲୋକଙ୍କୁ ସନ୍ତୁଷ୍ଟ କରିବା ପାଇଁ ନିଆଯାଇଥିବା ପଦକ୍ଷେପ |", a: ["Populous", "Propeller", "Popular", "Poplar"], c: 2 },
+        { q: "The story you have told me is surprising and unbelievable.", o: "ଆପଣ କହିଥିବା ଗପଟି ଆଶ୍ଚର୍ଯ୍ୟଜନକ ଏବଂ ଅବିଶ୍ୱସନୀୟ |", a: ["Shocking", "Disparaging", "Incredible", "Ineffective"], c: 2 },
+        { q: "A person who is easily hurt.", o: "ଜଣେ ବ୍ୟକ୍ତି ଯିଏ ସହଜରେ କଷ୍ଟ ପାଆନ୍ତି |", a: ["Sincere", "Sane", "Sensitive", "Sensible"], c: 2 },
+        { q: "Completing a period of hundred years.", o: "ଶହେ ବର୍ଷର ଅବଧି ପୂର୍ଣ୍ଣ ହେବା |", a: ["Centennial", "Centurion", "Centaury", "Centenarian"], c: 0 },
+        { q: "Animals that can live on land and water.", o: "ଉଭୟ ସ୍ଥଳ ଏବଂ ଜଳରେ ରହିପାରୁଥିବା ପ୍ରାଣୀ |", a: ["Terrestrial", "Aquatic", "Amphibians", "Parasitic"], c: 2 },
+        { q: "The art of making maps and charts.", o: "ମାନଚିତ୍ର ତିଆରି କରିବାର କଳା |", a: ["Calligraphy", "Palaeography", "Metallurgy", "Cartography"], c: 3 },
+        { q: "A game in which no one wins.", o: "ଏକ ଖେଳ ଯେଉଁଥିରେ କେହି ଜିତନ୍ତି ନାହିଁ |", a: ["Draw", "Obsolete", "Legal", "Illegal"], c: 0 },
+        { q: "Shaking movement of the ground.", o: "ଭୂମିର କମ୍ପନ |", a: ["Tremor", "Shiver", "Vibrate", "Oscillate"], c: 0 },
+        { q: "To free anything from germs.", o: "ଜୀବାଣୁ ମୁକ୍ତ କରିବା |", a: ["Cauterise", "Sterilise", "Antiseptic", "Antivirus"], c: 1 },
+        { q: "One who leaves one's country in order to settle permanently in another.", o: "ଅନ୍ୟ ଦେଶରେ ସ୍ଥାୟୀ ଭାବେ ରହିବା ପାଇଁ ନିଜ ଦେଶ ଛାଡୁଥିବା ବ୍ୟକ୍ତି |", a: ["Emigrant", "Omnipresent", "Celibate", "Bigot"], c: 0 },
+        { q: "Belonging to the same period.", o: "ସମାନ ସମୟର ବା ସମସାମୟିକ |", a: ["Immigrant", "Ancient", "Inaccessible", "Contemporary"], c: 3 },
+        { q: "One who compiles a dictionary.", o: "ଯିଏ ଅଭିଧାନ ସଙ୍କଳନ କରନ୍ତି |", a: ["Philatalist", "Lexicographer", "Philologist", "Numismatist"], c: 1 },
+        { q: "One who knows everything.", o: "ଯିଏ ସବୁକିଛି ଜାଣନ୍ତି |", a: ["Omniscient", "Omnivorous", "Omnipotent", "Ominous"], c: 0 },
+        { q: "One who intervenes between two or more parties to settle differences.", o: "ବିବାଦ ସମାଧାନ ପାଇଁ ମଧ୍ୟସ୍ଥତା କରୁଥିବା ବ୍ୟକ୍ତି |", a: ["Neutral", "Intermediary", "Judge", "Connoisseur"], c: 1 },
+        { q: "The absence of law and order.", o: "ଆଇନ ଶୃଙ୍ଖଳାର ଅଭାବ |", a: ["Rebellion", "Mutiny", "Revolt", "Anarchy"], c: 3 },
+        { q: "A voice that cannot be heard.", o: "ଯେଉଁ ଶବ୍ଦ ଶୁଣାଯାଏ ନାହିଁ |", a: ["Unheard", "Faint", "Audible", "Inaudible"], c: 3 },
+        { q: "High sea waves caused by underwater earthquake.", o: "ସମୁଦ୍ର ତଳ ଭୂକମ୍ପ ଯୋଗୁଁ ସୃଷ୍ଟି ହେଉଥିବା ଉଚ୍ଚ ସାମୁଦ୍ରିକ ତରଙ୍ଗ |", a: ["Tsunami", "Tornado", "Hurricane", "Cyclone"], c: 0 },
+        { q: "To give one's authority to another.", o: "ନିଜର କ୍ଷମତା ଅନ୍ୟକୁ ହସ୍ତାନ୍ତର କରିବା |", a: ["Assign", "Delegate", "Represent", "Designate"], c: 1 },
+        { q: "One who is neither intelligent nor dull.", o: "ଯିଏ ବହୁତ ବୁଦ୍ଧିମାନ ନୁହେଁ କି ମୂର୍ଖ ନୁହେଁ |", a: ["Commoner", "Mediocre", "Tolerable", "Diligent"], c: 1 },
+        { q: "A person who regards the whole world as his country.", o: "ସମଗ୍ର ବିଶ୍ୱକୁ ନିଜର ଦେଶ ବୋଲି ଭାବୁଥିବା ବ୍ୟକ୍ତି |", a: ["Cosmopolitan", "Nationalist", "Patriot", "Metropolitan"], c: 0 },
+        { q: "A man who wastes money on luxury.", o: "ବିଳାସବ୍ୟସନରେ ଅଯଥା ଅର୍ଥ ଖର୍ଚ୍ଚ କରୁଥିବା ବ୍ୟକ୍ତି |", a: ["Extempore", "Extravagant", "Nymph", "Surge"], c: 1 },
+        { q: "One who deals in flowers.", o: "ଫୁଲ ବ୍ୟବସାୟ କରୁଥିବା ବ୍ୟକ୍ତି |", a: ["Gardener", "Farmer", "Florist", "Sculptor"], c: 2 },
+        { q: "A supporter of the cause of women.", o: "ମହିଳାମାନଙ୍କ ଅଧିକାରର ସମର୍ଥକ |", a: ["Feminist", "Colleague", "Powerful", "Womanish"], c: 0 },
+        { q: "A book containing every kind of information.", o: "ସବୁ ପ୍ରକାର ତଥ୍ୟ ଥିବା ବହି |", a: ["Compendium", "Encyclopaedia", "Ledger", "Epitome"], c: 1 },
+        { q: "A place where neither grass nor trees grow.", o: "ଯେଉଁଠି ଘାସ କିମ୍ବା ଗଛ ହୁଏ ନାହିଁ |", a: ["Fertile", "Rough", "Barren", "Hard"], c: 2 },
+        { q: "A person who is a great lover of his country.", o: "ନିଜ ଦେଶକୁ ବହୁତ ଭଲ ପାଉଥିବା ବ୍ୟକ୍ତି |", a: ["Patriot", "Cheat", "Moral", "Ideal"], c: 0 },
+        { q: "The doctrine that there is only one God.", o: "ଈଶ୍ୱର ଏକ ବୋଲି ବିଶ୍ୱାସ |", a: ["Monotheism", "Atheism", "Theism", "Pantheism"], c: 0 },
+        { q: "The animals of a particular region.", o: "ଏକ ନିର୍ଦ୍ଦିଷ୍ଟ ଅଞ୍ଚଳର ପ୍ରାଣୀସମୂହ |", a: ["Flora", "Fluorescent", "Flagrant", "Fauna"], c: 3 },
+        { q: "Official counting of the people in a country.", o: "ସରକାରୀ ଜନଗଣନା |", a: ["Collection", "Gathering", "Census", "Crowd"], c: 2 },
+        { q: "Murder of a king.", o: "ରାଜାଙ୍କୁ ହତ୍ୟା କରିବା |", a: ["Regicide", "Matricide", "Homicide", "Patricide"], c: 0 },
+        { q: "A building where dead bodies are kept.", o: "ଶବ ରଖାଯାଉଥିବା କୋଠା |", a: ["Aviary", "Zoo", "Hospital", "Mortuary"], c: 3 },
+        { q: "A man having no hair on the scalp.", o: "ମୁଣ୍ଡରେ ଚୁଟି ନଥିବା ବ୍ୟକ୍ତି |", a: ["Naked", "Gaudy", "Hoary", "Bald"], c: 3 },
+        { q: "One who cannot die.", o: "ଯାହାର ମୃତ୍ୟୁ ନାହିଁ |", a: ["Perpetual", "Immortal", "Constant", "Timeless"], c: 1 },
+        { q: "Custom of having many wives.", o: "ଏକାଧିକ ପତ୍ନୀ ରଖିବାର ପ୍ରଥା |", a: ["Bigamy", "Monogamy", "Polygamy", "Matrimony"], c: 2 },
+        { q: "An elderly unmarried woman.", o: "ଜଣେ ଅବିବାହିତ ବୃଦ୍ଧା |", a: ["Spinster", "Vandal", "Bachelor", "Adult"], c: 0 },
+        { q: "A person who rules without consulting the opinion of others.", o: "ଅନ୍ୟର ମତ ନନେଇ ଶାସନ କରୁଥିବା ବ୍ୟକ୍ତି |", a: ["Democrat", "Autocrat", "Bureaucrat", "Fanatic"], c: 1 },
+        { q: "A tank where fish or water plants are kept.", o: "ମାଛ କିମ୍ବା ଜଳଜ ଉଦ୍ଭିଦ ରଖାଯାଉଥିବା ଟାଙ୍କି |", a: ["Apiary", "Aviary", "Nursery", "Aquarium"], c: 3 },
+        { q: "A building where dead bodies are kept.", o: "ଶବ ରଖାଯାଉଥିବା ଗୃହ |", a: ["Aviary", "Hospital", "Zoo", "Mortuary"], c: 3 },
+        { q: "An associate in a office or institution.", o: "କାର୍ଯ୍ୟାଳୟରେ ସହକର୍ମୀ |", a: ["Companion", "Ally", "Colleague", "Accomplice"], c: 2 },
+        { q: "A place where birds are kept.", o: "ପକ୍ଷୀ ରଖାଯାଉଥିବା ସ୍ଥାନ |", a: ["Apiary", "Aviary", "Nursery", "Extempore"], c: 1 },
+        { q: "Of unknown authorship.", o: "ଅଜ୍ଞାତ ଲେଖକଙ୍କ ଦ୍ୱାରା ଲିଖିତ |", a: ["Anonymous", "Unanimous", "Ambiguous", "Extempore"], c: 0 },
+        { q: "One who knows many languages.", o: "ଯିଏ ଅନେକ ଭାଷା ଜାଣନ୍ତି |", a: ["Polygamy", "Popular", "Panacea", "Polyglot"], c: 3 },
+        { q: "The violation or profaning of sacred things.", o: "ପବିତ୍ର ଜିନିଷର ଅପମାନ କରିବା |", a: ["Solemn", "Sinecure", "Posthumous", "Sacrilege"], c: 3 },
+        { q: "An examination of a dead body.", o: "ଶବ ବ୍ୟବଚ୍ଛେଦ |", a: ["Ante-mortem", "Autopsy", "Morgue", "Cremation"], c: 1 },
+        { q: "One who sacrifices his life for a cause.", o: "ମହତ କାର୍ଯ୍ୟ ପାଇଁ ଜୀବନ ବଳିଦାନ ଦେଉଥିବା ବ୍ୟକ୍ତି |", a: ["Patriot", "Martyr", "Soldier", "Revolutionary"], c: 1 },
+        { q: "Custom of having several husbands at the same time.", o: "ଏକ ସମୟରେ ଏକାଧିକ ସ୍ୱାମୀ ରଖିବାର ପ୍ରଥା |", a: ["Polyandry", "Polyglot", "Polysexual", "Polygamy"], c: 0 },
+        { q: "One who is not easily pleased by anything.", o: "ଯିଏ ସହଜରେ ସନ୍ତୁଷ୍ଟ ହୁଅନ୍ତି ନାହିଁ |", a: ["Maiden", "Pessimist", "Vulnerable", "Fastidious"], c: 3 },
+        { q: "A person coming to a foreign land to settle.", o: "ବସବାସ ପାଇଁ ବିଦେଶରୁ ଆସିଥିବା ବ୍ୟକ୍ତି |", a: ["Immigrant", "Visitor", "Tourist", "Emigrant"], c: 0 },
+        { q: "Yearly celebration of a date or an event.", o: "ବାର୍ଷିକ ଉତ୍ସବ |", a: ["Birthday", "Anniversary", "Jubilee", "Centenary"], c: 1 },
+        { q: "One who eats everything.", o: "ଯିଏ ସବୁକିଛି ଖାଏ |", a: ["Omnipotent", "Insolvent", "Irresistible", "Omnivorous"], c: 3 },
+        { q: "A remedy for all diseases.", o: "ସବୁ ରୋଗର ମହୌଷଧି |", a: ["Recoil", "Panacea", "Marvel", "Treatment"], c: 1 },
+        { q: "Incapable of being seen through.", o: "ଯାହା ଭିତର ଦେଇ ଦେଖି ହୁଏ ନାହିଁ (ଅସ୍ୱଚ୍ଛ) |", a: ["Invisible", "Obsolete", "Opaque", "Transparent"], c: 2 },
+        { q: "A place for grains.", o: "ଶସ୍ୟ ରଖିବା ସ୍ଥାନ |", a: ["Store", "Godown", "Granary", "Container"], c: 2 }
+    ];
+
+    function loadQuestions() {
+        const container = document.getElementById('questions-container');
+        quizData.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'question-block';
+            div.innerHTML = `
+                <div class="question-text">${index + 1}. ${item.q}</div>
+                <div class="odia-text">${item.o}</div>
+                <div class="options">
+                    ${item.a.map((opt, i) => `
+                        <label>
+                            <input type="radio" name="q${index}" value="${i}"> 
+                            (${String.fromCharCode(97 + i)}) ${opt}
+                        </label>
+                    `).join('')}
+                </div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function calculateResult() {
+        const name = document.getElementById('studentName').value || "Student";
+        let score = 0;
+        let total = quizData.length;
+
+        quizData.forEach((item, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            if (selected && parseInt(selected.value) === item.c) {
+                score++;
+            }
+        });
+
+        const wrong = total - score;
+        const percent = ((score / total) * 100).toFixed(2);
+
+        document.getElementById('quizForm').style.display = 'none';
+        document.querySelector('.student-info').style.display = 'none';
+        
+        const resArea = document.getElementById('result-area');
+        resArea.style.display = 'block';
+        document.getElementById('res-name').innerText = "Name: " + name;
+        document.getElementById('res-total').innerText = "Total Questions: " + total;
+        document.getElementById('res-correct').innerText = "Correct Answers: " + score;
+        document.getElementById('res-wrong').innerText = "Wrong/Skipped: " + wrong;
+        document.getElementById('res-percent').innerText = "Percentage: " + percent + "%";
+        
+        window.scrollTo(0, 0);
+    }
+
+    window.onload = loadQuestions;
+</script>
+
+</body>
+</html>
