@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="or">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maths Chapter 1: Sets (Bilingual)</title>
+    <style>
+        :root {
+            --primary: #4834d4;
+            --secondary: #686de0;
+            --accent: #eb4d4b;
+            --light: #f9f9f9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #30336b;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border-top: 10px solid var(--primary);
+        }
+
+        .header-box {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .page-badge {
+            background: var(--accent);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .content-area {
+            padding: 30px;
+        }
+
+        .quote-section {
+            background: #fff9c4;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #fbc02d;
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        .lang-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .lang-col {
+            flex: 1;
+            padding: 15px;
+            border-radius: 12px;
+            background: var(--light);
+            border: 1px solid #dcdde1;
+        }
+
+        .odia-title { color: var(--primary); font-weight: bold; margin-bottom: 10px; display: block; }
+        .eng-title { color: #535c68; font-weight: bold; font-size: 0.9em; display: block; }
+
+        .highlight-box {
+            background: #e1f5fe;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .math-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .math-list li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        .math-list li::before {
+            content: "➔ ";
+            color: var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #f1f2f6;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-box">
+        <div class="page-badge">PAGE 1</div>
+        <h1>CHAPTER 1: SETS (ସେଟ୍)</h1>
+        <p>Mathematics for Class 11 / ୧୧ଶ ଶ୍ରେଣୀ ଗଣିତ</p>
+    </div>
+
+    <div class="content-area">
+        <div class="quote-section">
+            "It is the oldest and the youngest..." - G.H. HARDY <br>
+            "ଏହା ସବୁଠାରୁ ପୁରାତନ ଏବଂ ସବୁଠାରୁ ନୂତନ ଅଟେ..." - ଜି.ଏଚ୍. ହାର୍ଡି
+        </div>
+
+        <h2>1.1 Introduction / ଉପକ୍ରମଣିକା</h2>
+        
+        <div class="lang-row">
+            <div class="lang-col">
+                <span class="odia-title">ଓଡ଼ିଆ</span>
+                ସେଟ୍‌ର ଧାରଣା ଆଜିକାଲି ଗଣିତର ପ୍ରାୟ ପ୍ରତ୍ୟେକ ଶାଖାରେ ବ୍ୟବହୃତ ହେଉଛି। ଏହା ସମ୍ପର୍କ (Relations) ଏବଂ ଫଳନ (Functions) କୁ ବୁଝିବା ପାଇଁ ବ୍ୟବହୃତ ହୁଏ। ଜ୍ୟାମିତି, ଅନୁକ୍ରମ ଏବଂ ସମ୍ଭାବ୍ୟତା ପାଇଁ ସେଟ୍‌ର ଜ୍ଞାନ ଆବଶ୍ୟକ।
+            </div>
+            <div class="lang-col">
+                <span class="eng-title">ENGLISH</span>
+                The concept of set serves as a fundamental part of present-day mathematics. It is used to define relations and functions. The study of geometry, sequences, and probability requires the knowledge of sets.
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <strong>History / ଇତିହାସ:</strong><br>
+            Developed by German mathematician <b>Georg Cantor</b> (1845-1918).<br>
+            ଏହାର ବିକାଶ ଜର୍ମାନ ଗଣିତଜ୍ଞ <b>ଜର୍ଜ କ୍ୟାଣ୍ଟର</b>ଙ୍କ ଦ୍ୱାରା ହୋଇଥିଲା।
+        </div>
+
+        <h2>1.2 Sets & Representations / ସେଟ୍ ଏବଂ ଏହାର ପ୍ରକାଶ ପ୍ରଣାଳୀ</h2>
+
+        <div class="lang-row">
+            <div class="lang-col">
+                <span class="odia-title">ଓଡ଼ିଆ</span>
+                ଆମେ ଦୈନନ୍ଦିନ ଜୀବନରେ ବିଭିନ୍ନ ସଂଗ୍ରହ ବିଷୟରେ କଥା ହେଉ, ଯେପରିକି ତାସ୍ ଗୋଛା କିମ୍ବା କ୍ରିକେଟ୍ ଦଳ। ଗଣିତରେ ମଧ୍ୟ ଏହିପରି ସଂଗ୍ରହ ରହିଛି:
+            </div>
+            <div class="lang-col">
+                <span class="eng-title">ENGLISH</span>
+                In everyday life, we speak of collections like a pack of cards or a cricket team. In mathematics, we also have such collections:
+            </div>
+        </div>
+
+        <ul class="math-list">
+            <li>Odd natural numbers < 10 / ୧୦ ରୁ କମ୍ ଅଯୁଗ୍ମ ସଂଖ୍ୟା: {1, 3, 5, 7, 9}</li>
+            <li>Vowels in English / ଇଂରାଜୀ ସ୍ୱରବର୍ଣ୍ଣ: {a, e, i, o, u}</li>
+            <li>Rivers of India / ଭାରତର ନଦୀଗୁଡ଼ିକ</li>
+        </ul>
+    </div>
+
+    <footer>
+        &copy; 2026 Bilingual Math Education | Step-by-Step Learning
+    </footer>
+</div>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="or">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* ପୂର୍ବ Styles ସହିତ ସମାନ ରଖିବା ପାଇଁ */
+        .symbol-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .symbol-card {
+            background: #ffffff;
+            border: 2px solid #e0e0e0;
+            padding: 10px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .sym {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #4834d4;
+            min-width: 30px;
+        }
+        .method-box {
+            border: 2px solid #686de0;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: #f8f9ff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-box" style="background: linear-gradient(135deg, #686de0, #4834d4);">
+        <div class="page-badge">PAGE 2</div>
+        <h1>Mathematical Sets & Notation</h1>
+        <p>ଗାଣିତିକ ସେଟ୍ ଏବଂ ସଙ୍କେତ</p>
+    </div>
+
+    <div class="content-area">
+        <h2>Mathematical Symbols / ଗାଣିତିକ ସଙ୍କେତ</h2>
+        <div class="lang-row">
+            <div class="lang-col">
+                <span class="odia-title">ଓଡ଼ିଆ</span>
+                ଗଣିତରେ ବାରମ୍ବାର ବ୍ୟବହୃତ ହେଉଥିବା କିଛି ସ୍ୱତନ୍ତ୍ର ସେଟ୍‌ର ନାମ ନିମ୍ନରେ ଦିଆଗଲା:
+            </div>
+            <div class="lang-col">
+                <span class="eng-title">ENGLISH</span>
+                Here are some standard symbols for sets used particularly in mathematics:
+            </div>
+        </div>
+
+        <div class="symbol-grid">
+            <div class="symbol-card"><span class="sym">N</span> <div>Natural Numbers<br>ସ୍ୱାଭାବିକ ସଂଖ୍ୟା</div></div>
+            <div class="symbol-card"><span class="sym">Z</span> <div>Integers<br>ପୂର୍ଣ୍ଣ ସଂଖ୍ୟା</div></div>
+            <div class="symbol-card"><span class="sym">Q</span> <div>Rational Numbers<br>ପରିମେୟ ସଂଖ୍ୟା</div></div>
+            <div class="symbol-card"><span class="sym">R</span> <div>Real Numbers<br>ବାସ୍ତବ ସଂଖ୍ୟା</div></div>
+        </div>
+
+        <h2>Belongs to / ର ସଦସ୍ୟ ଅଟେ (&isin;)</h2>
+        <div class="lang-row">
+            <div class="lang-col">
+                <span class="odia-title">ଓଡ଼ିଆ</span>
+                ଯଦି <b>a</b> ଏକ ସେଟ୍ <b>A</b> ର ଉପାଦାନ ହୁଏ, ତେବେ ଆମେ ଲେଖୁ <span class="math-text">a &isin; A</span> । ଯଦି ନୁହେଁ, ତେବେ <span class="math-text">a &notin; A</span> ଲେଖୁ।
+            </div>
+            <div class="lang-col">
+                <span class="eng-title">ENGLISH</span>
+                If <b>a</b> is an element of set <b>A</b>, we say "a belongs to A" and write <span class="math-text">a &isin; A</span>. If not, we write <span class="math-text">a &notin; A</span>.
+            </div>
+        </div>
+
+        <div class="method-box">
+            <h2>Two Methods of Representing a Set<br>ସେଟ୍ ପ୍ରକାଶ କରିବାର ଦୁଇଟି ପଦ୍ଧତି</h2>
+            
+            <div class="lang-row">
+                <div class="lang-col" style="border-left: 5px solid #ff9f43;">
+                    <strong>1. Roster Form (ତାଲିକା ପଦ୍ଧତି):</strong><br>
+                    All elements are listed, separated by commas and enclosed within braces { }. <br>
+                    ସମସ୍ତ ଉପାଦାନକୁ କମା ଦ୍ୱାରା ପୃଥକ କରି କୁଟିଳ ବନ୍ଧନୀ { } ମଧ୍ୟରେ ଲେଖାଯାଏ।
+                </div>
+                <div class="lang-col" style="border-left: 5px solid #2ecc71;">
+                    <strong>2. Set-builder Form (ସେଟ୍ ଗଠନକାରୀ ପଦ୍ଧତି):</strong><br>
+                    Elements are described by their common property. <br>
+                    ଏଥିରେ ଉପାଦାନଗୁଡ଼ିକର ଏକ ସାଧାରଣ ଗୁଣାବଳୀକୁ ଉଲ୍ଲେଖ କରାଯାଏ।
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="or">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sets - Page 3</title>
+    <style>
+        /* ପୂର୍ବ Styles ର ଅନୁକରଣ */
+        .note-card {
+            background: #fff3cd;
+            border-left: 6px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .example-box {
+            background: #f1f2f6;
+            border: 1px solid #dfe4ea;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+        .math-syntax {
+            color: #d63031;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+            background: #ffeaa7;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-box" style="background: linear-gradient(135deg, #10ac84, #1dd1a1);">
+        <div class="page-badge">PAGE 3</div>
+        <h1>Forms of Sets</h1>
+        <p>ସେଟ୍ ପ୍ରକାଶ କରିବାର ରୂପ</p>
+    </div>
+
+    <div class="content-area">
+        <h2>Important Rules for Roster Form / ତାଲିକା ପଦ୍ଧତିର ନିୟମ</h2>
+        
+        <div class="note-card">
+            <div class="lang-row">
+                <div class="lang-col" style="background: none; border: none;">
+                    <strong>ଓଡ଼ିଆ:</strong> ତାଲିକା ପଦ୍ଧତିରେ ଉପାଦାନଗୁଡ଼ିକର କ୍ରମ ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ନୁହେଁ । ଏବଂ ସାଧାରଣତଃ ଏକ ଉପାଦାନର ପୁନରାବୃତ୍ତି କରାଯାଏ ନାହିଁ ।
+                </div>
+                <div class="lang-col" style="background: none; border: none; font-style: italic;">
+                    <strong>English:</strong> In roster form, the order in which elements are listed is immaterial. Also, an element is generally not repeated.
+                </div>
+            </div>
+        </div>
+
+        <div class="example-box">
+            <strong>Example / ଉଦାହରଣ:</strong><br>
+            The set of letters in the word <span class="math-syntax">SCHOOL</span> is <span class="math-syntax">{S, C, H, O, L}</span>.<br>
+            'SCHOOL' ଶବ୍ଦର ଅକ୍ଷରଗୁଡ଼ିକର ସେଟ୍ ହେଉଛି <span class="math-syntax">{S, C, H, O, L}</span> । (ଏଠାରେ 'O' ଦୁଇଥର ଥିଲେ ମଧ୍ୟ ସେଟ୍‌ରେ ଥରେ ଲେଖାଯିବ)
+        </div>
+
+        <hr style="margin: 40px 0; border: 0; border-top: 2px dashed #ccc;">
+
+        <h2>Set-builder Form / ସେଟ୍ ଗଠନକାରୀ ପଦ୍ଧତି</h2>
+        
+        <div class="lang-row">
+            <div class="lang-col">
+                <span class="odia-title">ଓଡ଼ିଆ</span>
+                ଏହି ପଦ୍ଧତିରେ ଆମେ ଉପାଦାନଗୁଡ଼ିକୁ ସିଧାସଳଖ ନଲେଖି ସେମାନଙ୍କର ଏକ ସାଧାରଣ ଗୁଣ ବିଷୟରେ ଲେଖୁ ।
+                <br><br>
+                <span class="math-syntax">V = {x : x ହେଉଛି ଏକ ସ୍ୱରବର୍ଣ୍ଣ}</span>
+                <br>ଏଠାରେ <span class="math-syntax">:</span> ଚିହ୍ନର ଅର୍ଥ ହେଉଛି "ଯେପରିକି" (such that) ।
+            </div>
+            <div class="lang-col">
+                <span class="eng-title">ENGLISH</span>
+                In this form, all the elements of a set possess a single common property.
+                <br><br>
+                <span class="math-syntax">V = {x : x is a vowel}</span>
+                <br>Here, the symbol <span class="math-syntax">:</span> stands for "such that".
+            </div>
+        </div>
+
+        <div class="highlight-box" style="background: #e8f4fd; border-left: 5px solid #3498db;">
+            <strong>Example 1 / ଉଦାହରଣ ୧:</strong><br>
+            Write the solution set of <span class="math-syntax">x² + x - 2 = 0</span> in roster form.<br>
+            ସମୀକରଣ <span class="math-syntax">x² + x - 2 = 0</span> ର ସମାଧାନ ସେଟ୍‌କୁ ତାଲିକା ପଦ୍ଧତିରେ ଲେଖ ।
+            <br><br>
+            <strong>Answer / ଉତ୍ତର:</strong> <span class="math-syntax">{1, -2}</span>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="or">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sets - Page 4</title>
+    <style>
+        /* Styles used in previous pages */
+        .step-container {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #0984e3;
+        }
+        .math-display {
+            display: block;
+            text-align: center;
+            font-size: 1.2em;
+            margin: 15px 0;
+            color: #2d3436;
+            background: #fff;
+            padding: 10px;
+            border: 1px dashed #636e72;
+        }
+        .ans-label {
+            color: #00b894;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-box" style="background: linear-gradient(135deg, #0984e3, #74b9ff);">
+        <div class="page-badge">PAGE 4</div>
+        <h1>Solving Examples</h1>
+        <p>ଉଦାହରଣ ଗୁଡ଼ିକର ସମାଧାନ</p>
+    </div>
+
+    <div class="content-area">
+        
+        <div class="step-container">
+            <div class="lang-row">
+                <div class="lang-col">
+                    <span class="odia-title">ଉଦାହରଣ ୨:</span>
+                    ସେଟ୍ <span class="math-syntax">{x : x ଏକ ଧନାତ୍ମକ ପୂର୍ଣ୍ଣ ସଂଖ୍ୟା ଏବଂ x² < 40}</span> କୁ ତାଲିକା ପଦ୍ଧତିରେ ଲେଖ।
+                </div>
+                <div class="lang-col">
+                    <span class="eng-title">Example 2:</span>
+                    Write the set <span class="math-syntax">{x : x is a positive integer and x² < 40}</span> in roster form.
+                </div>
+            </div>
+            <div class="example-box" style="background: white;">
+                <span class="ans-label">Solution / ସମାଧାନ:</span><br>
+                Positive integers are 1, 2, 3, 4, 5, 6... <br>
+                1²=1, 2²=4, 3²=9, 4²=16, 5²=25, 6²=36 (All are < 40). But 7²=49 (> 40).<br>
+                <span class="ans-label">Answer:</span> <span class="math-syntax">{1, 2, 3, 4, 5, 6}</span>
+            </div>
+        </div>
+
+        <div class="step-container" style="border-left-color: #e17055;">
+            <div class="lang-row">
+                <div class="lang-col">
+                    <span class="odia-title">ଉଦାହରଣ ୩:</span>
+                    ସେଟ୍ <span class="math-syntax">A = {1, 4, 9, 16, 25, ...}</span> କୁ ସେଟ୍ ଗଠନକାରୀ ପଦ୍ଧତିରେ ଲେଖ।
+                </div>
+                <div class="lang-col">
+                    <span class="eng-title">Example 3:</span>
+                    Write the set <span class="math-syntax">A = {1, 4, 9, 16, 25, ...}</span> in set-builder form.
+                </div>
+            </div>
+            <div class="example-box" style="background: white;">
+                <span class="ans-label">Solution / ସମାଧାନ:</span><br>
+                We can see that each number is a square of natural numbers.<br>
+                ଏଠାରେ ପ୍ରତ୍ୟେକ ସଂଖ୍ୟା ଏକ ସ୍ୱାଭାବିକ ସଂଖ୍ୟାର ବର୍ଗ ଅଟେ । (1², 2², 3²...) <br>
+                <span class="ans-label">Answer:</span> <span class="math-syntax">A = {x : x is the square of a natural number}</span>
+                <br>କିମ୍ବା <span class="math-syntax">A = {x : x = n², where n &isin; N}</span>
+            </div>
+        </div>
+
+        <h2>Self-Check / ନିଜେ ଚେଷ୍ଟା କର</h2>
+        <div class="lang-row">
+            <div class="lang-col">
+                ସେଟ୍ <strong>{1/2, 2/3, 3/4, 4/5, 5/6, 6/7}</strong> କୁ ଦେଖିଲେ ଆମେ ଜାଣୁ ଯେ ଲବ (numerator) ଠାରୁ ହର (denominator) ୧ ଅଧିକ ଅଛି । ଏହାକୁ ସେଟ୍ ଗଠନକାରୀ ପଦ୍ଧତିରେ ଏହିପରି ଲେଖାଯାଇପାରିବ:
+            </div>
+            <div class="lang-col" style="font-style: italic;">
+                In the set <strong>{1/2, 2/3, 3/4, 4/5, 5/6, 6/7}</strong>, the denominator is 1 more than the numerator. It can be written as:
+            </div>
+        </div>
+        <div class="math-display">
+            {x : x = n / (n + 1), where n is a natural number and 1 &le; n &le; 6}
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="or">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sets - Page 5 (Exercise 1.1)</title>
+    <style>
+        /* Styles from previous pages */
+        .exercise-container {
+            background: #ffffff;
+            border: 2px solid #fdb924;
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+        .question-item {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .q-number {
+            background: #fdb924;
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .sub-questions {
+            margin-left: 40px;
+            margin-top: 10px;
+        }
+        .sub-q {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            background: #fff9eb;
+            padding: 8px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-box" style="background: linear-gradient(135deg, #f0932b, #ffbe76);">
+        <div class="page-badge">PAGE 5</div>
+        <h1>EXERCISE 1.1</h1>
+        <p>ଅନୁଶୀଳନୀ ୧.୧</p>
+    </div>
+
+    <div class="content-area">
+        <div class="exercise-container">
+            
+            <div class="question-item">
+                <div class="lang-row">
+                    <div class="lang-col">
+                        <span class="odia-title"><span class="q-number">୧</span> ନିମ୍ନଲିଖିତ ମଧ୍ୟରୁ କେଉଁଟି ଏକ ସେଟ୍? ତୁମର ଉତ୍ତରକୁ ଯୁକ୍ତି ସହ ବୁଝାଅ ।</span>
+                    </div>
+                    <div class="lang-col">
+                        <span class="eng-title"><span class="q-number">1</span> Which of the following are sets? Justify your answer.</span>
+                    </div>
+                </div>
+                
+                <div class="sub-questions">
+                    <div class="sub-q">
+                        <span>(i) 'J' ଅକ୍ଷରରେ ଆରମ୍ଭ ହେଉଥିବା ବର୍ଷର ସମସ୍ତ ମାସର ସଂଗ୍ରହ ।</span>
+                        <span style="color: #7f8c8d; font-style: italic;">(i) The collection of all months beginning with letter J.</span>
+                    </div>
+                    <div class="sub-q">
+                        <span>(ii) ଭାରତର ଦଶଜଣ ସବୁଠାରୁ ପ୍ରତିଭାଶାଳୀ ଲେଖକଙ୍କ ସଂଗ୍ରହ ।</span>
+                        <span style="color: #7f8c8d; font-style: italic;">(ii) Collection of ten most talented writers of India.</span>
+                    </div>
+                    <div class="sub-q">
+                        <span>(iii) ବିଶ୍ୱର ଏକାଦଶ ଶ୍ରେଷ୍ଠ କ୍ରିକେଟ୍ ବ୍ୟାଟ୍ସମ୍ୟାନଙ୍କ ଏକ ଦଳ ।</span>
+                        <span style="color: #7f8c8d; font-style: italic;">(iii) A team of eleven best cricket batsmen of the world.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div 
