@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <script data-cfasync='false' src='//wwr.giriudog.com/?tag=9025f181'></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RK Excellent Coaching - Weekly Mock Test</title>
+    <title>Today Current Affairs Mock Test - RK Excellent Coaching</title>
     <style>
-        :root { --primary: #2c3e50; --secondary: #3498db; --accent: #e67e22; --success: #27ae60; }
+        :root { --primary: #2c3e50; --secondary: #3498db; --accent: #e67e22; --success: #27ae60; --danger: #e74c3c; }
         body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #333; }
         .container { max-width: 850px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         .header { text-align: center; border-bottom: 4px solid var(--secondary); margin-bottom: 30px; padding-bottom: 20px; }
-        .coaching-name { color: var(--accent); font-size: 2.5em; font-weight: bold; margin: 0; text-transform: uppercase; }
-        .test-info { font-size: 1.2em; color: var(--primary); margin-top: 10px; font-weight: 600; }
+        .coaching-name { color: var(--accent); font-size: 2.2em; font-weight: bold; margin: 0; text-transform: uppercase; }
+        .test-info { font-size: 1.6em; color: var(--primary); margin-top: 10px; font-weight: bold; }
+        
         .q-card { margin-bottom: 25px; padding: 20px; border: 1px solid #eee; border-radius: 10px; background: #fff; transition: 0.3s; }
-        .q-card:hover { border-color: var(--secondary); box-shadow: 0 5px 15px rgba(52,152,219,0.1); }
-        .q-text { font-size: 1.1em; font-weight: bold; margin-bottom: 15px; display: block; }
+        .q-text { font-size: 1.1em; font-weight: bold; margin-bottom: 10px; display: block; color: #222; }
+        .q-text-hi { font-size: 1em; color: #555; margin-bottom: 15px; display: block; font-style: italic; }
+        
         .options { list-style: none; padding: 0; }
-        .options li { margin-bottom: 12px; display: flex; align-items: center; cursor: pointer; }
-        input[type="radio"] { margin-right: 12px; cursor: pointer; width: 18px; height: 18px; }
-        .submit-area { position: sticky; bottom: 20px; background: white; padding: 20px; border-top: 2px solid #eee; text-align: center; }
-        .btn { padding: 15px 40px; background: var(--success); color: white; border: none; border-radius: 8px; font-size: 1.3em; font-weight: bold; cursor: pointer; width: 100%; transition: 0.3s; }
-        .btn:hover { background: #219150; transform: translateY(-2px); }
-        #result { display: none; margin-top: 20px; padding: 20px; border-radius: 10px; text-align: center; font-size: 1.5em; font-weight: bold; }
+        .options li { margin-bottom: 10px; display: flex; align-items: center; padding: 10px; border-radius: 8px; border: 1px solid #eee; }
+        
+        .correct-ans { background-color: #d4edda !important; border-color: #c3e6cb !important; color: #155724; font-weight: bold; }
+        .wrong-ans { background-color: #f8d7da !important; border-color: #f5c6cb !important; color: #721c24; }
+        .ans-label { display: none; font-size: 0.95em; margin-top: 10px; color: var(--success); font-weight: bold; border-top: 1px dashed #ccc; padding-top: 10px; }
+
+        .submit-area { position: sticky; bottom: 0; background: white; padding: 20px; border-top: 2px solid #eee; text-align: center; z-index: 100; }
+        .btn { padding: 15px 40px; background: var(--success); color: white; border: none; border-radius: 8px; font-size: 1.2em; font-weight: bold; cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .btn:disabled { background: #ccc; cursor: not-allowed; box-shadow: none; }
+        
+        #result { display: none; margin-top: 10px; padding: 25px; border-radius: 15px; text-align: center; font-size: 1.6em; font-weight: bold; background: #fff; border: 4px solid var(--success); margin-bottom: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
@@ -29,72 +35,108 @@
 <div class="container">
     <div class="header">
         <div class="coaching-name">RK Excellent Coaching</div>
-        <div class="test-info">Weekly Current Affairs: 4 - 10 May 2026</div>
-        <p>Bargarh, Odisha | Mathematics & GS Special</p>
+        <div class="test-info">Daily Current Affairs Mock (Bilingual)</div>
+        <p>Date: 10 May 2026 | Bargarh, Odisha</p>
     </div>
+
+    <div id="result"></div>
 
     <form id="quizForm">
         <div id="questions-container"></div>
         
         <div class="submit-area">
-            <button type="button" class="btn" onclick="checkQuiz()">Submit Test & See Score</button>
-            <div id="result"></div>
+            <button type="button" id="submitBtn" class="btn" onclick="checkQuiz()">Submit Test & View Answers</button>
         </div>
     </form>
 </div>
 
 <script>
     const quizData = [
-        { q: "World Press Freedom Index 2026 mein Bharat ki rank kya hai?", a: "157", o: ["151", "157", "161", "142"] },
-        { q: "Bharat ka pehla 'Paperless Judiciary' rajya kaun bana?", a: "Sikkim", o: ["Kerala", "Sikkim", "Odisha", "Goa"] },
-        { q: "Supreme Court mein judges ki sankhya badhakar kitni karne ki manzoori mili?", a: "38", o: ["34", "38", "40", "36"] },
-        { q: "World Migration Report 2026 ke anusar sabse bada Remittance praptkarta?", a: "India", o: ["China", "Mexico", "India", "USA"] },
-        { q: "SIMBEX-II 2026 abhyas किन deshon ke beech hua?", a: "India-Cambodia", o: ["India-Singapore", "India-Cambodia", "India-Thailand", "India-Vietnam"] },
-        { q: "TVK party ne Tamil Nadu mein kitni सीटें jeeti?", a: "108", o: ["59", "108", "118", "47"] },
-        { q: "Prasar Bharati ke naye adhyaksh kaun bane?", a: "Prasoon Joshi", o: ["Navneet Sehgal", "Prasoon Joshi", "Amitabh Kant", "S. Somanath"] },
-        { q: "Bharat ki pehli Space Tech Unicorn kaun si hai?", a: "Skyroot Aerospace", o: ["AgniKul", "Skyroot Aerospace", "Pixxel", "Bellatrix"] },
-        { q: "Bharat ka pehla 'Pearl Farming Cluster' kahan hai?", a: "Hazaribagh", o: ["Bargarh", "Hazaribagh", "Surat", "Patna"] },
-        { q: "Mission for Cotton Productivity ke liye kitna budget allot hua?", a: "₹5659 Crore", o: ["₹4500 Crore", "₹5659 Crore", "₹6000 Crore", "₹3500 Crore"] },
-        { q: "UNESCO World Press Freedom Prize 2026 kise mila?", a: "Sudanese Journalists", o: ["Indian Journalists", "Sudanese Journalists", "New York Times", "BBC"] },
-        { q: "World Red Cross Day kab manaya jata hai?", a: "8 May", o: ["1 May", "8 May", "5 May", "10 May"] },
-        { q: "INS Mahendragiri kis project ke tehat bana?", a: "Project 17A", o: ["Project 75", "Project 15B", "Project 17A", "Project 21"] },
-        { q: "World Athletics Day 2026 kab manaya gaya?", a: "7 May", o: ["5 May", "7 May", "8 May", "10 May"] },
-        { q: "Great Nicobar Project kis Strait ke paas hai?", a: "Malacca Strait", o: ["Palk Strait", "Malacca Strait", "Bering Strait", "Gibraltar"] },
-        { q: "WHO ke anusar 2024 mein Hepatitis se kitni mautein hui?", a: "1.3 Million", o: ["1.0 M", "1.3 M", "2.0 M", "0.5 M"] },
-        { q: "RBI ke naye Deputy Governor kaun bane?", a: "Rohit Jain", o: ["Shaktikanta Das", "Rohit Jain", "T. Rabi Sankar", "Urjit Patel"] },
-        { q: "ADB ne digital connectivity ke liye kitna nivesh ghoshit kiya?", a: "70 Billion", o: ["50 Billion", "70 Billion", "100 Billion", "25 Billion"] },
-        { q: "Thalapathy Vijay ki party TVK ka poora naam kya hai?", a: "Tamilaga Vettri Kazhagam", o: ["Tamil Victory Party", "Tamilaga Vettri Kazhagam", "Vijay People Party", "DMK Plus"] },
-        { q: "Portable MRI machine pehli baar kahan install hui?", a: "AIIMS Delhi", o: ["AIIMS Bhubaneswar", "AIIMS Delhi", "Apollo", "Fortis"] },
-        { q: "International Big Cat Alliance ka headquarter kahan hai?", a: "New Delhi", o: ["Mysore", "New Delhi", "Dehradun", "Nagpur"] },
-        { q: "Sabse zyada Cyber Crime kis shehar mein darj hue?", a: "Bengaluru", o: ["Mumbai", "Hyderabad", "Bengaluru", "Delhi"] },
-        { q: "World Migration Report 2026 kaun jari karta hai?", a: "IOM", o: ["WHO", "IOM", "World Bank", "UN"] },
-        { q: "Smart Island Monitoring System kahan launch hua?", a: "Galapagos Islands", o: ["Andaman", "Galapagos Islands", "Maldives", "Lakshadweep"] },
-        { q: "World Press Freedom Index mein Top par kaun sa desh hai?", a: "Norway", o: ["India", "USA", "Norway", "China"] }
+        { q: "What is India's rank in World Press Freedom Index 2026?", h: "वर्ल्ड प्रेस फ्रीडम इंडेक्स 2026 में भारत की रैंक क्या है?", a: "157", o: ["151", "157", "161", "142"] },
+        { q: "Which state became India's first 'Paperless Judiciary' state?", h: "भारत का पहला 'पेपरलेस ज्यूडिशियरी' राज्य कौन बना?", a: "Sikkim", o: ["Kerala", "Sikkim", "Odisha", "Goa"] },
+        { q: "What is the new approved number of judges in Supreme Court?", h: "सुप्रीम कोर्ट में जजों की नई स्वीकृत संख्या कितनी है?", a: "38", o: ["34", "38", "40", "36"] },
+        { q: "As per World Migration Report 2026, which country is the largest remittance recipient?", h: "विश्व प्रवासन रिपोर्ट 2026 के अनुसार, सबसे बड़ा प्रेषण (Remittance) प्राप्तकर्ता देश कौन सा है?", a: "India", o: ["China", "Mexico", "India", "USA"] },
+        { q: "SIMBEX-II 2026 military exercise was held between which countries?", h: "SIMBEX-II 2026 सैन्य अभ्यास किन देशों के बीच आयोजित किया गया?", a: "India-Cambodia", o: ["India-Singapore", "India-Cambodia", "India-Thailand", "India-Vietnam"] },
+        { q: "How many seats did Vijay's party TVK win in Tamil Nadu?", h: "विजय की पार्टी TVK ने तमिलनाडु में कितनी सीटें जीतीं?", a: "108", o: ["59", "108", "118", "47"] },
+        { q: "Who became the new Chairman of Prasar Bharati?", h: "प्रसार भारती के नए अध्यक्ष कौन बने हैं?", a: "Prasoon Joshi", o: ["Navneet Sehgal", "Prasoon Joshi", "Amitabh Kant", "S. Somanath"] },
+        { q: "Which company became India's first Space Tech Unicorn?", h: "कौन सी कंपनी भारत की पहली स्पेस टेक यूनिकॉर्न बनी?", a: "Skyroot Aerospace", o: ["AgniKul", "Skyroot Aerospace", "Pixxel", "Bellatrix"] },
+        { q: "Where was India's first 'Pearl Farming Cluster' announced?", h: "भारत का पहला 'पर्ल फार्मिंग क्लस्टर' कहाँ घोषित किया गया?", a: "Hazaribagh", o: ["Bargarh", "Hazaribagh", "Surat", "Patna"] },
+        { q: "What is the 5-year budget for Mission for Cotton Productivity?", h: "कॉटन उत्पादकता मिशन के लिए 5 साल का बजट कितना है?", a: "₹5659 Crore", o: ["₹4500 Crore", "₹5659 Crore", "₹6000 Crore", "₹3500 Crore"] },
+        { q: "Who received the UNESCO World Press Freedom Prize 2026?", h: "यूनेस्को वर्ल्ड प्रेस फ्रीडम प्राइज 2026 किसे मिला?", a: "Sudanese Journalists", o: ["Indian Journalists", "Sudanese Journalists", "New York Times", "BBC"] },
+        { q: "World Red Cross Day is celebrated on which date?", h: "विश्व रेड क्रॉस दिवस किस तारीख को मनाया जाता है?", a: "8 May", o: ["1 May", "8 May", "5 May", "10 May"] },
+        { q: "INS Mahendragiri is a stealth frigate built under which project?", h: "INS महेंद्रगिरी किस प्रोजेक्ट के तहत बनाया गया एक स्टील्थ फ्रिगेट है?", a: "Project 17A", o: ["Project 75", "Project 15B", "Project 17A", "Project 21"] },
+        { q: "When was World Athletics Day 2026 celebrated?", h: "विश्व एथलेटिक्स दिवस 2026 कब मनाया गया?", a: "7 May", o: ["5 May", "7 May", "8 May", "10 May"] },
+        { q: "Great Nicobar Infrastructure Project is near which Strait?", h: "ग्रेट निकोबार इंफ्रास्ट्रक्चर प्रोजेक्ट किस जलडमरूमध्य के पास है?", a: "Malacca Strait", o: ["Palk Strait", "Malacca Strait", "Bering Strait", "Gibraltar"] },
+        { q: "How many deaths were recorded due to Hepatitis in 2024 per WHO?", h: "WHO के अनुसार 2024 में हेपेटाइटिस के कारण कितनी मौतें दर्ज की गईं?", a: "1.3 Million", o: ["1.0 M", "1.3 M", "2.0 M", "0.5 M"] },
+        { q: "Who is appointed as the new Deputy Governor of RBI?", h: "RBI के नए डिप्टी गवर्नर के रूप में किसे नियुक्त किया गया है?", a: "Rohit Jain", o: ["Shaktikanta Das", "Rohit Jain", "T. Rabi Sankar", "Urjit Patel"] },
+        { q: "How much did ADB announce for digital connectivity investment?", h: "ADB ने डिजिटल कनेक्टिविटी निवेश के लिए कितनी राशि की घोषणा की?", a: "70 Billion", o: ["50 Billion", "70 Billion", "100 Billion", "25 Billion"] },
+        { q: "What is the full form of the Tamil Nadu party TVK?", h: "तमिलनाडु की पार्टी TVK का पूर्ण रूप क्या है?", a: "Tamilaga Vettri Kazhagam", o: ["Tamil Victory Party", "Tamilaga Vettri Kazhagam", "Vijay People Party", "DMK Plus"] },
+        { q: "Where was the first portable MRI machine installed in India?", h: "भारत में पहली पोर्टेबल एमआरआई मशीन कहाँ स्थापित की गई थी?", a: "AIIMS Delhi", o: ["AIIMS Bhubaneswar", "AIIMS Delhi", "Apollo", "Fortis"] },
+        { q: "Where will the first International Big Cat Alliance summit 2026 be held?", h: "पहला इंटरनेशनल बिग कैट एलायंस शिखर सम्मेलन 2026 कहाँ आयोजित किया जाएगा?", a: "New Delhi", o: ["Mysore", "New Delhi", "Dehradun", "Nagpur"] },
+        { q: "Which city recorded the highest Cyber Crimes per NCRB?", h: "NCRB के अनुसार किस शहर में सबसे अधिक साइबर अपराध दर्ज किए गए?", a: "Bengaluru", o: ["Mumbai", "Hyderabad", "Bengaluru", "Delhi"] },
+        { q: "Which organization releases the World Migration Report 2026?", h: "कौन सा संगठन विश्व प्रवासन रिपोर्ट 2026 जारी करता है?", a: "IOM", o: ["WHO", "IOM", "World Bank", "UN"] },
+        { q: "Where was the world's first Smart Island Monitoring System launched?", h: "दुनिया का पहला स्मार्ट आइलैंड मॉनिटरिंग सिस्टम कहाँ लॉन्च किया गया था?", a: "Galapagos Islands", o: ["Andaman", "Galapagos Islands", "Maldives", "Lakshadweep"] },
+        { q: "Which country ranked first in World Press Freedom Index 2026?", h: "वर्ल्ड प्रेस फ्रीडम इंडेक्स 2026 में कौन सा देश पहले स्थान पर रहा?", a: "Norway", o: ["Iceland", "Denmark", "Norway", "Finland"] }
     ];
 
     const container = document.getElementById('questions-container');
+    
     quizData.forEach((data, index) => {
         const div = document.createElement('div');
         div.className = 'q-card';
+        div.id = `card-${index}`;
         div.innerHTML = `
             <span class="q-text">${index + 1}. ${data.q}</span>
+            <span class="q-text-hi">${data.h}</span>
             <ul class="options">
-                ${data.o.map(opt => `<li><input type="radio" name="q${index}" value="${opt}"> ${opt}</li>`).join('')}
+                ${data.o.map(opt => `
+                    <li id="option-${index}-${opt.replace(/[^a-zA-Z0-9]/g, '')}">
+                        <label style="width:100%; cursor:pointer; display:flex; align-items:center;">
+                            <input type="radio" name="q${index}" value="${opt}" style="margin-right:10px; width:18px; height:18px;"> ${opt}
+                        </label>
+                    </li>
+                `).join('')}
             </ul>
+            <div class="ans-label" id="ans-label-${index}">Correct Answer: ${data.a}</div>
         `;
         container.appendChild(div);
     });
 
     function checkQuiz() {
         let score = 0;
+        
         quizData.forEach((data, index) => {
             const selected = document.querySelector(`input[name="q${index}"]:checked`);
-            if (selected && selected.value === data.a) score++;
+            const correctOptId = `option-${index}-${data.a.replace(/[^a-zA-Z0-9]/g, '')}`;
+            
+            const allOptions = document.getElementsByName(`q${index}`);
+            allOptions.forEach(input => input.disabled = true);
+
+            document.getElementById(correctOptId).classList.add('correct-ans');
+            document.getElementById(`ans-label-${index}`).style.display = "block";
+
+            if (selected) {
+                if (selected.value === data.a) {
+                    score++;
+                } else {
+                    const selectedOptId = `option-${index}-${selected.value.replace(/[^a-zA-Z0-9]/g, '')}`;
+                    document.getElementById(selectedOptId).classList.add('wrong-ans');
+                }
+            }
         });
+        
         const resultDiv = document.getElementById('result');
         resultDiv.style.display = 'block';
-        resultDiv.innerHTML = `RK Excellent Coaching Result: <br> Your Score: ${score} / 25`;
-        resultDiv.style.color = score > 15 ? 'green' : 'red';
+        resultDiv.innerHTML = `
+            <div style="font-size:0.6em; color:var(--accent);">RK EXCELLENT COACHING</div>
+            TEST COMPLETED!<br>
+            <span style="color:var(--primary);">Your Score: ${score} / 25</span>
+        `;
+        
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('submitBtn').innerHTML = "Answers Displayed Below";
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 </script>
 
