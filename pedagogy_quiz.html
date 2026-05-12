@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="or">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RK Excellent Coaching - Bilingual Pedagogy Quiz</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #eef2f7; margin: 0; padding: 15px; }
+        .container { max-width: 900px; margin: auto; background: #ffffff; padding: 20px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+        .header { text-align: center; border-bottom: 4px solid #1a73e8; margin-bottom: 20px; padding-bottom: 10px; }
+        .header h1 { color: #1a73e8; margin: 0; font-size: 1.8rem; }
+        #progress-bar { width: 100%; background: #ddd; height: 10px; border-radius: 5px; margin-bottom: 15px; overflow: hidden; }
+        #progress-fill { height: 100%; background: #1a73e8; width: 0%; transition: 0.3s; }
+        .question-box { margin-bottom: 20px; }
+        .q-en { font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 8px; }
+        .q-or { font-size: 1.15rem; color: #555; background: #f9f9f9; padding: 12px; border-left: 5px solid #1a73e8; border-radius: 4px; margin-bottom: 20px; }
+        .option { display: block; border: 2px solid #e0e0e0; border-radius: 8px; padding: 15px; margin: 10px 0; cursor: pointer; transition: all 0.2s ease; font-size: 1.1rem; }
+        .option:hover { background-color: #f1f3f4; border-color: #1a73e8; }
+        .option.correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724; font-weight: bold; }
+        .option.wrong { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
+        .footer { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid #eee; }
+        #next-btn { background: #1a73e8; color: white; border: none; padding: 12px 30px; border-radius: 6px; cursor: pointer; font-size: 1.1rem; font-weight: bold; }
+        #next-btn:disabled { background: #ccc; cursor: not-allowed; }
+        .result-screen { text-align: center; display: none; padding: 40px 20px; }
+        .result-screen h2 { color: #1a73e8; font-size: 2rem; }
+        #score-display { font-size: 3rem; font-weight: bold; margin: 20px 0; color: #28a745; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>RK Excellent Coaching</h1>
+        <p>Bilingual Pedagogy Mock Test (20 Questions)</p>
+    </div>
+
+    <div id="quiz-screen">
+        <div id="progress-bar"><div id="progress-fill"></div></div>
+        <div id="progress-text" style="font-weight: bold; margin-bottom: 10px;">Question 1 of 20</div>
+        
+        <div id="question-container"></div>
+
+        <div class="footer">
+            <span id="status-msg" style="font-weight: bold;"></span>
+            <button id="next-btn" onclick="goToNext()">Next Question / ପରବର୍ତ୍ତୀ ପ୍ରଶ୍ନ</button>
+        </div>
+    </div>
+
+    <div class="result-screen" id="result-screen">
+        <h2>Quiz Completed! / ସମାପ୍ତ!</h2>
+        <div id="score-display">0 / 20</div>
+        <button onclick="location.reload()" style="background:#34a853; color:white; padding:15px 30px; border:none; border-radius:6px; cursor:pointer; font-size:1.1rem;">Restart Test / ପୁନର୍ବାର ଆରମ୍ଭ କରନ୍ତୁ</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        { en: "Curriculum was defined as 'a plan for action' (1970) by:", or: "ପାଠ୍ୟକ୍ରମକୁ 'କାର୍ଯ୍ୟ ପାଇଁ ଏକ ଯୋଜନା' (୧୯୭୦) ଭାବରେ କିଏ ସଂଜ୍ଞାୟିତ କରିଥିଲେ?", opts: ["Galen Saylor", "Tanner", "Hilda Taba", "Oliva"], ans: 0 },
+        { en: "Which is NOT true about critical pedagogy according to Freire?", or: "ସମାଲୋଚନାତ୍ମକ ଶିକ୍ଷାଶାସ୍ତ୍ର ବିଷୟରେ କେଉଁଟି ସତ୍ୟ ନୁହେଁ?", opts: ["Dialogue generates thinking", "Focus on oppression", "No pre-requirements needed", "Reflective practice"], ans: 2 },
+        { en: "The Charity Model treats disabled people as:", or: "ଚାରିଟି (Charity) ମଡେଲ୍ ବିକଳାଙ୍ଗ ବ୍ୟକ୍ତିଙ୍କୁ କିପରି ବିବେଚନା କରେ?", opts: ["Equal citizens", "Capable workers", "Incapable & objects of pity", "Resourceful"], ans: 2 },
+        { en: "What leads to curriculum change primarily?", or: "ପାଠ୍ୟକ୍ରମ ପରିବର୍ତ୍ତନର ମୁଖ୍ୟ କାରଣ କ’ଣ?", opts: ["National priorities & Govt Ideology", "New uniforms", "School furniture", "Sports Day"], ans: 0 },
+        { en: "The term 'Andragogy' was first used by:", or: "'ଆଣ୍ଡ୍ରାଗୋଜି' ଶବ୍ଦଟି ପ୍ରଥମେ କିଏ ବ୍ୟବହାର କରିଥିଲେ?", opts: ["Malcolm Knowles", "Alexander Kapp", "Pestalozzi", "Edward Linderman"], ans: 1 },
+        { en: "External Criticism in research focuses on:", or: "ଅନୁସନ୍ଧାନରେ ବାହ୍ୟ ସମାଲୋଚନା କେଉଁଥିରେ ଧ୍ୟାନ ଦିଏ?", opts: ["Meaning of text", "Authenticity of data source", "Logical analysis", "Researcher's opinion"], ans: 1 },
+        { en: "Who is a functionalist, NOT a Marxist theorist?", or: "କିଏ ଜଣେ ପ୍ରକାର୍ଯ୍ୟବାଦୀ, ମାର୍କ୍ସବାଦୀ ନୁହଁନ୍ତି?", opts: ["Althusser", "Gramsci", "Emile Durkheim", "Bowles"], ans: 2 },
+        { en: "SWOT analysis: Which is NOT an advantage?", or: "SWOT ବିଶ୍ଳେଷଣର କେଉଁଟି ଏକ ସୁବିଧା ନୁହେଁ?", opts: ["Easy to understand", "Easy to communicate", "Data collection confusion", "Versatile usage"], ans: 2 },
+        { en: "First step in Instructional Design is:", or: "ଶିକ୍ଷାଦାନ ଡିଜାଇନ୍ ର ପ୍ରଥମ ପଦକ୍ଷେପ କ’ଣ?", opts: ["Assessment", "Need Analysis", "Task Analysis", "Implementation"], ans: 1 },
+        { en: "Schooling reproduces ruling class norms. This is:", or: "ଶିକ୍ଷା ଶାସକ ଗୋଷ୍ଠୀର ନିୟମକୁ ପ୍ରୋତ୍ସାହିତ କରେ - ଏହା କ’ଣ?", opts: ["Realism", "Pragmatism", "Marxism", "Idealism"], ans: 2 },
+        { en: "Flander's 10th category refers to:", or: "ଫ୍ଲାଣ୍ଡର୍ସଙ୍କ ଦଶମ ବିଭାଗ କାହାକୁ ସୂଚାଏ?", opts: ["Teacher Praise", "Pupil response", "Silence or Confusion", "Asking questions"], ans: 2 },
+        { en: "Which commission criticized 'selling degrees'?", or: "କେଉଁ କମିଶନ 'ଡିଗ୍ରୀ ବିକ୍ରି' କୁ ସମାଲୋଚନା କରିଥିଲେ?", opts: ["Kothari", "J.S. Verma", "Radhakrishnan", "Mudaliar"], ans: 1 },
+        { en: "Poka-Yoke model aims at:", or: "ପୋକା-ୟୋକ୍ (Poka-Yoke) ମଡେଲର ଲକ୍ଷ୍ୟ କ’ଣ?", opts: ["Cost reduction", "Error Prevention", "New Buildings", "Marketing"], ans: 1 },
+        { en: "Learner Autonomy Model was proposed by:", or: "ଲର୍ନର୍ ଅଟୋନୋମି ମଡେଲ୍ କିଏ ପ୍ରସ୍ତାବ କରିଥିଲେ?", opts: ["Maria Tassinari", "Vygotsky", "Piaget", "Skinner"], ans: 0 },
+        { en: "A valid Hypothesis should NOT have:", or: "ଏକ ବୈଧ ଅନୁମାନରେ କେଉଁଟି ରହିବା ଉଚିତ୍ ନୁହେଁ?", opts: ["Specific targets", "Indefinite targets", "Testable variables", "Scientific base"], ans: 1 },
+        { en: "Aspirations of people affect curriculum as a:", or: "ଲୋକମାନଙ୍କର ଆକାଂକ୍ଷା ପାଠ୍ୟକ୍ରମକୁ କିପରି ପ୍ରଭାବିତ କରେ?", opts: ["Factor for change", "Strategy", "Evaluation type", "Administrative rule"], ans: 0 },
+        { en: "Medical model of disability is based on:", or: "ବିକଳାଙ୍ଗତାର ମେଡିକାଲ୍ ମଡେଲ୍ କାହା ଉପରେ ଆଧାରିତ?", opts: ["Social law", "Biology/Medicine", "Religion", "Economy"], ans: 1 },
+        { en: "Functionalists say industrial society requires:", or: "ପ୍ରକାର୍ଯ୍ୟବାଦୀଙ୍କ ମତରେ ଶିଳ୍ପଭିତ୍ତିକ ସମାଜକୁ କ’ଣ ଦରକାର?", opts: ["Mass education", "No education", "Limited access", "Elite only"], ans: 0 },
+        { en: "What is 'Perturbation' in curriculum?", or: "ପାଠ୍ୟକ୍ରମରେ 'ପରଟରବେସନ୍' (Perturbation) କ’ଣ?", opts: ["Complete removal", "Small adjustment/disturbance", "National reform", "Building design"], ans: 1 },
+        { en: "Inclusive Education: Which came FIRST?", or: "ଅନ୍ତର୍ଭୁକ୍ତ ଶିକ୍ଷାରେ କେଉଁଟି ସର୍ବପ୍ରଥମେ ହୋଇଥିଲା?", opts: ["SSA 2001", "Salamanca Statement 1994", "UNCRPD 2006", "NEP 2020"], ans: 1 }
+    ];
+
+    let currentIdx = 0;
+    let score = 0;
+    let isAnswered = false;
+
+    function renderQuestion() {
+        const q = questions[currentIdx];
+        isAnswered = false;
+        document.getElementById('status-msg').innerText = "";
+        document.getElementById('progress-text').innerText = `Question ${currentIdx + 1} of 20`;
+        document.getElementById('progress-fill').style.width = `${((currentIdx + 1) / 20) * 100}%`;
+        
+        const container = document.getElementById('question-container');
+        container.innerHTML = `
+            <div class="question-box">
+                <div class="q-en">${q.en}</div>
+                <div class="q-or">${q.or}</div>
+                <div id="options-list">
+                    ${q.opts.map((opt, i) => `<div class="option" onclick="checkAnswer(${i}, this)">${opt}</div>`).join('')}
+                </div>
+            </div>
+        `;
+    }
+
+    function checkAnswer(selectedIdx, element) {
+        if (isAnswered) return;
+        isAnswered = true;
+        const correctIdx = questions[currentIdx].ans;
+        const options = document.getElementById('options-list').children;
+
+        if (selectedIdx === correctIdx) {
+            element.classList.add('correct');
+            score++;
+            document.getElementById('status-msg').innerHTML = "<span style='color:green'>Correct! / ସଠିକ୍!</span>";
+        } else {
+            element.classList.add('wrong');
+            options[correctIdx].classList.add('correct');
+            document.getElementById('status-msg').innerHTML = "<span style='color:red'>Wrong! / ଭୁଲ୍!</span>";
+        }
+    }
+
+    function goToNext() {
+        if (!isAnswered) {
+            alert("Please select an answer first! / ଦୟାକରି ଏକ ଉତ୍ତର ବାଛନ୍ତୁ!");
+            return;
+        }
+        currentIdx++;
+        if (currentIdx < questions.length) {
+            renderQuestion();
+        } else {
+            showFinalResults();
+        }
+    }
+
+    function showFinalResults() {
+        document.getElementById('quiz-screen').style.display = 'none';
+        document.getElementById('result-screen').style.display = 'block';
+        document.getElementById('score-display').innerText = `${score} / 20`;
+    }
+
+    renderQuestion();
+</script>
+
+</body>
+</html>
