@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TallyPrime - Educational Version (Web Clone)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Consolas', monospace, Courier; }
+        body { background-color: #002b36; color: #00cbc6; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+        
+        /* Top Green Bar */
+        header { background-color: #004d61; color: #fff; padding: 5px 15px; display: flex; justify-content: space-between; font-size: 13px; border-bottom: 2px solid #002b36; }
+        .top-menu span { margin-right: 15px; cursor: pointer; color: #00cbc6; }
+        
+        /* Main Workspace */
+        .workspace { flex: 1; display: flex; background-color: #001f26; }
+        
+        /* Left Info Panel */
+        .left-panel { width: 35%; border-right: 2px solid #004d61; padding: 10px; font-size: 13px; display: flex; flex-direction: column; justify-content: space-between; }
+        .comp-table { width: 100%; border-collapse: collapse; margin-top: 10px; color: #fff; }
+        .comp-table th, .comp-table td { text-align: left; padding: 5px; border-bottom: 1px solid #004d61; }
+        
+        /* Right Menu Panel (Gateway of Tally) */
+        .right-panel { width: 65%; display: flex; justify-content: center; align-items: center; position: relative; }
+        .tally-menu { width: 320px; border: 2px solid #00cbc6; background: #002b36; padding: 0; box-shadow: 5px 5px 0px #004d61; }
+        .menu-title { background: #00cbc6; color: #002b36; text-align: center; font-weight: bold; padding: 3px; font-size: 14px; }
+        .menu-subtitle { text-align: center; color: #fff; font-size: 12px; padding: 5px 0; border-bottom: 1px solid #004d61; }
+        .menu-list { list-style: none; padding: 10px 0; }
+        .menu-list li { padding: 4px 25px; font-size: 14px; cursor: pointer; color: #fff; display: flex; justify-content: space-between; }
+        .menu-list li:hover, .menu-list li.selected { background-color: #00cbc6; color: #002b36; }
+        .hotkey { color: #ff5555; font-weight: bold; }
+        .menu-list li:hover .hotkey, .menu-list li.selected .hotkey { color: #b58900; }
+
+        /* Dynamic Popups / Screens */
+        .screen-overlay { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #001f26; padding: 20px; z-index: 10; }
+        .screen-title { font-size: 18px; color: #fff; border-bottom: 2px solid #00cbc6; padding-bottom: 5px; margin-bottom: 15px; }
+        .form-group { margin-bottom: 12px; display: flex; align-items: center; }
+        .form-group label { width: 150px; color: #00cbc6; }
+        .form-group input, .form-group select { background: #002b36; border: 1px solid #004d61; color: #fff; padding: 5px; width: 250px; font-family: inherit; }
+        .form-group input:focus, .form-group select:focus { border-color: #00cbc6; background-color: #004d61; outline: none; }
+        .tally-btn { background: #004d61; color: #fff; border: 1px solid #00cbc6; padding: 5px 15px; cursor: pointer; margin-right: 10px; }
+        .tally-btn:hover { background: #00cbc6; color: #002b36; }
+
+        /* Right Keyboard Shortcuts Sidebar */
+        .shortcut-sidebar { width: 120px; background: #004d61; display: flex; flex-direction: column; border-left: 2px solid #002b36; }
+        .sc-btn { background: none; border: none; border-bottom: 1px solid #002b36; color: #fff; padding: 8px 5px; text-align: left; font-size: 11px; cursor: pointer; }
+        .sc-btn span { color: #00cbc6; font-weight: bold; display: block; }
+        .sc-btn:hover { background: #002b36; }
+
+        /* Report Tables */
+        .report-table { width: 100%; border-collapse: collapse; color: #fff; }
+        .report-table th { background: #004d61; color: #00cbc6; padding: 5px; text-align: left; }
+        .report-table td { padding: 6px 5px; border-bottom: 1px solid #004d61; }
+        .text-right { text-align: right; }
+    </style>
+</head>
+<body>
+
+    <!-- Top Ribbon -->
+    <header>
+        <div class="top-menu">
+            <span><u>K</u>: Company</span> <span><u>Y</u>: Data</span> <span><u>Z</u>: Exchange</span> <span><u>G</u>: Go To</span>
+        </div>
+        <div>TallyPrime <span style="color:#ff5555;">EDU</span></div>
+    </header>
+
+    <div class="workspace">
+        <!-- Left Side Company Info -->
+        <div class="left-panel">
+            <div>
+                <div style="color: #6c71c4; font-weight: bold;">CURRENT PERIOD</div>
+                <div style="color: #fff;" id="period-display">01-Apr-2026 to 31-Mar-2027</div>
+                <br>
+                <div style="color: #6c71c4; font-weight: bold;">CURRENT DATE</div>
+                <div style="color: #fff;">Friday, 01-Apr-2026</div>
+            </div>
+            
+            <div style="flex: 1; margin-top: 20px;">
+                <table class="comp-table">
+                    <thead>
+                        <tr>
+                            <th>Name of Company</th>
+                            <th style="text-align: right;">Date of Last Entry</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="color: #00cbc6; font-weight: bold;">RK TRADING CO.</td>
+                            <td style="text-align: right;" id="last-entry-date">No Vouchers Entered</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Center Working Area -->
+        <div class="right-panel">
+            
+            <!-- GATEWAY OF TALLY MENU -->
+            <div class="tally-menu" id="gateway-menu">
+                <div class="menu-title">Gateway of Tally</div>
+                <div class="menu-subtitle">Masters</div>
+                <ul class="menu-list">
+                    <li onclick="openScreen('create-ledger-screen')"><span><span class="hotkey">C</span>reate Ledger</span></li>
+                    <li onclick="alert('Alter Module: Educational Limit')"><span><span class="hotkey">A</span>lter</span></li>
+                </ul>
+                <div class="menu-subtitle">Transactions</div>
+                <ul class="menu-list">
+                    <li onclick="openScreen('voucher-screen')"><span><span class="hotkey">V</span>ouchers</span></li>
+                </ul>
+                <div class="menu-subtitle">Reports</div>
+                <ul class="menu-list">
+                    <li onclick="showBalanceSheet()"><span><span class="hotkey">B</span>alance Sheet</span></li>
+                    <li onclick="showProfitLoss()"><span><span class="hotkey">P</span>rofit & Loss A/c</span></li>
+                    <li onclick="closeAllScreens()"><span><span class="hotkey">Q</span>uit</span></li>
+                </ul>
+            </div>
+
+            <!-- SCREEN: CREATE LEDGER -->
+            <div class="screen-overlay" id="create-ledger-screen">
+                <div class="screen-title">Ledger Creation</div>
+                <div class="form-group">
+                    <label>Name:</label>
+                    <input type="text" id="ledger-name" placeholder="e.g., Cash, Capital, Ramesh">
+                </div>
+                <div class="form-group">
+                    <label>Under (Group):</label>
+                    <select id="ledger-group">
+                        <option value="Capital Account">Capital Account</option>
+                        <option value="Bank Accounts">Bank Accounts</option>
+                        <option value="Sundry Debtors">Sundry Debtors</option>
+                        <option value="Sundry Creditors">Sundry Creditors</option>
+                        <option value="Purchase Accounts">Purchase Accounts</option>
+                        <option value="Sales Accounts">Sales Accounts</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Opening Balance (₹):</label>
+                    <input type="number" id="ledger-opening" value="0">
+                </div>
+                <div style="margin-top: 20px; padding-left: 150px;">
+                    <button class="tally-btn" onclick="saveLedger()">Accept (Ctrl+A)</button>
+                    <button class="tally-btn" onclick="closeAllScreens()">Quit (Esc)</button>
+                </div>
+            </div>
+
+            <!-- SCREEN: VOUCHER ENTRY -->
+            <div class="screen-overlay" id="voucher-screen">
+                <div class="screen-title" id="voucher-title">Accounting Voucher Creation (Payment Mode)</div>
+                <div style="margin-bottom: 15px; color: #ff5555;" id="voucher-type-indicator">Voucher Type: PAYMENT (F5)</div>
+                
+                <div class="form-group">
+                    <label>Account (Dr/Cr):</label>
+                    <select id="v-account-debit"></select>
+                </div>
+                <div class="form-group">
+                    <label>To Account (Cr/Dr):</label>
+                    <select id="v-account-credit"></select>
+                </div>
+                <div class="form-group">
+                    <label>Amount (₹):</label>
+                    <input type="number" id="v-amount" value="0">
+                </div>
+                <div class="form-group">
+                    <label>Narration:</label>
+                    <input type="text" id="v-narration" placeholder="Being goods purchased/cash paid...">
+                </div>
+                <div style="margin-top: 20px; padding-left: 150px;">
+                    <button class="tally-btn" onclick="saveVoucher()">Accept</button>
+                    <button class="tally-btn" onclick="closeAllScreens()">Cancel</button>
+                </div>
+            </div>
+
+            <!-- SCREEN: REPORTS (BALANCE SHEET / P&L) -->
+            <div class="screen-overlay" id="report-screen">
+                <div class="screen-title" id="report-title">Balance Sheet</div>
+                <div id="report-content"></div>
+                <div style="margin-top: 20px;">
+                    <button class="tally-btn" onclick="closeAllScreens()">Back to Gateway</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Side Shortcuts Bar -->
+        <div class="shortcut-sidebar">
+            <button class="sc-btn" onclick="changeVoucherType('Payment')"><span>F5</span>Payment</button>
+            <button class="sc-btn" onclick="changeVoucherType('Receipt')"><span>F6</span>Receipt</button>
+            <button class="sc-btn" onclick="changeVoucherType('Sales')"><span>F8</span>Sales</button>
+            <button class="sc-btn" onclick="changeVoucherType('Purchase')"><span>F9</span>Purchase</button>
+        </div>
+    </div>
+
+    <script>
+        // Core Database (Local Memory for Practice)
+        let ledgers = {
+            "Cash": { group: "Bank Accounts", balance: 10000 },
+            "Capital A/c": { group: "Capital Account", balance: 50000 },
+            "Sales A/c": { group: "Sales Accounts", balance: 0 },
+            "Purchase A/c": { group: "Purchase Accounts", balance: 0 }
+        };
+
+        let vouchers = [];
+        let currentVoucherType = "Payment";
+
+        function closeAllScreens() {
+            document.querySelectorAll('.screen-overlay').forEach(el => el.style.display = 'none');
+            document.getElementById('gateway-menu').style.display = 'block';
+        }
+
+        function openScreen(id) {
+            document.getElementById('gateway-menu').style.display = 'none';
+            document.getElementById(id).style.display = 'block';
+            if(id === 'voucher-screen') {
+                populateDropdowns();
+            }
+        }
+
+        // Ledger Core Logic
+        function saveLedger() {
+            let name = document.getElementById('ledger-name').value.trim();
+            let group = document.getElementById('ledger-group').value;
+            let opBal = parseFloat(document.getElementById('ledger-opening').value) || 0;
+
+            if(!name) { alert("Please enter Ledger Name!"); return; }
+
+            ledgers[name] = { group: group, balance: opBal };
+            alert(`Ledger "${name}" Created successfully under ${group}!`);
+            
+            // Reset fields
+            document.getElementById('ledger-name').value = '';
+            document.getElementById('ledger-opening').value = '0';
+            closeAllScreens();
+        }
+
+        // Voucher Dropdown filler
+        function populateDropdowns() {
+            let drSelect = document.getElementById('v-account-debit');
+            let crSelect = document.getElementById('v-account-credit');
+            drSelect.innerHTML = '';
+            crSelect.innerHTML = '';
+
+            Object.keys(ledgers).forEach(ledger => {
+                drSelect.options[drSelect.options.length] = new Option(ledger, ledger);
+                crSelect.options[crSelect.options.length] = new Option(ledger, ledger);
+            });
+        }
+
+        function changeVoucherType(type) {
+            currentVoucherType = type;
+            document.getElementById('voucher-type-indicator').innerText = `Voucher Type: ${type.toUpperCase()}`;
+            document.getElementById('voucher-title').innerText = `Accounting Voucher Creation (${type} Mode)`;
+            openScreen('voucher-screen');
+        }
+
+        // Voucher Entry Core Accounting Logic
+        function saveVoucher() {
+            let dr = document.getElementById('v-account-debit').value;
+            let cr = document.getElementById('v-account-credit').value;
+            let amt = parseFloat(document.getElementById('v-amount').value) || 0;
+            let narration = document.getElementById('v-narration').value;
+
+            if(amt <= 0) { alert("Amount must be greater than 0"); return; }
+            if(dr === cr) { alert("Debit and Credit ledgers cannot be same!"); return; }
+
+            // Double Entry Accounting System calculations
+            if (currentVoucherType === "Payment" || currentVoucherType === "Purchase") {
+                ledgers[dr].balance += amt; // Expense/Asset Dr builds up
+                ledgers[cr].balance -= amt; // Cash/Bank Cr goes down
+            } else if (currentVoucherType === "Receipt" || currentVoucherType === "Sales") {
+                ledgers[dr].balance += amt; // Cash increases
+                ledgers[cr].balance += amt; // Revenue increases
+            }
+
+            vouchers.push({ type: currentVoucherType, debit: dr, credit: cr, amount: amt, narration: narration });
+            document.getElementById('last-entry-date').innerText = "1-Apr-2026";
+            
+            alert(`${currentVoucherType} Entry Passed! Accounts Updated.`);
+            document.getElementById('v-amount').value = 0;
+            document.getElementById('v-narration').value = '';
+            closeAllScreens();
+        }
+
+        // Live Balance Sheet Generator
+        function showBalanceSheet() {
+            document.getElementById('report-title').innerText = "Balance Sheet";
+            let capTotal = 0;
+            let assetTotal = 0;
+
+            Object.keys(ledgers).forEach(k => {
+                if(ledgers[k].group === "Capital Account") capTotal += ledgers[k].balance;
+                if(ledgers[k].group === "Bank Accounts") assetTotal += ledgers[k].balance;
+            });
+
+            let html = `
+                <table class="report-table">
+                    <tr><th>Liabilities</th><th class="text-right">Amount (₹)</th><th>Assets</th><th class="text-right">Amount (₹)</th></tr>
+                    <tr><td>Capital Account</td><td class="text-right">${capTotal}</td><td>Current Assets (Bank/Cash)</td><td class="text-right">${assetTotal}</td></tr>
+                    <tr style="font-weight:bold; background:#004d61;"><td>Total</td><td class="text-right">${capTotal}</td><td>Total</td><td class="text-right">${assetTotal}</td></tr>
+                </table>`;
+            
+            document.getElementById('report-content').innerHTML = html;
+            openScreen('report-screen');
+        }
+
+        // Live Profit & Loss Generator
+        function showProfitLoss() {
+            document.getElementById('report-title').innerText = "Profit & Loss Account";
+            let sales = ledgers["Sales A/c"] ? ledgers["Sales A/c"].balance : 0;
+            let purchase = ledgers["Purchase A/c"] ? ledgers["Purchase A/c"].balance : 0;
+            let netProfit = sales - purchase;
+
+            let html = `
+                <table class="report-table">
+                    <tr><th>Particulars (Expenses)</th><th class="text-right">Amount (₹)</th><th>Particulars (Incomes)</th><th class="text-right">Amount (₹)</th></tr>
+                    <tr><td>Opening Stock</td><td class="text-right">0.00</td><td>Sales Accounts</td><td class="text-right">${sales}</td></tr>
+                    <tr><td>Purchase Accounts</td><td class="text-right">${purchase}</td><td>Closing Stock</td><td class="text-right">0.00</td></tr>
+                    <tr><td style="color: #ff5555; font-weight:bold;">Nett Profit</td><td class="text-right">${netProfit >= 0 ? netProfit : 0}</td><td></td><td class="text-right"></td></tr>
+                    <tr style="font-weight:bold; background:#004d61;"><td>Total</td><td class="text-right">${Math.max(sales, purchase)}</td><td>Total</td><td class="text-right">${Math.max(sales, purchase)}</td></tr>
+                </table>`;
+            
+            document.getElementById('report-content').innerHTML = html;
+            openScreen('report-screen');
+        }
+
+        // Basic Keyboard Support (Esc to go back)
+        window.addEventListener('keydown', function(e) {
+            if (e.key === "Escape") {
+                closeAllScreens();
+            }
+        });
+    </script>
+</body>
+</html>
