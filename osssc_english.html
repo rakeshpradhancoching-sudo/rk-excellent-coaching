@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RK Excellent Coaching - 25 Mixed English Live Mock Test</title>
+    <title>RK Excellent Coaching - 25 Synonyms Live Mock Test</title>
     <style>
         :root {
-            --primary-color: #0f172a;
-            --secondary-color: #f1f5f9;
+            --primary-color: #1e3a8a;
+            --secondary-color: #f3f4f6;
             --accent-color: #2563eb;
-            --text-color: #334155;
+            --text-color: #1f2937;
             --success-color: #16a34a;
             --danger-color: #dc2626;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8fafc;
+            background-color: #f0f2f5;
             color: var(--text-color);
             margin: 0;
             padding: 0;
@@ -26,18 +26,17 @@
             background-color: var(--primary-color);
             color: white;
             text-align: center;
-            padding: 30px 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 25px 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         header h1 {
             margin: 0;
-            font-size: 32px;
-            letter-spacing: 0.5px;
+            font-size: 30px;
         }
 
         header p {
-            margin: 8px 0 0 0;
+            margin: 5px 0 0 0;
             font-size: 16px;
             opacity: 0.9;
         }
@@ -46,9 +45,9 @@
             max-width: 850px;
             margin: 30px auto;
             background: white;
-            padding: 35px;
+            padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
         .quiz-info {
@@ -58,42 +57,29 @@
             padding-bottom: 15px;
             margin-bottom: 25px;
             font-weight: bold;
-            color: var(--accent-color);
+            color: var(--primary-color);
             font-size: 18px;
         }
 
-        .section-title {
-            background-color: #eff6ff;
-            color: var(--accent-color);
-            padding: 8px 15px;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: bold;
-            margin-top: 40px;
-            margin-bottom: 15px;
-            border-left: 4px solid var(--accent-color);
-        }
-
         .question-block {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             padding: 20px;
             border-radius: 8px;
-            background-color: #f8fafc;
-            border: 1px solid #e2e8f0;
+            background-color: #fafafa;
+            border-left: 5px solid var(--accent-color);
             transition: all 0.3s ease;
         }
 
         .question-text {
-            font-size: 17px;
+            font-size: 18px;
             font-weight: 600;
             margin-bottom: 15px;
-            line-height: 1.6;
-            color: #1e293b;
+            line-height: 1.5;
         }
 
         .odia-text {
-            color: #64748b;
-            font-size: 15px;
+            color: #4b5563;
+            font-size: 16px;
             display: block;
             margin-top: 6px;
             font-weight: normal;
@@ -106,7 +92,7 @@
         }
 
         .option-item {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .option-item label {
@@ -114,15 +100,15 @@
             align-items: center;
             padding: 12px 15px;
             background: white;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #e5e7eb;
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-size: 15px;
+            font-size: 16px;
         }
 
         .option-item label:hover {
-            background-color: #f1f5f9;
+            background-color: #eff6ff;
             border-color: var(--accent-color);
         }
 
@@ -131,7 +117,7 @@
             transform: scale(1.2);
         }
 
-        /* Live Answer Status Colors */
+        /* Live Right/Wrong Classes */
         .correct-option {
             background-color: #d1fae5 !important;
             border-color: var(--success-color) !important;
@@ -148,18 +134,18 @@
         .explanation {
             display: none;
             margin-top: 15px;
-            padding: 12px 15px;
-            background-color: #f0fdf4;
-            border: 1px dashed var(--success-color);
+            padding: 12px;
+            background-color: #eff6ff;
+            border: 1px dashed var(--accent-color);
             border-radius: 6px;
-            font-size: 14px;
-            color: #166534;
+            font-size: 15px;
+            color: var(--primary-color);
         }
 
         .submit-btn {
             display: block;
             width: 100%;
-            background-color: var(--accent-color);
+            background-color: var(--primary-color);
             color: white;
             border: none;
             padding: 18px;
@@ -168,28 +154,28 @@
             border-radius: 8px;
             cursor: pointer;
             transition: background 0.2s;
-            margin-top: 40px;
-            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+            margin-top: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         .submit-btn:hover {
-            background-color: #1d4ed8;
+            background-color: var(--accent-color);
         }
 
         #result-box {
             display: none;
-            margin-top: 35px;
-            padding: 30px;
+            margin-top: 30px;
+            padding: 25px;
             border-radius: 10px;
             text-align: center;
-            background-color: #f0fdf4;
+            background-color: #ecfdf5;
             border: 2px solid var(--success-color);
-            color: #166534;
+            color: var(--success-color);
         }
 
         #result-box h2 {
             margin: 0 0 10px 0;
-            font-size: 26px;
+            font-size: 24px;
         }
     </style>
 </head>
@@ -197,230 +183,474 @@
 
     <header>
         <h1>RK Excellent Coaching</h1>
-        <p>New Mixed English Mock Test — 25 Grammar & Vocabulary Questions</p>
-        <p style="font-size: 14px; margin-top: 6px; color: #94a3b8;">Instant Right/Wrong Status & Answer Keys</p>
+        <p>English Live Mock Test — 25 Synonyms with Instant Results</p>
+        <p style="font-size: 15px; margin-top: 5px; letter-spacing: 0.5px;">ସଠିକ୍ ଏବଂ ଭୁଲ୍ ଉତ୍ତରର ଲାଇଭ୍ ପ୍ରଦର୍ଶନ</p>
     </header>
 
     <div class="container">
         <div class="quiz-info">
-            <span>Questions: 25</span>
+            <span>Total Questions: 25</span>
             <span>Full Marks: 25</span>
         </div>
 
         <form id="quizForm">
             
-            <!-- SECTION 1: ANTONYMS -->
-            <div class="section-title">SECTION A: ANTONYMS (ବିପରୀତ ଶବ୍ଦ)</div>
-
             <!-- Q1 -->
             <div class="question-block" id="block-q1">
                 <div class="question-text">
-                    Q1. Antonym of <strong>"Ample"</strong>:
-                    <span class="odia-text">"Ample" (ପ୍ରଚୁର) ଶବ୍ଦର ବିପରୀତ ଶବ୍ଦ କଣ?</span>
+                    Q1. Synonym of <strong>"Deride"</strong>:
+                    <span class="odia-text">"Deride" ଶବ୍ଦର ସମାନାର୍ଥକ ଶବ୍ଦ କଣ? (ଉପହାସ କରିବା)</span>
                 </div>
                 <ul class="options-list">
-                    <li class="option-item"><label><input type="radio" name="q1" value="A"> Abundant</label></li>
-                    <li class="option-item"><label><input type="radio" name="q1" value="B"> Scant</label></li>
-                    <li class="option-item"><label><input type="radio" name="q1" value="C"> Sufficient</label></li>
-                    <li class="option-item"><label><input type="radio" name="q1" value="D"> Huge</label></li>
+                    <li class="option-item"><label><input type="radio" name="q1" value="A"> Defend</label></li>
+                    <li class="option-item"><label><input type="radio" name="q1" value="B"> Mock</label></li>
+                    <li class="option-item"><label><input type="radio" name="q1" value="C"> Inspire</label></li>
+                    <li class="option-item"><label><input type="radio" name="q1" value="D"> Encourage</label></li>
                 </ul>
-                <div class="explanation" id="exp-q1"><strong>Answer Key:</strong> Correct Answer is <strong>B (Scant)</strong>. Scant मतलब कम या अपर्याप्त।</div>
+                <div class="explanation" id="exp-q1"><strong>Answer Key:</strong> Correct Answer is <strong>B (Mock)</strong>.</div>
             </div>
 
             <!-- Q2 -->
             <div class="question-block" id="block-q2">
                 <div class="question-text">
-                    Q2. Antonym of <strong>"Curtail"</strong>:
-                    <span class="odia-text">"Curtail" (କାଟଛାଣ୍ଟ କରିବା/କମାଇବା) ର ବିପରୀତ ଶବ୍ଦ ବାଛନ୍ତୁ।</span>
+                    Q2. Synonym of <strong>"Uncouth"</strong>:
+                    <span class="odia-text">"Uncouth" ଶବ୍ଦର ସମାନାର୍ଥକ ଶବ୍ଦ କଣ? (ଅସଭ୍ୟ)</span>
                 </div>
                 <ul class="options-list">
-                    <li class="option-item"><label><input type="radio" name="q2" value="A"> Lengthen</label></li>
-                    <li class="option-item"><label><input type="radio" name="q2" value="B"> Shorten</label></li>
-                    <li class="option-item"><label><input type="radio" name="q2" value="C"> Decrease</label></li>
-                    <li class="option-item"><label><input type="radio" name="q2" value="D"> Reduce</label></li>
+                    <li class="option-item"><label><input type="radio" name="q2" value="A"> Polite</label></li>
+                    <li class="option-item"><label><input type="radio" name="q2" value="B"> Uncivilized</label></li>
+                    <li class="option-item"><label><input type="radio" name="q2" value="C"> Elegant</label></li>
+                    <li class="option-item"><label><input type="radio" name="q2" value="D"> Sophisticated</label></li>
                 </ul>
-                <div class="explanation" id="exp-q2"><strong>Answer Key:</strong> Correct Answer is <strong>A (Lengthen)</strong>. Lengthen का अर्थ बढ़ाना होता है।</div>
+                <div class="explanation" id="exp-q2"><strong>Answer Key:</strong> Correct Answer is <strong>B (Uncivilized)</strong>.</div>
             </div>
 
             <!-- Q3 -->
             <div class="question-block" id="block-q3">
                 <div class="question-text">
-                    Q3. Antonym of <strong>"Barren"</strong>:
-                    <span class="odia-text">"Barren" (ଅନୁର୍ବର/ମରୁଭୂମି ସଦୃଶ) ର ପ୍ରତିବିପରୀତ ଶବ୍ଦ କଣ?</span>
+                    Q3. Synonym of <strong>"Knave"</strong>:
+                    <span class="odia-text">"Knave" ଶବ୍ଦର ପ୍ରତିଶବ୍ଦ ବାଛନ୍ତୁ। (ଦୁଷ୍ଟ / ଚତୁର)</span>
                 </div>
                 <ul class="options-list">
-                    <li class="option-item"><label><input type="radio" name="q3" value="A"> Sterile</label></li>
-                    <li class="option-item"><label><input type="radio" name="q3" value="B"> Dry</label></li>
-                    <li class="option-item"><label><input type="radio" name="q3" value="C"> Fertile</label></li>
-                    <li class="option-item"><label><input type="radio" name="q3" value="D"> Waste</label></li>
+                    <li class="option-item"><label><input type="radio" name="q3" value="A"> Scoundrel</label></li>
+                    <li class="option-item"><label><input type="radio" name="q3" value="B"> Hero</label></li>
+                    <li class="option-item"><label><input type="radio" name="q3" value="C"> Gentleman</label></li>
+                    <li class="option-item"><label><input type="radio" name="q3" value="D"> Scholar</label></li>
                 </ul>
-                <div class="explanation" id="exp-q3"><strong>Answer Key:</strong> Correct Answer is <strong>C (Fertile)</strong>. Fertile का अर्थ उपजाऊ होता है।</div>
+                <div class="explanation" id="exp-q3"><strong>Answer Key:</strong> Correct Answer is <strong>A (Scoundrel)</strong>.</div>
             </div>
 
             <!-- Q4 -->
             <div class="question-block" id="block-q4">
                 <div class="question-text">
-                    Q4. Antonym of <strong>"Obscure"</strong>:
-                    <span class="odia-text">"Obscure" (ଅସ୍ପଷ୍ଟ/ଅଜ୍ଞାତ) ର ବିପରୀତ ଶବ୍ଦ କଣ ହେବ?</span>
+                    Q4. Synonym of <strong>"Naïve"</strong>:
+                    <span class="odia-text">"Naïve" ଶବ୍ଦର ପ୍ରତିଶବ୍ଦ କଣ ହେବ? (ସରଳ / କପଟହୀନ)</span>
                 </div>
                 <ul class="options-list">
-                    <li class="option-item"><label><input type="radio" name="q4" value="A"> Clear</label></li>
-                    <li class="option-item"><label><input type="radio" name="q4" value="B"> Vague</label></li>
-                    <li class="option-item"><label><input type="radio" name="q4" value="C"> Hidden</label></li>
-                    <li class="option-item"><label><input type="radio" name="q4" value="D"> Dark</label></li>
+                    <li class="option-item"><label><input type="radio" name="q4" value="A"> Experienced</label></li>
+                    <li class="option-item"><label><input type="radio" name="q4" value="B"> Inexperienced</label></li>
+                    <li class="option-item"><label><input type="radio" name="q4" value="C"> Crafty</label></li>
+                    <li class="option-item"><label><input type="radio" name="q4" value="D"> Wise</label></li>
                 </ul>
-                <div class="explanation" id="exp-q4"><strong>Answer Key:</strong> Correct Answer is <strong>A (Clear)</strong>.</div>
+                <div class="explanation" id="exp-q4"><strong>Answer Key:</strong> Correct Answer is <strong>B (Inexperienced)</strong>.</div>
             </div>
 
             <!-- Q5 -->
             <div class="question-block" id="block-q5">
                 <div class="question-text">
-                    Q5. Antonym of <strong>"Arrogant"</strong>:
-                    <span class="odia-text">"Arrogant" (ଅହଂକାରୀ) ର ବିପରୀତ ଶବ୍ଦ ଚୟନ କରନ୍ତୁ।</span>
+                    Q5. Synonym of <strong>"Feeble"</strong>:
+                    <span class="odia-text">"Feeble" ଶବ୍ଦର ପ୍ରତିଶବ୍ଦ କଣ? (ଦୁର୍ବଳ)</span>
                 </div>
                 <ul class="options-list">
-                    <li class="option-item"><label><input type="radio" name="q5" value="A"> Proud</label></li>
-                    <li class="option-item"><label><input type="radio" name="q5" value="B"> Haughty</label></li>
-                    <li class="option-item"><label><input type="radio" name="q5" value="C"> Humble</label></li>
-                    <li class="option-item"><label><input type="radio" name="q5" value="D"> Rude</label></li>
+                    <li class="option-item"><label><input type="radio" name="q5" value="A"> Robust</label></li>
+                    <li class="option-item"><label><input type="radio" name="q5" value="B"> Mighty</label></li>
+                    <li class="option-item"><label><input type="radio" name="q5" value="C"> Weak</label></li>
+                    <li class="option-item"><label><input type="radio" name="q5" value="D"> Strong</label></li>
                 </ul>
-                <div class="explanation" id="exp-q5"><strong>Answer Key:</strong> Correct Answer is <strong>C (Humble)</strong>. Humble का अर्थ विनम्र होता है।</div>
+                <div class="explanation" id="exp-q5"><strong>Answer Key:</strong> Correct Answer is <strong>C (Weak)</strong>.</div>
             </div>
 
             <!-- Q6 -->
             <div class="question-block" id="block-q6">
                 <div class="question-text">
-                    Q6. Antonym of <strong>"Transient"</strong>:
-                    <span class="odia-text">"Transient" (କ୍ଷଣସ୍ଥାୟୀ) ର ବିପରୀତ ଶବ୍ଦ ବାଛନ୍ତୁ।</span>
+                    Q6. Synonym of <strong>"Desultory"</strong>:
+                    <span class="odia-text">"Desultory" ଶବ୍ଦର ପ୍ରତିଶବ୍ଦ ବାଛନ୍ତୁ। (ଶୃଙ୍ଖଳାହୀନ / ଅନିୟମିତ)</span>
                 </div>
                 <ul class="options-list">
-                    <li class="option-item"><label><input type="radio" name="q6" value="A"> Temporary</label></li>
-                    <li class="option-item"><label><input type="radio" name="q6" value="B"> Brief</label></li>
-                    <li class="option-item"><label><input type="radio" name="q6" value="C"> Permanent</label></li>
-                    <li class="option-item"><label><input type="radio" name="q6" value="D"> Short</label></li>
+                    <li class="option-item"><label><input type="radio" name="q6" value="A"> Organized</label></li>
+                    <li class="option-item"><label><input type="radio" name="q6" value="B"> Methodical</label></li>
+                    <li class="option-item"><label><input type="radio" name="q6" value="C"> Random</label></li>
+                    <li class="option-item"><label><input type="radio" name="q6" value="D"> Constant</label></li>
                 </ul>
-                <div class="explanation" id="exp-q6"><strong>Answer Key:</strong> Correct Answer is <strong>C (Permanent)</strong>.</div>
+                <div class="explanation" id="exp-q6"><strong>Answer Key:</strong> Correct Answer is <strong>C (Random)</strong>.</div>
             </div>
 
             <!-- Q7 -->
             <div class="question-block" id="block-q7">
                 <div class="question-text">
-                    Q7. Antonym of <strong>"Exodus"</strong>:
-                    <span class="odia-text">"Exodus" (ବହୁ ସଂଖ୍ୟାରେ ପ୍ରସ୍ଥାନ କରିବା) ର ବିପରୀତ କଣ?</span>
+                    Q7. Synonym of <strong>"Solicit"</strong>:
+                    <span class="odia-text">"Solicit" ଶବ୍ଦର ପ୍ରତିଶବ୍ଦ କଣ? (ଅନୁରୋଧ କରିବା / ମାଗିବା)</span>
                 </div>
                 <ul class="options-list">
-                    <li class="option-item"><label><input type="radio" name="q7" value="A"> Departure</label></li>
-                    <li class="option-item"><label><input type="radio" name="q7" value="B"> Influx</label></li>
-                    <li class="option-item"><label><input type="radio" name="q7" value="C"> Migration</label></li>
-                    <li class="option-item"><label><input type="radio" name="q7" value="D"> Exit</label></li>
+                    <li class="option-item"><label><input type="radio" name="q7" value="A"> Command</label></li>
+                    <li class="option-item"><label><input type="radio" name="q7" value="B"> Reject</label></li>
+                    <li class="option-item"><label><input type="radio" name="q7" value="C"> Request</label></li>
+                    <li class="option-item"><label><input type="radio" name="q7" value="D"> Refuse</label></li>
                 </ul>
-                <div class="explanation" id="exp-q7"><strong>Answer Key:</strong> Correct Answer is <strong>B (Influx)</strong>. Influx मतलब भारी मात्रा में भीतर आना।</div>
+                <div class="explanation" id="exp-q7"><strong>Answer Key:</strong> Correct Answer is <strong>C (Request)</strong>.</div>
             </div>
 
             <!-- Q8 -->
             <div class="question-block" id="block-q8">
                 <div class="question-text">
-                    Q8. Antonym of <strong>"Miserly"</strong>:
-                    <span class="odia-text">"Miserly" (କୃପଣ/କଞ୍ଜୁସ) ର ସଠିକ୍ ବିପରୀତ ଶବ୍ଦ କଣ?</span>
+                    Q8. Synonym of <strong>"Ridicule"</strong>:
+                    <span class="odia-text">"Ridicule" ଶବ୍ଦର ସମାନାର୍ଥକ ଶବ୍ଦ କଣ? (ଉପହାସ କରିବା)</span>
                 </div>
                 <ul class="options-list">
-                    <li class="option-item"><label><input type="radio" name="q8" value="A"> Generous</label></li>
-                    <li class="option-item"><label><input type="radio" name="q8" value="B"> Stingy</label></li>
-                    <li class="option-item"><label><input type="radio" name="q8" value="C"> Greedy</label></li>
-                    <li class="option-item"><label><input type="radio" name="q8" value="D"> Cheap</label></li>
+                    <li class="option-item"><label><input type="radio" name="q8" value="A"> Deride</label></li>
+                    <li class="option-item"><label><input type="radio" name="q8" value="B"> Praise</label></li>
+                    <li class="option-item"><label><input type="radio" name="q8" value="C"> Admire</label></li>
+                    <li class="option-item"><label><input type="radio" name="q8" value="D"> Respect</label></li>
                 </ul>
-                <div class="explanation" id="exp-q8"><strong>Answer Key:</strong> Correct Answer is <strong>A (Generous)</strong>. Generous का अर्थ उदार या दानी होता है।</div>
+                <div class="explanation" id="exp-q8"><strong>Answer Key:</strong> Correct Answer is <strong>A (Deride)</strong>.</div>
             </div>
-
-
-            <!-- SECTION 2: ONE WORD SUBSTITUTIONS -->
-            <div class="section-title">SECTION B: ONE WORD SUBSTITUTION (ଏକ ପଦରେ ପ୍ରକାଶ)</div>
 
             <!-- Q9 -->
             <div class="question-block" id="block-q9">
                 <div class="question-text">
-                    Q9. A person who looks at the bright side of things:
-                    <span class="odia-text">ଯିଏ ସବୁବେଳେ ସକାରାତ୍ମକ ଦିଗକୁ ଦେଖେ (ଆଶାବାଦୀ):</span>
+                    Q9. Synonym of <strong>"Boorish"</strong>:
+                    <span class="odia-text">"Boorish" ଶବ୍ଦର ପ୍ରତିଶବ୍ଦ କଣ ହେବ? (ଗାଉଁଲି / ଅସଭ୍ୟ)</span>
                 </div>
                 <ul class="options-list">
-                    <li class="option-item"><label><input type="radio" name="q9" value="A"> Pessimist</label></li>
-                    <li class="option-item"><label><input type="radio" name="q9" value="B"> Atheist</label></li>
-                    <li class="option-item"><label><input type="radio" name="q9" value="C"> Optimist</label></li>
-                    <li class="option-item"><label><input type="radio" name="q9" value="D"> Theist</label></li>
+                    <li class="option-item"><label><input type="radio" name="q9" value="A"> Refined</label></li>
+                    <li class="option-item"><label><input type="radio" name="q9" value="B"> Uncouth</label></li>
+                    <li class="option-item"><label><input type="radio" name="q9" value="C"> Polite</label></li>
+                    <li class="option-item"><label><input type="radio" name="q9" value="D"> Cultured</label></li>
                 </ul>
-                <div class="explanation" id="exp-q9"><strong>Answer Key:</strong> Correct Answer is <strong>C (Optimist)</strong>.</div>
+                <div class="explanation" id="exp-q9"><strong>Answer Key:</strong> Correct Answer is <strong>B (Uncouth)</strong>.</div>
             </div>
 
             <!-- Q10 -->
             <div class="question-block" id="block-q10">
                 <div class="question-text">
-                    Q10. One who does not believe in the existence of God:
-                    <span class="odia-text">ଯିଏ ଭଗବାନଙ୍କ ଅସ୍ତିତ୍ୱକୁ ବିଶ୍ୱାସ କରେ ନାହିଁ (ନାସ୍ତିକ):</span>
+                    Q10. Synonym of <strong>"Rogue"</strong>:
+                    <span class="odia-text">"Rogue" ଶବ୍ଦର ସମାନାର୍ଥକ ଶବ୍ଦ ବାଛନ୍ତୁ। (ମହାଠକ / ଦୁଷ୍ଟ)</span>
                 </div>
                 <ul class="options-list">
-                    <li class="option-item"><label><input type="radio" name="q10" value="A"> Theist</label></li>
-                    <li class="option-item"><label><input type="radio" name="q10" value="B"> Atheist</label></li>
-                    <li class="option-item"><label><input type="radio" name="q10" value="C"> Ascetic</label></li>
-                    <li class="option-item"><label><input type="radio" name="q10" value="D"> Egoist</label></li>
+                    <li class="option-item"><label><input type="radio" name="q10" value="A"> Knave</label></li>
+                    <li class="option-item"><label><input type="radio" name="q10" value="B"> Honest</label></li>
+                    <li class="option-item"><label><input type="radio" name="q10" value="C"> Saint</label></li>
+                    <li class="option-item"><label><input type="radio" name="q10" value="D"> Faithful</label></li>
                 </ul>
-                <div class="explanation" id="exp-q10"><strong>Answer Key:</strong> Correct Answer is <strong>B (Atheist)</strong>. ଭଗବାନଙ୍କୁ ବିଶ୍ୱାସ କରୁଥିବା ବ୍ୟକ୍ତିଙ୍କୁ Theist କୁହାଯାଏ।</div>
+                <div class="explanation" id="exp-q10"><strong>Answer Key:</strong> Correct Answer is <strong>A (Knave)</strong>.</div>
             </div>
 
             <!-- Q11 -->
             <div class="question-block" id="block-q11">
                 <div class="question-text">
-                    Q11. A remedy for all diseases:
-                    <span class="odia-text">ସମସ୍ତ ରୋଗର ଏକମାତ୍ର ମହୌଷଧି (ସର୍ବରୋଗ ନିବାରକ):</span>
+                    Q11. Synonym of <strong>"Novice"</strong>:
+                    <span class="odia-text">"Novice" ଶବ୍ଦର ପ୍ରତିଶବ୍ଦ କଣ? (ନୂଆ ଶିଖୁଥିବା ବ୍ୟକ୍ତି)</span>
                 </div>
                 <ul class="options-list">
-                    <li class="option-item"><label><input type="radio" name="q11" value="A"> Antidote</label></li>
-                    <li class="option-item"><label><input type="radio" name="q11" value="B"> Panacea</label></li>
-                    <li class="option-item"><label><input type="radio" name="q11" value="C"> Antibiotic</label></li>
-                    <li class="option-item"><label><input type="radio" name="q11" value="D"> Panache</label></li>
+                    <li class="option-item"><label><input type="radio" name="q11" value="A"> Expert</label></li>
+                    <li class="option-item"><label><input type="radio" name="q11" value="B"> Master</label></li>
+                    <li class="option-item"><label><input type="radio" name="q11" value="C"> Naïve</label></li>
+                    <li class="option-item"><label><input type="radio" name="q11" value="D"> Professional</label></li>
                 </ul>
-                <div class="explanation" id="exp-q11"><strong>Answer Key:</strong> Correct Answer is <strong>B (Panacea)</strong>. रामबाण दवा।</div>
+                <div class="explanation" id="exp-q11"><strong>Answer Key:</strong> Correct Answer is <strong>C (Naïve)</strong>.</div>
             </div>
 
             <!-- Q12 -->
             <div class="question-block" id="block-q12">
                 <div class="question-text">
-                    Q12. A piece of writing or speech full of praise for someone who has died:
-                    <span class="odia-text">ମୃତ ବ୍ୟକ୍ତିଙ୍କ ସମ୍ମାନରେ ଦିଆଯାଉଥିବା ପ୍ରଶଂସା ସୂଚକ ଭାଷଣ:</span>
+                    Q12. Synonym of <strong>"Ambivalent"</strong>:
+                    <span class="odia-text">"Ambivalent" ଶବ୍ଦର ସମାନାର୍ଥକ ବାଛନ୍ତୁ। (ଦ୍ୱିଧାଗ୍ରସ୍ତ / ଅନିଶ୍ଚିତ)</span>
                 </div>
                 <ul class="options-list">
-                    <li class="option-item"><label><input type="radio" name="q12" value="A"> Eulogy</label></li>
-                    <li class="option-item"><label><input type="radio" name="q12" value="B"> Elegy</label></li>
-                    <li class="option-item"><label><input type="radio" name="q12" value="C"> Epitaph</label></li>
-                    <li class="option-item"><label><input type="radio" name="q12" value="D"> Biography</label></li>
+                    <li class="option-item"><label><input type="radio" name="q12" value="A"> Undecided</label></li>
+                    <li class="option-item"><label><input type="radio" name="q12" value="B"> Clear</label></li>
+                    <li class="option-item"><label><input type="radio" name="q12" value="C"> Sure</label></li>
+                    <li class="option-item"><label><input type="radio" name="q12" value="D"> Determined</label></li>
                 </ul>
-                <div class="explanation" id="exp-q12"><strong>Answer Key:</strong> Correct Answer is <strong>A (Eulogy)</strong>. Elegy एक शोकगीत होता है, और Eulogy प्रशंसा भाषण।</div>
+                <div class="explanation" id="exp-q12"><strong>Answer Key:</strong> Correct Answer is <strong>A (Undecided)</strong>.</div>
             </div>
 
             <!-- Q13 -->
             <div class="question-block" id="block-q13">
                 <div class="question-text">
-                    Q13. Something that cannot be heard:
-                    <span class="odia-text">ଯାହା ଶୁଣାଯାଇ ନପାରେ (ଅଶ୍ରାବ୍ୟ):</span>
+                    Q13. Synonym of <strong>"Frail"</strong>:
+                    <span class="odia-text">"Frail" ଶବ୍ଦର ପ୍ରତିଶବ୍ଦ କଣ? (କ୍ଷୀଣ / ଦୁର୍ବଳ)</span>
                 </div>
                 <ul class="options-list">
-                    <li class="option-item"><label><input type="radio" name="q13" value="A"> Audible</label></li>
-                    <li class="option-item"><label><input type="radio" name="q13" value="B"> Inaudible</label></li>
-                    <li class="option-item"><label><input type="radio" name="q13" value="C"> Invisible</label></li>
-                    <li class="option-item"><label><input type="radio" name="q13" value="D"> Illegible</label></li>
+                    <li class="option-item"><label><input type="radio" name="q13" value="A"> Healthy</label></li>
+                    <li class="option-item"><label><input type="radio" name="q13" value="B"> Feeble</label></li>
+                    <li class="option-item"><label><input type="radio" name="q13" value="C"> Tough</label></li>
+                    <li class="option-item"><label><input type="radio" name="q13" value="D"> Muscular</label></li>
                 </ul>
-                <div class="explanation" id="exp-q13"><strong>Answer Key:</strong> Correct Answer is <strong>B (Inaudible)</strong>. Illegible मतलब जिसे पढ़ा न जा सके।</div>
+                <div class="explanation" id="exp-q13"><strong>Answer Key:</strong> Correct Answer is <strong>B (Feeble)</strong>.</div>
             </div>
 
             <!-- Q14 -->
             <div class="question-block" id="block-q14">
                 <div class="question-text">
-                    Q14. A person who speaks many languages:
-                    <span class="odia-text">ଯିଏ ବହୁତ ଗୁଡ଼ିଏ ଭାଷା କହିପାରନ୍ତି (ବହୁଭାଷୀ):</span>
+                    Q14. Synonym of <strong>"Haphazard"</strong>:
+                    <span class="odia-text">"Haphazard" ଶବ୍ଦର ପ୍ରତିଶବ୍ଦ କଣ ହେ變? (ଆକସ୍ମିକ / ବିଶୃଙ୍ଖଳିତ)</span>
                 </div>
                 <ul class="options-list">
-                    <li class="option-item"><label><input type="radio" name="q14" value="A"> Linguist</label></li>
-                    <li class="option-item"><label><input type="radio" name="q14" value="B"> Polyglot</label></li>
-                    <li class="option-item"><label><input type="radio" name="q14" value="C"> Bilingual</label></li>
-                    <li class="option-item"><label><input type="radio" name="q14" value="D"> Monolingual</label></li>
+                    <li class="option-item"><label><input type="radio" name="q14" value="A"> Desultory</label></li>
+                    <li class="option-item"><label><input type="radio" name="q14" value="B"> Planned</label></li>
+                    <li class="option-item"><label><input type="radio" name="q14" value="C"> Perfect</label></li>
+                    <li class="option-item"><label><input type="radio" name="q14" value="D"> Systemic</label></li>
                 </ul>
-                <div class="explanation" id="exp-q14"><strong>Answer Key:</strong> Correct Answer is <strong>B (Polyglot)</st
+                <div class="explanation" id="exp-q14"><strong>Answer Key:</strong> Correct Answer is <strong>A (Desultory)</strong>.</div>
+            </div>
+
+            <!-- Q15 -->
+            <div class="question-block" id="block-q15">
+                <div class="question-text">
+                    Q15. Synonym of <strong>"Entreat"</strong>:
+                    <span class="odia-text">"Entreat" ଶବ୍ଦର ସମାନାର୍ଥକ ବାଛନ୍ତୁ। (ମିନତି କରିବା)</span>
+                </div>
+                <ul class="options-list">
+                    <li class="option-item"><label><input type="radio" name="q15" value="A"> Solicit</label></li>
+                    <li class="option-item"><label><input type="radio" name="q15" value="B"> Force</label></li>
+                    <li class="option-item"><label><input type="radio" name="q15" value="C"> Dictate</label></li>
+                    <li class="option-item"><label><input type="radio" name="q15" value="D"> Deny</label></li>
+                </ul>
+                <div class="explanation" id="exp-q15"><strong>Answer Key:</strong> Correct Answer is <strong>A (Solicit)</strong>.</div>
+            </div>
+
+            <!-- Q16 -->
+            <div class="question-block" id="block-q16">
+                <div class="question-text">
+                    Q16. Synonym of <strong>"Scorn"</strong>:
+                    <span class="odia-text">"Scorn" ଶବ୍ଦର ପ୍ରତିଶବ୍ଦ କଣ? (ଘୃଣା ବା ଅବଜ୍ଞା କରିବା)</span>
+                </div>
+                <ul class="options-list">
+                    <li class="option-item"><label><input type="radio" name="q16" value="A"> Appreciate</label></li>
+                    <li class="option-item"><label><input type="radio" name="q16" value="B"> Deride</label></li>
+                    <li class="option-item"><label><input type="radio" name="q16" value="C"> Honor</label></li>
+                    <li class="option-item"><label><input type="radio" name="q16" value="D"> Love</label></li>
+                </ul>
+                <div class="explanation" id="exp-q16"><strong>Answer Key:</strong> Correct Answer is <strong>B (Deride)</strong>.</div>
+            </div>
+
+            <!-- Q17 -->
+            <div class="question-block" id="block-q17">
+                <div class="question-text">
+                    Q17. Synonym of <strong>"Crude"</strong>:
+                    <span class="odia-text">"Crude" ଶବ୍ଦର ସମାନାର୍ଥକ ଶବ୍ଦ କଣ? (ଅମାର୍ଜିତ / ଅସଭ୍ୟ)</span>
+                </div>
+                <ul class="options-list">
+                    <li class="option-item"><label><input type="radio" name="q17" value="A"> Elegant</label></li>
+                    <li class="option-item"><label><input type="radio" name="q17" value="B"> Uncouth</label></li>
+                    <li class="option-item"><label><input type="radio" name="q17" value="C"> Pure</label></li>
+                    <li class="option-item"><label><input type="radio" name="q17" value="D"> Polished</label></li>
+                </ul>
+                <div class="explanation" id="exp-q17"><strong>Answer Key:</strong> Correct Answer is <strong>B (Uncouth)</strong>.</div>
+            </div>
+
+            <!-- Q18 -->
+            <div class="question-block" id="block-q18">
+                <div class="question-text">
+                    Q18. Synonym of <strong>"Villain"</strong>:
+                    <span class="odia-text">"Villain" ଶବ୍ଦର ପ୍ରତିଶବ୍ଦ କଣ ହେବ? (ଖଳନାୟକ / ଦୁଷ୍ଟ)</span>
+                </div>
+                <ul class="options-list">
+                    <li class="option-item"><label><input type="radio" name="q18" value="A"> Knave</label></li>
+                    <li class="option-item"><label><input type="radio" name="q18" value="B"> Hero</label></li>
+                    <li class="option-item"><label><input type="radio" name="q18" value="C"> Supporter</label></li>
+                    <li class="option-item"><label><input type="radio" name="q18" value="D"> Protector</label></li>
+                </ul>
+                <div class="explanation" id="exp-q18"><strong>Answer Key:</strong> Correct Answer is <strong>A (Knave)</strong>.</div>
+            </div>
+
+            <!-- Q19 -->
+            <div class="question-block" id="block-q19">
+                <div class="question-text">
+                    Q19. Synonym of <strong>"Tyro"</strong>:
+                    <span class="odia-text">"Tyro" ଶବ୍ଦର ପ୍ରତିଶବ୍ଦ ବାଛନ୍ତୁ। (ନୂତନ ଶିକ୍ଷାର୍ଥୀ)</span>
+                </div>
+                <ul class="options-list">
+                    <li class="option-item"><label><input type="radio" name="q19" value="A"> Professional</label></li>
+                    <li class="option-item"><label><input type="radio" name="q19" value="B"> Naïve</label></li>
+                    <li class="option-item"><label><input type="radio" name="q19" value="C"> Expert</label></li>
+                    <li class="option-item"><label><input type="radio" name="q19" value="D"> Veteran</label></li>
+                </ul>
+                <div class="explanation" id="exp-q19"><strong>Answer Key:</strong> Correct Answer is <strong>B (Naïve)</strong>.</div>
+            </div>
+
+            <!-- Q20 -->
+            <div class="question-block" id="block-q20">
+                <div class="question-text">
+                    Q20. Synonym of <strong>"Infirm"</strong>:
+                    <span class="odia-text">"Infirm" ଶବ୍ଦର ସମାନାର୍ଥକ ବାଛନ୍ତୁ। (ଅଶକ୍ତ / ଦୁର୍ବଳ)</span>
+                </div>
+                <ul class="options-list">
+                    <li class="option-item"><label><input type="radio" name="q20" value="A"> Healthy</label></li>
+                    <li class="option-item"><label><input type="radio" name="q20" value="B"> Feeble</label></li>
+                    <li class="option-item"><label><input type="radio" name="q20" value="C"> Energetic</label></li>
+                    <li class="option-item"><label><input type="radio" name="q20" value="D"> Stable</label></li>
+                </ul>
+                <div class="explanation" id="exp-q20"><strong>Answer Key:</strong> Correct Answer is <strong>B (Feeble)</strong>.</div>
+            </div>
+
+            <!-- Q21 -->
+            <div class="question-block" id="block-q21">
+                <div class="question-text">
+                    Q21. Synonym of <strong>"Aimless"</strong>:
+                    <span class="odia-text">"Aimless" ଶବ୍ଦର ସମାନାର୍ଥକ କଣ? (ଲକ୍ଷ୍ୟହୀନ)</span>
+                </div>
+                <ul class="options-list">
+                    <li class="option-item"><label><input type="radio" name="q21" value="A"> Focused</label></li>
+                    <li class="option-item"><label><input type="radio" name="q21" value="B"> Desultory</label></li>
+                    <li class="option-item"><label><input type="radio" name="q21" value="C"> Goal-oriented</label></li>
+                    <li class="option-item"><label><input type="radio" name="q21" value="D"> Direct</label></li>
+                </ul>
+                <div class="explanation" id="exp-q21"><strong>Answer Key:</strong> Correct Answer is <strong>B (Desultory)</strong>.</div>
+            </div>
+
+            <!-- Q22 -->
+            <div class="question-block" id="block-q22">
+                <div class="question-text">
+                    Q22. Synonym of <strong>"Beseech"</strong>:
+                    <span class="odia-text">"Beseech" ଶବ୍ଦର ପ୍ରତିଶବ୍ଦ କଣ? (ବ୍ୟାକୁଳ ହୋଇ ପ୍ରାର୍ଥନା କରିବା)</span>
+                </div>
+                <ul class="options-list">
+                    <li class="option-item"><label><input type="radio" name="q22" value="A"> Solicit</label></li>
+                    <li class="option-item"><label><input type="radio" name="q22" value="B"> Demand</label></li>
+                    <li class="option-item"><label><input type="radio" name="q22" value="C"> Command</label></li>
+                    <li class="option-item"><label><input type="radio" name="q22" value="D"> Reply</label></li>
+                </ul>
+                <div class="explanation" id="exp-q22"><strong>Answer Key:</strong> Correct Answer is <strong>A (Solicit)</strong>.</div>
+            </div>
+
+            <!-- Q23 -->
+            <div class="question-block" id="block-q23">
+                <div class="question-text">
+                    Q23. Synonym of <strong>"Scoff"</strong>:
+                    <span class="odia-text">"Scoff" ଶବ୍ଦର ସମାନାର୍ଥକ କଣ ହେବ? (ଉପହାସ ବା ତାତ୍ସଲ୍ୟ କରିବା)</span>
+                </div>
+                <ul class="options-list">
+                    <li class="option-item"><label><input type="radio" name="q23" value="A"> Praise</label></li>
+                    <li class="option-item"><label><input type="radio" name="q23" value="B"> Respect</label></li>
+                    <li class="option-item"><label><input type="radio" name="q23" value="C"> Deride</label></li>
+                    <li class="option-item"><label><input type="radio" name="q23" value="D"> Support</label></li>
+                </ul>
+                <div class="explanation" id="exp-q23"><strong>Answer Key:</strong> Correct Answer is <strong>C (Deride)</strong>.</div>
+            </div>
+
+            <!-- Q24 -->
+            <div class="question-block" id="block-q24">
+                <div class="question-text">
+                    Q24. Synonym of <strong>"Scoundrel"</strong>:
+                    <span class="odia-text">"Scoundrel" ଶବ୍ଦର ପ୍ରତିଶବ୍ଦ କଣ? (ବଦମାସ / ଅଧମ)</span>
+                </div>
+                <ul class="options-list">
+                    <li class="option-item"><label><input type="radio" name="q24" value="A"> Knave</label></li>
+                    <li class="option-item"><label><input type="radio" name="q24" value="B"> Honest</label></li>
+                    <li class="option-item"><label><input type="radio" name="q24" value="C"> Pure</label></li>
+                    <li class="option-item"><label><input type="radio" name="q24" value="D"> Hero</label></li>
+                </ul>
+                <div class="explanation" id="exp-q24"><strong>Answer Key:</strong> Correct Answer is <strong>A (Knave)</strong>.</div>
+            </div>
+
+            <!-- Q25 -->
+            <div class="question-block" id="block-q25">
+                <div class="question-text">
+                    Q25. Synonym of <strong>"Greenhorn"</strong>:
+                    <span class="odia-text">"Greenhorn" ଶବ୍ଦର ପ୍ରତିଶବ୍ଦ ବାଛନ୍ତୁ। (ଅନୁଭବହୀନ ନୂଆ ଶିଖୁଥିବା ବ୍ୟକ୍ତି)</span>
+                </div>
+                <ul class="options-list">
+                    <li class="option-item"><label><input type="radio" name="q25" value="A"> Naïve</label></li>
+                    <li class="option-item"><label><input type="radio" name="q25" value="B"> Master</label></li>
+                    <li class="option-item"><label><input type="radio" name="q25" value="C"> Veteran</label></li>
+                    <li class="option-item"><label><input type="radio" name="q25" value="D"> Expert</label></li>
+                </ul>
+                <div class="explanation" id="exp-q25"><strong>Answer Key:</strong> Correct Answer is <strong>A (Naïve)</strong>.</div>
+            </div>
+
+            <button type="button" class="submit-btn" onclick="calculateScore()">Submit Test / ଟେଷ୍ଟ ସବମିଟ୍ କରନ୍ତୁ</button>
+        </form>
+
+        <div id="result-box">
+            <h2>Test Completed! / ଟେଷ୍ଟ ସମାପ୍ତ ହେଲା!</h2>
+            <p id="score-text" style="font-size: 22px; font-weight: bold;"></p>
+        </div>
+    </div>
+
+    <script>
+        function calculateScore() {
+            // Correct Answers Key
+            const answers = {
+                q1: 'B', q2: 'B', q3: 'A', q4: 'B', q5: 'C',
+                q6: 'C', q7: 'C', q8: 'A', q9: 'B', q10: 'A',
+                q11: 'C', q12: 'A', q13: 'B', q14: 'A', q15: 'A',
+                q16: 'B', q17: 'B', q18: 'A', q19: 'B', q20: 'B',
+                q21: 'B', q22: 'A', q23: 'C', q24: 'A', q25: 'A'
+            };
+
+            let score = 0;
+            const form = document.getElementById('quizForm');
+            
+            // Clear any old styling from previous attempts
+            const labels = form.querySelectorAll('.option-item label');
+            labels.forEach(label => {
+                label.classList.remove('correct-option', 'wrong-option');
+            });
+
+            // Process each question
+            for (let key in answers) {
+                const correctAnswer = answers[key];
+                const radioButtons = form.elements[key];
+                let userSelected = "";
+
+                // Find out what user selected
+                if(radioButtons.value) {
+                    userSelected = radioButtons.value;
+                } else {
+                    // NodeList check if all unselected
+                    for(let i=0; i<radioButtons.length; i++) {
+                        if(radioButtons[i].checked) {
+                            userSelected = radioButtons[i].value;
+                        }
+                    }
+                }
+
+                // Show Explanation Box
+                document.getElementById(`exp-${key}`).style.display = 'block';
+
+                // Format Radio Buttons Option Items List
+                for (let i = 0; i < radioButtons.length; i++) {
+                    let rb = radioButtons[i];
+                    let parentLabel = rb.parentNode;
+
+                    // Style the absolute correct answer options green
+                    if (rb.value === correctAnswer) {
+                        parentLabel.classList.add('correct-option');
+                    }
+                    
+                    // Style wrong answer choices red if clicked by student
+                    if (userSelected === rb.value && userSelected !== correctAnswer) {
+                        parentLabel.classList.add('wrong-option');
+                    }
+                }
+
+                if (userSelected === correctAnswer) {
+                    score++;
+                }
+            }
+
+            // Results UI Processing
+            const resultBox = document.getElementById('result-box');
+            const scoreText = document.getElementById('score-text');
+            let percentage = (score / 25) * 100;
+            
+            scoreText.innerHTML = `Your Score: ${score} / 25 (${percentage}%) <br> ଆପଣଙ୍କ ସ୍କୋର: ${score} / 25 (${percentage}%)`;
+            resultBox.style.display = 'block';
+            resultBox.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>
