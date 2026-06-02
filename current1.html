@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="or">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RK Excellent Coaching - Current Affairs Mock Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f6fa;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .quiz-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 650px;
+            width: 100%;
+            border-top: 6px solid #00a8ff;
+        }
+        .header-box {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 2px dashed #dcdde1;
+            padding-bottom: 15px;
+        }
+        .header-box h1 {
+            color: #2f3640;
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        .header-box p {
+            color: #718093;
+            margin: 5px 0 0 0;
+            font-weight: bold;
+        }
+        .question-box {
+            display: none;
+        }
+        .question-box.active {
+            display: block;
+        }
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2f3640;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option-btn {
+            background-color: #f8f9fa;
+            border: 2px solid #dcdde1;
+            padding: 14px 20px;
+            font-size: 1.05rem;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+        .option-btn:hover:not([disabled]) {
+            background-color: #00a8ff;
+            color: white;
+            border-color: #00a8ff;
+        }
+        /* Correct Answer Styling */
+        .option-btn.correct {
+            background-color: #4cd137 !important;
+            border-color: #44bd32 !important;
+            color: white;
+            font-weight: bold;
+        }
+        /* Wrong Answer Styling */
+        .option-btn.wrong {
+            background-color: #e84118 !important;
+            border-color: #c23616 !important;
+            color: white;
+        }
+        /* Related Note Styling */
+        .note-box {
+            margin-top: 20px;
+            background-color: #f1f2f6;
+            border-left: 5px solid #00a8ff;
+            padding: 15px;
+            border-radius: 4px;
+            font-size: 0.98rem;
+            color: #2f3640;
+            line-height: 1.5;
+            display: none;
+        }
+        .footer-nav {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-btn {
+            background-color: #2f3640;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .nav-btn:hover:not([disabled]) {
+            background-color: #353b48;
+        }
+        .nav-btn:disabled {
+            background-color: #b2bec3;
+            cursor: not-allowed;
+        }
+        #score-card {
+            text-align: center;
+            display: none;
+            padding: 20px 0;
+        }
+        .score-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #4cd137;
+            margin: 20px 0;
+        }
+        .badge {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #e1b12c;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <div class="header-box">
+        <h1>RK EXCELLENT COACHING</h1>
+        <p>ଦୈନିକ କରେଣ୍ଟ ଆଫେୟାର୍ସ ମକ୍ ଟେଷ୍ଟ (୧ ଜୁନ୍ ୨୦୨୬)</p>
+    </div>
+    
+    <div id="quiz-body">
+        <!-- Questions will load here dynamically -->
+    </div>
+
+    <div class="footer-nav" id="nav-section">
+        <span id="question-number" style="font-weight: bold; color: #718093;">ପ୍ରଶ୍ନ ୧ / ୧୩</span>
+        <button class="nav-btn" id="next-btn" onclick="nextQuestion()" disabled>ପରବର୍ତ୍ତୀ ପ୍ରଶ୍ନ</button>
+    </div>
+
+    <!-- Score Card -->
+    <div id="score-card">
+        <h2>ପରୀକ୍ଷା ସମାପ୍ତ ହେଲା!</h2>
+        <p>ଆପଣଙ୍କର ସୋଟ୍ ସ୍କୋର:</p>
+        <div class="score-display" id="final-score">୦ / ୧୩</div>
+        <div class="badge" id="performance-badge"></div>
+        <button class="nav-btn" onclick="location.reload()" style="margin-top: 25px;">ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ</button>
+    </div>
+</div>
+
+<script>
+    // 13 Questions with associated Notes
+    const quizData = [
+        { q: "ଭାରତୀୟ ନୌସେନାର ୪୮ତମ ଉପ-ପ୍ରମୁଖ (Vice Chief of Naval Staff) ଭାବେ କିଏ ଦାୟିତ୍ୱ ଗ୍ରହଣ କରିଛନ୍ତି?", a: "ୱାଇସ୍ ଆଡମିରାଲ୍ ସଞ୍ଜୟ ବାତ୍ସାୟନ", b: "ୱାଇସ୍ ଆଡମିରାଲ୍ ଅଜୟ କୋଚ୍ଛର", c: "ଆଡମିରାଲ୍ ଦିନେଶ କେ. ତ୍ରିପାଠୀ", d: "ଏୟାର୍ ଚିଫ୍ ମାର୍ଶଲ୍ ଅମରପ୍ରୀତ ସିଂ", correct: "b", note: "<strong>Related Note:</strong> ୱାଇସ୍ ଆଡମିରାଲ୍ ଅଜୟ କୋଚ୍ଛର ୱାଇସ୍ ଆଡମିରାଲ୍ କୃଷ୍ଣ ସ୍ୱାମୀନାଥନଙ୍କ ସ୍ଥାନ ନେଇଛନ୍ତି। ବର୍ତ୍ତମାନ ଭାରତର ନୌସେନା ମୁଖ୍ୟ (Chief of Naval Staff) ହେଉଛନ୍ତି ଆଡମିରାଲ୍ ଦିନେଶ କେ. ତ୍ରିପାଠୀ।" },
+        { q: "୩୧ ମଇ ୨୦୨୬ ରୁ କାହାକୁ DRDO ର ଅଧ୍ୟକ୍ଷ ଭାବେ ଅତିରିକ୍ତ ଦାୟିତ୍ୱ (Additional Charge) ପ୍ରଦାନ କରାଯାଇଛି?", a: "ସମୀର ଭି. କାମତ", b: "ରାଜେଶ କୁମାର ସିଂ", c: "ଉପେନ୍ଦ୍ର ଦ୍ୱିବେଦୀ", d: "ରାଜା ସୁବ୍ରମଣ୍ୟ", correct: "b", note: "<strong>Related Note:</strong> ପ୍ରତିରକ୍ଷା ଅନୁସନ୍ଧାନ ଏବଂ ବିକାଶ ସଂଗଠନ (DRDO) ର ପୂର୍ବତନ ଅଧ୍ୟକ୍ଷ ଡ. ସମୀର ଭି. କାମତ ଅବସର ନେବା ପରେ ବରିଷ୍ଠ ଆଇଏଏସ୍ ଅଧିକାରୀ ରାଜେଶ କୁମାର ସିଂଙ୍କୁ ଏହି ଦାୟିତ୍ୱ ମିଳିଛି। DRDO ର ପ୍ରତିଷ୍ଠା ୧୯୫୮ ମସିହାରେ ହୋଇଥିଲା।" },
+        { q: "କେନ୍ଦ୍ର ସରକାର ତୈଳ ବିପଣନ କମ୍ପାନୀଗୁଡ଼ିକୁ କେତେ ଦିନର LPG ରିଜର୍ଭ ବଜାୟ ରଖିବାକୁ ନିର୍ଦ୍ଦେଶ ଦେଇଛନ୍ତି?", a: "୧୫ ଦିନ", b: "୩୦ ଦିନ", c: "୪୫ ଦିନ", d: "৬০ ଦିନ", correct: "b", note: "<strong>Related Note:</strong> ସଙ୍କଟ ସମୟରେ ଯେପରି ରୋଷେଇ ଗ୍ୟାସ୍‌ର ଅଭାବ ନହୁଏ, ସେଥିପାଇଁ କେନ୍ଦ୍ର ସରକାର ଅତିକମରେ ୩୦ ଦିନର ବଫର୍ ଷ୍ଟକ୍ ରଖିବାକୁ କମ୍ପାନୀଗୁଡ଼ିକୁ ନୂତନ ନିୟମ ଜାରି କରିଛନ୍ତି।" },
+        { q: "LPG ଗ୍ୟାସ୍‌ରେ ଗନ୍ଧ ଚିହ୍ନଟ କରିବା ପାଇଁ କେଉଁ ପଦାର୍ଥର ବ୍ୟବହାର କରାଯାଏ?", a: "ବ୍ୟୁଟେନ୍", b: "ପ୍ରୋପେନ୍", c: "ଇଥାଇଲ୍ ମରକେପ୍ଟେନ୍", d: "ମିଥେନ୍", correct: "c", note: "<strong>Related Note:</strong> ପ୍ରାକୃତିକ ରୂପେ LPG ଗ୍ୟାସ୍ (LPG - Liquefied Petroleum Gas) ର କୌଣସି ଗନ୍ଧ ନଥାଏ। ତେଣୁ ଗ୍ୟାସ୍ ଲିକ୍ ହେଲେ ଯେପରି ସହଜରେ ଜଣାପଡ଼ିବ, ସେଥିପାଇଁ ସେଥିରେ 'ଇଥାଇଲ୍ ମରକେପ୍ଟେନ୍' (Ethyl Mercaptan) ନାମକ ଏକ ଦୁର୍ଗନ୍ଧଯୁକ୍ତ କେମିକାଲ୍ ମିଶାଯାଏ।" },
+        { q: "୨୦୨୮ ର ଏସୀୟ ଇନଡୋର ଆଥଲେଟିକ୍ସ ଚାମ୍ପିଅନସିପ୍ (Asian Indoor Athletics Championship) ଭାରତର କେଉଁ ସହରରେ ଆୟୋଜିତ ହେବ?", a: "ଚଣ୍ଡୀଗଡ଼", b: "ଭୁବନେଶ୍ୱର", c: "ନୂଆଦିଲ୍ଲୀ", d: "କଲିକତା", correct: "b", note: "<strong>Related Note:</strong> ଓଡ଼ିଶାର ରାଜଧାନୀ ଭୁବନେଶ୍ୱରକୁ 'Sports Capital of India' କୁହାଯାଏ। ୨୦୨୮ ମସିହାରେ ଏହି ବଡ଼ ଏସୀୟ ପ୍ରତିଯୋଗିତା ଏଠାରେ ଆୟୋଜନ କରିବା ପାଇଁ ସ୍ୱୀକୃତି ମିଳିଛି।" },
+        { q: "ମଇ ୨୦୨୬ ରେ ଭାରତର ପ୍ରଥମ AI ସିଷ୍ଟମ୍ ଅନ୍ ଚିପ୍ 'A2000' ଲଞ୍ଚ କରିଥିବା କେରଳର ଷ୍ଟାର୍ଟଅପ୍ କମ୍ପାନୀର ନାମ କଣ?", a: "ଟିଏସଏମସି (TSMC)", b: "ନେତ୍ରସେମି (Netrasemi)", c: "ପ୍ରୋସ୍ୟୁସ୍ (Prosus)", d: "ଆଇସିଆରଆଇଇଆର (ICRIER)", correct: "b", note: "<strong>Related Note:</strong> କେରଳର କୋଚିରେ ଅବସ୍ଥିତ 'Netrasemi' ଷ୍ଟାର୍ଟଅପ୍ ଏହି ଐତିହାସିକ ସଫଳତା ପାଇଛି। ଏହି AI ଚିପ୍ ମାଧ୍ୟମରେ ସ୍ମାର୍ଟ ଡିଭାଇସ୍ ଗୁଡ଼ିକ ବିନା ଇଣ୍ଟରନେଟ୍‌ରେ ମଧ୍ୟ ଦ୍ରୁତ ଗତିରେ ଆର୍ଟିଫିସିଆଲ୍ ଇଣ୍ଟେଲିଜେନ୍ସ କାର୍ଯ୍ୟ କରିପାରିବେ।" },
+        { q: "'India's Digital Economy 2026' ରିପୋର୍ଟ ଅନୁସାରେ, AI ପରଫରମାନ୍ସ ମାମଲାରେ ଭାରତର ଗ୍ଲୋବାଲ୍ ର‍୍ୟାଙ୍କ୍ କେତେ?", a: "ଦ୍ୱିତୀୟ", b: "ତୃତୀୟ", c: "ଚତୁର୍ଥ", d: "ଅଷ୍ଟମ", correct: "c", note: "<strong>Related Note:</strong> ଏହି ରିପୋର୍ଟ ICRIER ଦ୍ୱାରା ପ୍ରକାଶିତ ହୋଇଛି। ଆର୍ଟିଫିସିଆଲ୍ ଇଣ୍ଟେଲିଜେନ୍ସର ବ୍ୟବହାର ଏବଂ ପରିଚାଳନାରେ ବିଶ୍ୱରେ ଭାରତ ଚତୁର୍ଥ ସ୍ଥାନରେ ରହିଛି।" },
+        { q: "୩୦ ମଇ ୨୦୨୬ ରେ ଗୋଆ ନିଜର କେତେ ତମ ରାଜ୍ୟ ପ୍ରତିଷ୍ଠା ଦିବସ ପାଳନ କରିଛି?", a: "୨୫ ତମ", b: "୩୫ ତମ", c: "୩୯ ତମ", d: "୫୬ ତମ", correct: "c", note: "<strong>Related Note:</strong> ୩୦ ମଇ ୧୯୮୭ ମସିହାରେ ଗୋଆ ଭାରତର ୨୫ତମ ପୂର୍ଣ୍ଣାଙ୍ଗ ରାଜ୍ୟ ଭାବେ ସ୍ୱୀକୃତି ପାଇଥିଲା। ସେଥିପାଇଁ ପ୍ରତିବର୍ଷ ୩୦ ମଇକୁ ଗୋଆର ରାଜ୍ୟ ପ୍ରତିଷ୍ଠା ଦିବସ ଭାବେ ପାଳନ କରାଯାଏ।" },
+        { q: "ଗୋଆକୁ ପୁର୍ତ୍ତୁଗାଲ ଶାସନରୁ ମୁକ୍ତ କରିବା ପାଇଁ ଭାରତୀୟ ସେନା ଦ୍ୱାରା କେଉଁ ଅପରେସନ୍ ଚଲାଯାଇଥିଲା?", a: "ଅପରେସନ୍ ପୋଲୋ", b: "ଅପରେସନ୍ ବିଜୟ", c: "ଅପରେସନ୍ ମେଘଦୂତ", d: "ଅପରେସନ୍ ଗଙ୍ଗା", correct: "b", note: "<strong>Related Note:</strong> ୧୯୬୧ ମସିହାରେ ଭାରତୀୟ ସେନା 'Operation Vijay' ମାଧ୍ୟମରେ ଗୋଆକୁ ୪୫୦ ବର୍ଷର ପୁର୍ତ୍ତୁଗୀଜ୍ ଶାସନରୁ ମୁକ୍ତ କରିଥିଲା। ପ୍ରତିବର୍ଷ ୧୯ ଡିସେମ୍ବରକୁ ଗୋଆ ମୁକ୍ତି ଦିବସ (Goa Liberation Day) ପାଳନ କରାଯାଏ।" },
+        { q: "ଏସୀୟ ଅଣ୍ଡର-୨୦ ଆଥଲେଟିକ୍ସ ଚାମ୍ପିଅନସିପ୍ ୨୦୨୬ ରେ କେଉଁ ଭାରତୀୟ ମହିଳา ହାଇ ଜମ୍ପର ୧.୯୩ ମିଟର ଜମ୍ପ୍ କରି ସିନିୟର ନ୍ୟାସନାଲ୍ ରେକର୍ଡ କରିଛନ୍ତି?", a: "ପୂଜา ସିଂ", b: "ତେଜସ୍ୱୀନ ଶଙ୍କର", c: "ପୂଜา ପ୍ରଧାନ", d: "ହରଭଜନ ସିଂ", correct: "a", note: "<strong>Related Note:</strong> ପୂଜା ସିଂ ହରିୟାଣାର ବାସିନ୍ଦା। ସେ ମାତ୍ର ୧୭ ବର୍ଷ ବୟସରେ ଏହି ରେକର୍ଡ କରି ଅଲିମ୍ପିକ୍ସ ଯୋଗ୍ୟତା ପାଇଁ ନିଜର ଦାବି ମଜବୁତ କରିଛନ୍ତି।" },
+        { q: "ଭାରତର ପ୍ରଥମ ପାଣିପାଗ ସୂଚନା ସିଷ୍ଟମ୍ 'ସ୍କାଇ କାଷ୍ଟ' (Sky Cast System) କେଉଁଠାରେ ଲଞ୍ଚ କରାଯାଇଛି?", a: "ଜେବର ବିମାନବନ୍ଦର", b: "ଇନ୍ଦିରା ଗାନ୍ଧୀ ଆନ୍ତର୍ଜାତୀୟ ବିମାନବନ୍ଦର", c: "ବିଜୁ ପଟ୍ଟନାୟକ ବିମାନବନ୍ଦର", d: "କେମ୍ପେଗୌଡା ବିମାନବନ୍ଦର", correct: "b", note: "<strong>Related Note:</strong> ଏହି ସିଷ୍ଟମ୍ ବିମାନବନ୍ଦରରେ ଖରାପ ପାଣିପାଗ ଏବଂ ବିଜୁଳି ମାରିବାର ତଥ୍ୟ ବହୁ ପୂର୍ବରୁ ସଠିକ୍ ଭାବେ ପ୍ରଦାନ କରିବ, ଯାହାଫଳରେ ବିମାନ ଯାତ୍ରା ଅଧିକ ସୁରକ୍ଷିତ ହେବ।" },
+        { q: "ଚତୁର୍ଥ ଲ୍ୟାଭେଣ୍ଡର ଫେଷ୍ଟିଭାଲ୍ ୨୦୨୬ (Lavender Festival) ଜମ୍ମୁ-କାଶ୍ମୀରର କେଉଁ ସ୍ଥାନରେ ଆୟୋଜିତ ହେବ?", a: "ଶ୍ରୀନଗର", b: "ଭଦ୍ରବାହ", c: "ଜମ୍ମୁ", d: "ଗୁଲମାର୍ଗ", correct: "b", note: "<strong>Related Note:</strong> ଜମ୍ମୁ-କାଶ୍ମୀରର ଭଦ୍ରବାହ (Bhaderwah) କୁ 'Lavender Capital of India' କୁହାଯାଏ। ଭାରତରେ 'ନୀଳ ବିପ୍ଳବ' ବା 'Purple Revolution' ଏହି ଲ୍ୟାଭେଣ୍ଡର ଫୁଲ ଚାଷ ସହ ଜଡ଼ିତ।" },
+        { q: "[Question of the Day]: ଭାରତର କେଉଁ ବୈଜ୍ଞାନିକଙ୍କୁ 'Missile Man of India' କୁହାଯାଏ?", a: "ଡ. ସତୀଶ ରେଡ୍ଡୀ", b: "ଡ. ଏ.ପି.ଜେ. ଅବଦୁଲ କଲାମ", c: "ସି.ଭି. ରମଣ", d: "ହୋମି ଜାହାଙ୍ଗୀର ଭାଭା", correct: "b", note: "<strong>Related Note:</strong> ଡ. ଏ.ପି.ଜେ. ଅବଦୁଲ କଲାମ ଭାରତର ୧୧ତମ ରାଷ୍ଟ୍ରପତି ଥିଲେ। ଭାରତର ମିସାଇଲ୍ ପ୍ରୋଗ୍ରାମ (ଯେପରିକି ଅଗ୍ନି ଏବଂ ପୃଥ୍ୱୀ ମିସାଇଲ୍) ବିକାଶରେ ତାଙ୍କର ସବୁଠାରୁ ବଡ଼ ଅବଦାନ ଥିଲା।" }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    const quizBody = document.getElementById('quiz-body');
+    const nextBtn = document.getElementById('next-btn');
+    const qNumDisplay = document.getElementById('question-number');
+    const navSection = document.getElementById('nav-section');
+    const scoreCard = document.getElementById('score-card');
+    const badgeDisplay = document.getElementById('performance-badge');
+
+    function loadQuiz() {
+        quizData.forEach((data, index) => {
+            const qBox = document.createElement('div');
+            qBox.classList.add('question-box');
+            if(index === 0) qBox.classList.add('active');
+            qBox.id = `q-${index}`;
+
+            qBox.innerHTML = `
+                <div class="question-text">${index + 1}. ${data.q}</div>
+                <div class="options-container">
+                    <button class="option-btn" onclick="checkAnswer(this, ${index}, 'a')">A) ${data.a}</button>
+                    <button class="option-btn" onclick="checkAnswer(this, ${index}, 'b')">B) ${data.b}</button>
+                    <button class="option-btn" onclick="checkAnswer(this, ${index}, 'c')">C) ${data.c}</button>
+                    <button class="option-btn" onclick="checkAnswer(this, ${index}, 'd')">D) ${data.d}</button>
+                </div>
+                <div class="note-box" id="note-${index}">${data.note}</div>
+            `;
+            quizBody.appendChild(qBox);
+        });
+    }
+
+    function checkAnswer(selectedBtn, qIndex, selectedOption) {
+        const currentQuestion = quizData[qIndex];
+        const correctOption = currentQuestion.correct;
+        const qBox = document.getElementById(`q-${qIndex}`);
+        const buttons = qBox.querySelectorAll('.option-btn');
+        const noteBox = document.getElementById(`note-${qIndex}`);
+
+        // Disable all options
+        buttons.forEach(btn => btn.disabled = true);
+
+        // Highlight correct/wrong answer
+        if (selectedOption === correctOption) {
+            selectedBtn.classList.add('correct');
+            score++;
+        } else {
+            selectedBtn.classList.add('wrong');
+            buttons.forEach(btn => {
+                if(btn.getAttribute('onclick').includes(`'${correctOption}'`)) {
+                    btn.classList.add('correct');
+                }
+            });
+        }
+
+        // Show the related note smoothly
+        noteBox.style.display = 'block';
+
+        nextBtn.disabled = false;
+        if(currentQuestionIndex === quizData.length - 1) {
+            nextBtn.innerText = "ଫଳାଫଳ ଦେଖନ୍ତୁ";
+        }
+    }
+
+    function nextQuestion() {
+        const currentQBox = document.getElementById(`q-${currentQuestionIndex}`);
+        currentQBox.classList.remove('active');
+
+        currentQuestionIndex++;
+
+        if (currentQuestionIndex < quizData.length) {
+            const nextQBox = document.getElementById(`q-${currentQuestionIndex}`);
+            nextQBox.classList.add('active');
+            
+            qNumDisplay.innerText = `ପ୍ରଶ୍ନ ${currentQuestionIndex + 1} / ${quizData.length}`;
+            nextBtn.disabled = true;
+        } else {
+            quizBody.style.display = 'none';
+            navSection.style.display = 'none';
+            scoreCard.style.display = 'block';
+            document.getElementById('final-score').innerText = `${score} / ${quizData.length}`;
+            
+            if(score >= 11) {
+                badgeDisplay.innerHTML = "🏆 Excellent Performance!<br>ଆପଣ ଭିଡିଓଟିକୁ ବହୁତ ଭଲ ଭାବେ ବୁଝିଛନ୍ତି ଏବଂ ଆପଣଙ୍କ ପ୍ରସ୍ତୁତି ଉଚ୍ଚକୋଟୀର ଅଟେ।";
+                badgeDisplay.style.color = "#4cd137";
+            } else if(score >= 7) {
+                badgeDisplay.innerHTML = "✨ Very Good!<br>ଆପଣଙ୍କ ସ୍କୋର ଭଲ ଅଛି, ଆଉ ଟିକେ ଚେଷ୍տା କଲେ ସବୁ ପ୍ରଶ୍ନ ଠିକ୍ ହୋଇପାରିବ।";
+                badgeDisplay.style.color = "#00a8ff";
+            } else {
+                badgeDisplay.innerHTML = "📚 Keep Learning!<br>ଭିଡିଓର ତଥ୍ୟଗୁଡ଼ିକୁ ଆଉ ଥରେ ପଢ଼ନ୍ତୁ ଏବଂ ପ୍ରଶ୍ନର ନୋଟ୍ ଗୁଡ଼ିକୁ ମନେ ରଖନ୍ତୁ।";
+                badgeDisplay.style.color = "#e84118";
+            }
+        }
+    }
+
+    loadQuiz();
+</script>
+
+</body>
+</html>
