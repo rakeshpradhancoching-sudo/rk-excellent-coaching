@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="or">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adda247 Style Live Class - RK Excellent Coaching</title>
+    <style>
+        /* 100% प्योर क्रोमा-की ग्रीन स्क्रीन */
+        body {
+            background-color: #00FF00;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        /* Top Banner Like Adda247 */
+        .top-header {
+            background: linear-gradient(90deg, #ff4757, #2f3542);
+            color: #ffffff;
+            padding: 15px 30px;
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            border-bottom: 3px solid #ffffff;
+        }
+
+        .live-badge {
+            background-color: #ff0000;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 18px;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        /* मेन क्वेश्चन एरिया */
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px 60px;
+            box-sizing: border-box;
+        }
+
+        .question-box {
+            display: none;
+        }
+
+        .question-box.active {
+            display: block;
+        }
+
+        /* क्वेश्चन नंबर टैग */
+        .q-num {
+            font-size: 36px;
+            color: #ffff00;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 5px rgba(0,0,0,0.9);
+        }
+
+        /* इंग्लिश प्रश्न */
+        .txt-en {
+            font-size: 32px;
+            color: #ffffff;
+            font-weight: bold;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 5px rgba(0,0,0,0.9);
+        }
+
+        /* ओड़िया प्रश्न */
+        .txt-or {
+            font-size: 32px;
+            color: #ffff00;
+            font-weight: bold;
+            line-height: 1.6;
+            margin-bottom: 35px;
+            text-shadow: 3px 3px 5px rgba(0,0,0,0.9);
+        }
+
+        /* Q56 डेटा टेबल का बेहतरीन ग्रिड */
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 24px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #ffffff;
+        }
+
+        th, td {
+            border: 3px solid #ffffff;
+            padding: 12px 20px;
+            text-align: left;
+        }
+
+        th {
+            color: #ffff00;
+        }
+
+        /* ऑप्शन्स का प्रीमियम लेआउट (2x2 ग्रिड) */
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            width: 100%;
+        }
+
+        .opt-card {
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 3px solid #ffffff;
+            border-radius: 10px;
+            padding: 20px 30px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+        }
+
+        /* लाइव क्लास टाइमर डिज़ाइन */
+        .timer-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .timer-box {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #ff4757;
+            padding: 10px 25px;
+            border-radius: 8px;
+            border: 2px solid #ffffff;
+            box-shadow: 0 0 10px rgba(255, 71, 87, 0.5);
+        }
+
+        .timer-btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: #ffffff;
+            border: none;
+            border-radius: 5px;
+        }
+
+        /* बॉटम कंट्रोलर पट्टी */
+        .footer-controls {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 2px solid #ffffff;
+        }
+
+        .nav-btn {
+            padding: 15px 45px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            border: 2px solid #ffffff;
+            border-radius: 8px;
+            background-color: #ff4757;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: 0.2s;
+        }
+
+        .nav-btn:hover {
+            background-color: #ff6b81;
+        }
+
+        .nav-btn:disabled {
+            background-color: #747d8c;
+            color: #a4b0be;
+            border-color: #a4b0be;
+            cursor: not-allowed;
+        }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/dist/browser/v3/latest/js/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<div class="top-header">
+    <div>RK EXCELLENT COACHING — MATHS MOCK TEST</div>
+    <div class="live-badge">LIVE</div>
+</div>
+
+<div class="main-content">
+
+    <div class="question-box active">
+        <div class="q-num">QUESTION 51</div>
+        <div class="txt-en">P and Q start a business. P invests ₹90,000 for 8 months, Q invests ₹1,50,000 for 5 months. What is Q's share of a ₹50,000 profit (approximate)?</div>
+        <div class="txt-or">P ଏବଂ Q ଏକ ବ୍ୟବସାୟ ଆରମ୍ଭ କରନ୍ତି। P, 8 ମାସ ପାଇଁ ₹90,000 ଏବଂ Q, 5 ମାସ ପାଇଁ ₹1,50,000 ନିବେଶ କରେ। ₹50,000 ଲାଭରୁ Q ର ଭାଗ ପ୍ରାୟ କେତେ ହେବ?</div>
+        <div class="options-container">
+            <div class="opt-card">(a) ₹20,000</div>
+            <div class="opt-card">(b) ₹32,000</div>
+            <div class="opt-card">(c) ₹35,000</div>
+            <div class="opt-card">(d) ₹25,510</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 52</div>
+        <div class="txt-en">Rajesh started a business by investing ₹1,00,000. After 5 months, Suresh joined with ₹1,50,000. At the end of 7 months from the start, Tushar joined with ₹2,00,000. If the total profit is ₹1,50,000 at the end of the year, find the share of Tushar (approximate).</div>
+        <div class="txt-or">ରାଜେଶ ₹1,00,000 ନିବେଶ କରି ଏକ ବ୍ୟବସାୟ ଆରମ୍ଭ କଲେ। 5 ମାସ ପରେ, ସୁରେଶ ₹1,50,000 ସହିତ ସାମିଲ ହେଲେ। ବ୍ୟବସାୟ ଆରମ୍ଭ ହେବାର 7 ମାସ ଶେଷରେ, ତୁଷାର ₹2,00,000 ସହିତ ସାମିଲ ହେଲେ। ଯଦି ବର୍ଷ ଶେଷରେ ମୋଟ ଲାଭ ₹1,50,000 ହୁଏ, ତେବେ ତୁଷାରଙ୍କ ଭାଗ (ପ୍ରାୟ) କେତେ ତାହା ନିର୍ଣ୍ଣୟ କରନ୍ତୁ।</div>
+        <div class="options-container">
+            <div class="opt-card">(a) ₹55,000</div>
+            <div class="opt-card">(b) ₹46,154</div>
+            <div class="opt-card">(c) ₹45,250</div>
+            <div class="opt-card">(d) ₹35,500</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 53</div>
+        <div class="txt-en">What is the average of all integers between 150 and 300 that are exactly divisible by 13?</div>
+        <div class="txt-or">150 ଏବଂ 300 ମଧ୍ୟରେ ଥିବା ସମସ୍ତ ପୂର୍ଣ୍ଣସଂଖ୍ୟା (integers) ଯାହା 13 ଦ୍ୱାରା ସମ୍ପୂର୍ଣ୍ଣ ରୂପେ ବିଭାଜ୍ୟ, ସେଗուଡ଼ିକର ହାରାହାରି (average) କେତେ?</div>
+        <div class="options-container">
+            <div class="opt-card">(a) 220</div>
+            <div class="opt-card">(b) 227.5</div>
+            <div class="opt-card">(c) 230</div>
+            <div class="opt-card">(d) 235.5</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 54</div>
+        <div class="txt-en">The average of 12 numbers is 75. The average of the first 5 numbers is 68. The average of the next 5 numbers is 20% more than the average of the first 5 numbers. The 11th number is 12 more than the 12th number. What is the average of the 11th and 12th numbers?</div>
+        <div class="txt-or">12 ଟି ସଂଖ୍ୟାର ହାରାହାରି 75 ଅଟେ। ପ୍ରଥମ 5 ଟି ସଂଖ୍ୟାର ହାରାହାରି 68 ଅଟେ। ପରବର୍ତ୍ତୀ 5 ଟି ସଂଖ୍ୟାର ହାରାହାରି, ପ୍ରଥମ 5 ଟି ସଂଖ୍ୟାର ହାରାହାରି ଠାରୁ 20% ଅଧିକ। 11 ତମ ସଂଖ୍ୟାଟି 12 ତମ ସଂଖ୍ୟା ଠାରୁ 12 ଅଧିକ। 11 ତମ ଏବଂ 12 ତମ ସଂଖ୍ୟାର ହାରାହାରି କେତେ?</div>
+        <div class="options-container">
+            <div class="opt-card">(a) 72.5</div>
+            <div class="opt-card">(b) 76</div>
+            <div class="opt-card">(c) 82.3</div>
+            <div class="opt-card">(d) 88</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 55</div>
+        <div class="txt-en">A landlord bought a property for ₹12,00,000. He wants to earn a 10% annual return on his investment after paying ₹2,500 per month for maintenance. What should be the monthly rent he charges?</div>
+        <div class="txt-or">ଜଣେ ଜମିଦାର ₹12,00,000 ରେ ଏକ ସମ୍ପତ୍ତି କିଣିଲେ। ରକ୍ଷଣାବେକ୍ଷଣ (maintenance) ପାଇଁ ପ୍ରତି ମାସରେ ₹2,500 ଦେବା ପରେ ସେ ନିଜ ନିବେଶ ଉପରେ 10% ବାର୍ଷିକ ରିଟର୍ଣ୍ଣ ପାଇବାକୁ ଚାହାଁନ୍ତି। ସେ ପ୍ରତି ମାସରେ କେତେ ଭଡ଼ା ନେବା ଉଚିତ?</div>
+        <div class="options-container">
+            <div class="opt-card">(a) ₹9,500</div>
+            <div class="opt-card">(b) ₹10,000</div>
+            <div class="opt-card">(c) ₹12,500</div>
+            <div class="opt-card">(d) ₹11,000</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 56</div>
+        <div class="txt-en">From a sample of 250 data scientists, determine the ratio of those proficient in Python to those proficient in R.</div>
+        <div class="txt-or">250 ଜଣ ଡାଟା ସାଇଣ୍ଟିଷ୍ଟଙ୍କ ଏକ ନମୁନାରୁ, ପାଇଥନ୍ (Python) ରେ ଦକ୍ଷ ଥିବା ବ୍ୟକ୍ତି ଏବଂ ଆର୍ (R) ରେ ଦକ୍ଷ ଥିବା ବ୍ୟକ୍ତିଙ୍କ ଅନୁପାତ ନିର୍ଣ୍ଣୟ କରନ୍ତୁ।</div>
+        <table>
+            <tr>
+                <th>Category / ବର୍ଗ</th>
+                <th>Data Scientists</th>
+            </tr>
+            <tr>
+                <td>Proficient in Python and R (ପାଇଥନ୍ ଏବଂ ଆର୍ ଦୁହିଁଙ୍କଠାରେ ଦକ୍ଷ)</td>
+                <td>50</td>
+            </tr>
+            <tr>
+                <td>Proficient in Python only (କେବଳ ପାଇଥନ୍‌ରେ ଦକ୍ଷ)</td>
+                <td>80</td>
+            </tr>
+            <tr>
+                <td>Proficient in R only (କେବଳ ଆର୍‌ରେ ଦକ୍ଷ)</td>
+                <td>70</td>
+            </tr>
+            <tr>
+                <td>Proficient in neither language (କୌଣସି ଭାଷାରେ ଦକ୍ଷ ନୁହନ୍ତି)</td>
+                <td>50</td>
+            </tr>
+        </table>
+        <div class="options-container">
+            <div class="opt-card">(a) 13:12</div>
+            <div class="opt-card">(b) 12:13</div>
+            <div class="opt-card">(c) 8:7</div>
+            <div class="opt-card">(d) 7:8</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 57</div>
+        <div class="txt-en">Arrange the fractions 7/11, 5/9, 4/7, and 3/5 in ascending order.</div>
+        <div class="txt-or">ଭଗ୍ନାଂଶ 7/11, 5/9, 4/7, ଏବଂ 3/5 କୁ ସାନରୁ ବଡ଼ (ascending order) କ୍ରମରେ ସଜାନ୍ତୁ।</div>
+        <div class="options-container">
+            <div class="opt-card">(a) 3/5, 4/7, 5/9, 7/11</div>
+            <div class="opt-card">(b) 5/9, 4/7, 3/5, 7/11</div>
+            <div class="opt-card">(c) 3/5, 5/9, 4/7, 7/11</div>
+            <div class="opt-card">(d) 4/7, 5/9, 7/11, 3/5</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 58</div>
+        <div class="txt-en">Evaluate: \[8\frac{1}{3} - \left[ \frac{7}{9} \div \left\{ \frac{2}{5} - \left( \frac{1}{3} \times \left( \frac{5}{6} - \frac{1}{6} \right) \right) \right\} \right]\]</div>
+        <div class="txt-or">ମାନ ନିର୍ଣ୍ଣୟ କରନ୍ତୁ: \[8\frac{1}{3} - \left[ \frac{7}{9} \div \left\{ \frac{2}{5} - \left( \frac{1}{3} \times \left( \frac{5}{6} - \frac{1}{6} \right) \right) \right\} \right]\]</div>
+        <div class="options-container">
+            <div class="opt-card">(a) -41/15</div>
+            <div class="opt-card">(b) 45/23</div>
+            <div class="opt-card">(c) 95/24</div>
+            <div class="opt-card">(d) 32/3</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 59</div>
+        <div class="txt-en">\(32^3 + 19^3 - 38^3 + 312\) is equal to:</div>
+        <div class="txt-or">\(32^3 + 19^3 - 38^3 + 312\) ର ମାନ କାହା ସହିତ ସମାନ:</div>
+        <div class="options-container">
+            <div class="opt-card">(a) -38520</div>
+            <div class="opt-card">(b) -26840</div>
+            <div class="opt-card">(c) -14933</div>
+            <div class="opt-card">(d) -52100</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 60</div>
+        <div class="txt-en">An amount is said to triple in 6 years with compound interest. How many years will it take for the amount to grow to 27 times its original value?</div>
+        <div class="txt-or">ଚକ୍ରବୃଦ୍ଧି ସୁଧ (compound interest) ହାରରେ ଏକ ନିର୍ଦ୍ଦିଷ୍ଟ ପରିମାଣର ଧନ 6 ବର୍ଷରେ ତିନିଗੁଣ ହୋଇଯାଏ। ଏହି ଧନ ନିଜର ମୂଳ ମୂଲ୍ୟର 27 ଗୁଣ ହେବା ପାଇଁ କେତେ ବର୍ଷ ସମୟ ଲାଗିବ?</div>
+        <div class="options-container">
+            <div class="opt-card">(a) 18</div>
+            <div class="opt-card">(b) 19</div>
+            <div class="opt-card">(c) 20</div>
+            <div class="opt-card">(d) 21</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 61</div>
+        <div class="txt-en">A company produced 1500 units at a total cost of ₹1,20,000. It donated 300 units to an NGO. For the rest, it announced a 15% discount on the market price of ₹110 per unit. It also offered 3 units free for every 10 units purchased. If all 1500 units were distributed, what is the overall gain or loss percentage?</div>
+        <div class="txt-or">ଏକ କମ୍ପାନୀ ₹1,20,000 ର ମୋଟ ଖର୍ଚ୍ଚରେ 1500 ୟୁନିଟ୍ ଉତ୍ପାଦନ କଲା। ଏହା ଏକ NGO କୁ 300 ୟୁନିଟ୍ ଦାନ କଲା। ବାକି ୟୁନିଟ୍ ଗୁଡ଼ିକ ପାଇଁ, ଏହା ପ୍ରତି ୟୁନିଟ୍ ₹110 ର ବଜାର ମୂଲ୍ୟ (market price) ଉପରେ 15% ରିହାତି ଘୋଷଣା କଲା। ଏହା ପ୍ରତି 10 ଟି ୟୁନିଟ୍ କିଣିବା ଉପରେ 3 ଟି ୟୁନିଟ୍ ମାଗଣା ମଧ୍ୟ ପ୍ରଦାନ କଲା। ଯଦି ସମସ୍ତ 1500 ୟୁନିଟ୍ ବିତରଣ କରାଯାଇଛି, ତେବେ ମୋଟ ଲାଭ କିମ୍ବା କ୍ଷତିର ପ୍ରତିଶତ କେତେ?</div>
+        <div class="options-container">
+            <div class="opt-card">(a) 25% loss</div>
+            <div class="opt-card">(b) 15% profit</div>
+            <div class="opt-card">(c) 28.08% loss</div>
+            <div class="opt-card">(d) 36.6% profit</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 62</div>
+        <div class="txt-en">A 50-litre mixture contains juice and water in the ratio 3:2. How much water (in litres) must be added to this mixture to change the ratio of juice to water to 3:4?</div>
+        <div class="txt-or">ଏକ 50-ଲିଟର ମିଶ୍ରଣରେ ଜୁସ୍ ଏବଂ ପାଣିର ଅନୁପାତ 3:2 ଅଟେ। ଜୁସ୍ ଏବଂ ପାଣିର ଅନୁପାତକୁ 3:4 କୁ ବଦଳାଇବା ପାଇଁ ଏହି ମିଶ୍ରଣରେ କେତେ ପାଣି (ଲିଟରରେ) ମିଶାଇବାକୁ ପଡ଼ିବ?</div>
+        <div class="options-container">
+            <div class="opt-card">(a) 12 litres</div>
+            <div class="opt-card">(b) 15 litres</div>
+            <div class="opt-card">(c) 18 litres</div>
+            <div class="opt-card">(d) 20 litres</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 63</div>
+        <div class="txt-en">Priya purchased 30 litres of honey at ₹50 per litre. She also purchased 20 litres of honey at ₹55 per litre. She combined both quantities and then sold the entire mixture at ₹54 per litre. What was her total profit or loss?</div>
+        <div class="txt-or">ପ୍ରିୟା ଲିଟର ପିଛା ₹50 ଦରରେ 30 ଲିଟର ମହୁ କିଣିଲେ। ସେ ଲିଟର ପିଛା ₹55 ଦରରେ 20 ଲିଟର ମହୁ ମଧ୍ୟ କିଣିଲେ। ସେ ଉଭୟ ପରିମାଣକୁ ମିଶାଇ ସମ୍ପୂର୍ଣ୍ଣ ମିଶ୍ରଣକୁ ଲିଟର ପିଛा ₹54 ଦରରେ ବିକ୍ରି କଲେ। ତାଙ୍କର ମୋଟ ଲାଭ କିମ୍ବା କ୍ଷତି କେତେ ଥିଲା?</div>
+        <div class="options-container">
+            <div class="opt-card">(a) Loss of ₹60</div>
+            <div class="opt-card">(b) Profit of ₹100</div>
+            <div class="opt-card">(c) Profit of ₹120</div>
+            <div class="opt-card">(d) Loss of ₹120</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 64</div>
+        <div class="txt-en">A sum becomes ₹7,200 in 2 years and ₹8,640 in 3 years at compound interest. What is the original principal?</div>
+        <div class="txt-or">ଚକ୍ରବୃଦ୍ଧି ସୁଧ ହାରରେ ଏକ ନିର୍ଦ୍ଦିଷ୍ଟ ମୂଳଧନ 2 ବର୍ଷରେ ₹7,200 ଏବଂ 3 ବର୍ଷରେ ₹8,640 ହୋଇଯାଏ। ମୂଳ ଅସଲ ବା ମୂଳଧନ (principal) କେତେ?</div>
+        <div class="options-container">
+            <div class="opt-card">(a) ₹4,800</div>
+            <div class="opt-card">(b) ₹5,000</div>
+            <div class="opt-card">(c) ₹5,200</div>
+            <div class="opt-card">(d) ₹5,500</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 65</div>
+        <div class="txt-en">An express train covers a fixed distance in 40 minutes at an average speed of 200 km/h. Due to construction work, it needs to be diverted, increasing the distance by 25%. If the train needs to arrive at its destination on time (in 40 minutes), what should its new average speed be in km/h?</div>
+        <div class="txt-or">ଏକ ଏକ୍ସପ୍ରେସ୍ ଟ୍ରେନ୍ ହାରାହାରି 200 କିମି/ଘଣ୍ଟା ବେଗରେ ଏକ ନିର୍ଦ୍ଦିଷ୍ଟ ଦୂରତାକୁ 40 ମିନିଟରେ ଅତିକ୍ରମ କରେ। ନିର୍ମାଣ କାର୍ଯ୍ୟ ଯୋଗୁଁ ଏହାର ମାର୍ଗ ବଦଳାଇବାକୁ ପଡ଼ିଲା, ଯାହା ଦ୍ୱାରା ଦୂରତା 25% ବୃଦ୍ଧି ପାଇଲା। ଯଦિ ଟ୍ରେନ୍‌କୁ ଠିକ୍ ସମୟରେ (40 ମିନିଟରେ) ଗନ୍ତବ୍ୟ ସ୍ଥଳରେ ପହଞ୍ଚିବାକୁ ହେବ, ତେବେ ଏହାର ନୂତନ ହାରାହାରି ବେଗ କିମି/ଘଣ୍ଟାରେ କେତେ ହେବା ଉଚିତ?</div>
+        <div class="options-container">
+            <div class="opt-card">(a) 250 km/h</div>
+            <div class="opt-card">(b) 260 km/h</div>
+            <div class="opt-card">(d) 270 km/h</div>
+            <div class="opt-card">(d) 280 km/h</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 66</div>
+        <div class="txt-en">A circular garden having a radius of 28 cm. If 80% of it is cultivated, what is the area of garden remaining uncultivated?</div>
+        <div class="txt-or">ଏକ ବୃତ୍ତାକାର ବଗିଚାର ବ୍ୟାସାର୍ଦ୍ଧ (radius) 28 ସେମି ଅଟେ। ଯଦિ ଏହାର 80% ଭାଗରେ ଚାଷ କରାଯାଏ, ତେବେ ବଗିଚାର ଚାଷ ହୋଇନଥିବା ଅବଶିଷ୍ଟ ଅଞ୍ଚଳର କ୍ଷେତ୍ରଫଳ କେତେ?</div>
+        <div class="options-container">
+            <div class="opt-card">(a) 193.6 \(\text{cm}^2\)</div>
+            <div class="opt-card">(b) 246.4 \(\text{cm}^2\)</div>
+            <div class="opt-card">(c) 492.8 \(\text{cm}^2\)</div>
+            <div class="opt-card">(d) 615.4 \(\text{cm}^2\)</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 67</div>
+        <div class="txt-en">Two motorcycles, M and N, start from points 480 km apart. They travel at constant speeds. If they move towards each other, they meet in 5 hours. If they move in the same direction, they meet in 15 hours. What is the speed of motorcycle M? (Assume M is the faster motorcycle)</div>
+        <div class="txt-or">ଦୁଇଟି ମୋଟରସାଇକେଲ୍ M ଏବଂ N, ପରସ୍ପର ଠାରୁ 480 କିମି ଦୂରରେ ଥିବା ଦୁଇଟି ସ୍ଥାନରୁ ଯାਤ୍ରା ଆରମ୍ଭ କରନ୍ତି। ସେମାନେ ସ୍ଥିर ବେଗରେ ଗତି କରନ୍ତି। ଯଦि ସେମାନେ ପରସ୍ପର ଆଡ଼କୁ (towards each other) ଗତି କରନ୍ତି, ତେବେ ସେମାନେ 5 ଘଣ୍ଟାରେ ଭେଟନ୍ତି। ଯଦି ସେମାନେ ଏକା ଦିଗରେ (same direction) ଗତି କରନ୍ତି, ତେବେ ସେମାନେ 15 ଘଣ୍ଟାରେ ଭେଟନ୍ତି। ମୋଟରସାଇକେଲ୍ M ର ବେଗ କେତେ? (ଧରିନିଅନ୍ତୁ M ହେଉଛି ଅଧିକ ବେଗବାନ ମୋଟରସਾਈକେଲ୍)</div>
+        <div class="options-container">
+            <div class="opt-card">(a) 55 km/h</div>
+            <div class="opt-card">(b) 64 km/h</div>
+            <div class="opt-card">(c) 70 km/h</div>
+            <div class="opt-card">(d) 80 km/h</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 68</div>
+        <div class="txt-en">Two spices priced at ₹80 per kg and ₹160 per kg are blended. They are sold at ₹140 per kg, achieving a profit margin of 25%. What is the ratio of the two spices in the mixture?</div>
+        <div class="txt-or">₹80 ପ୍ରତି କିଲୋଗ୍ରାମ ଏବଂ ₹160 ପ୍ରତି କିଲୋଗ୍ରାମ ମୂଲ୍ୟର ଦୁଇଟି ମସଲାକୁ ମିଶ୍ରଣ କରାଯାଏ। ସେଗୁଡ଼ିକୁ ପ୍ରତି କିଲୋଗ୍ରାମ ₹140 ରେ ବିକ୍ରି କରି 25% ଲାଭ ମାର୍ଜିନ୍ ମିଳେ। ମିଶ୍ରଣରେ ଦୁଇଟି ମସଲାର ଅନୁପାତ କେତେ?</div>
+        <div class="options-container">
+            <div class="opt-card">(a) 3:2</div>
+            <div class="opt-card">(b) 2:1</div>
+            <div class="opt-card">(c) 1:2</div>
+            <div class="opt-card">(d) 3:1</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 69</div>
+        <div class="txt-en">X is able to complete a task in 12 days, while Y takes 18 days to finish the same task. If they collaborate and work together for 3 days, what fraction of the work will still remain?</div>
+        <div class="txt-or">X ଏକ କାମକୁ 12 ଦିନରେ ସମ୍ପୂର୍ଣ୍ଣ କରିପାରେ, ଯେତେବେଳେ କି Y ସେହି ସମାନ କାମକୁ ଶେଷ କରିବାକୁ 18 ଦିନ ସମୟ ନିଏ। ଯଦି ସେମାନେ ମିଳିତ ଭାବେ 3 ଦିନ ଏକାଠି କାମ କରନ୍ତି, ତେବେ କାମର କେତେ ଅଂଶ ଏପର୍ଯ୍ୟନ୍ତ ବାକି ରହିବ?</div>
+        <div class="options-container">
+            <div class="opt-card">(a) 1/3</div>
+            <div class="opt-card">(b) 5/12</div>
+            <div class="opt-card">(c) 7/12</div>
+            <div class="opt-card">(d) 9/12</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 70</div>
+        <div class="txt-en">Three pumps, A, B, and C are capable of filling a reservoir. A fills in 5 hours, B in 7 hours, and C in 10 hours. When all three pumps are opened together, they operate for 1.5 hours before pump C is closed. How much additional time will it take to completely fill the reservoir after that?</div>
+        <div class="txt-or">ତିନୋଟି ପମ୍ପ A, B, ଏବଂ C ଏକ ଜଳାଶୟକୁ ପୂରଣ କରିବାକୁ ସକ୍ଷମ। A, 5 ଘଣ୍ଟାରେ, B, 7 ଘଣ୍ଟାରେ ଏବଂ C, 10 ଘଣ୍ଟାରେ ପୂରଣ କରେ। ଯେତେବେଳେ ତିନୋଟି ଯାକ ପମ୍ପ ଏକାଠି ଖୋଲାଯାଏ, ପମ୍ପ C ବନ୍ଦ ହେବା ପୂର୍ବରୁ ସେମାନେ 1.5 ଘଣ୍ଟା ଚାଲନ୍ତି। ଏହା ପରେ ଜଳାଶୟକୁ ସମ୍ପୂର୍ଣ୍ଣ ରୂପେ ପୂରଣ କରିବା ପାଇଁ କେତେ ଅତିରିକ୍ତ ସମୟ ଲାଗିବ?</div>
+        <div class="options-container">
+            <div class="opt-card">(a) 1/2 hours</div>
+            <div class="opt-card">(b) 43/25 hours</div>
+            <div class="opt-card">(c) 47/48 hours</div>
+            <div class="opt-card">(d) 45/41 hours</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 71</div>
+        <div class="txt-en">A retailer marks a laptop 70% above its cost price. He offers a first discount of 20% on the marked price. During a sale, an additional discount of 15% is applied on the already discounted price. If the final selling price is ₹39,312, what is the approximate cost price of the laptop?</div>
+        <div class="txt-or">ଜଣେ ଖୁଚୁରା ବିକ୍ରେତା ଏକ ଲାପଟପ୍‌ର ମୂଲ୍ୟ ଏହାର କିଣा ଦାମ (cost price) ଠାରୁ 70% ଅଧିକ ଧାର୍ଯ୍ୟ କରନ୍ତି। ସେ ଧାର୍ଯ୍ୟ ମୂଲ୍ୟ (marked price) ଉପରେ 20% ର ପ୍ରଥମ ରିହାତି ପ୍ରଦាន କरନ୍ତି। ଏକ ସେଲ୍ (sale) ସମୟରେ, ପୂର୍ବରୁ ରିହାତି ମିଳିଥିବା ମୂଲ୍ୟ ଉପରେ ଆଉ 15% ର ଅତିରିକ୍ତ ରିହାତି ଦିଆଯାଏ। ଯଦି ଚୂଡ଼ାନ୍ତ ବିକ୍ରି ମୂଲ୍ୟ (selling price) ₹39,312 ହୁଏ, ତେବେ ଲାପଟପ୍‌ର ଆନୁମାନିକ କିଣା ଦାम କେତେ?</div>
+        <div class="options-container">
+            <div class="opt-card">(a) ₹28,000</div>
+            <div class="opt-card">(b) ₹34,000</div>
+            <div class="opt-card">(c) ₹32,000</div>
+            <div class="opt-card">(d) ₹35,000</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 72</div>
+        <div class="txt-en">An annular region has outer radius 12 cm and inner radius 8 cm. What is the approximate ratio of the annular area to the whole outer circle?</div>
+        <div class="txt-or">ଏକ ବୃତ୍ତାକାର ବଳୟ (annular region) ର ବାହ୍ୟ ବ୍ୟାସାର୍ଦ୍ଧ 12 ସେମି ଏବଂ ଆଭ୍ୟନ୍ତରୀଣ ବ୍ୟାସାର୍ଦ୍ଧ 8 ସେମି ଅଟେ। ବଳୟର କ୍ଷେତ୍ରଫଳ ଏବଂ ସମ୍ପୂର୍ଣ୍ଣ ବାହ୍ୟ ବୃତ୍ତର କ୍ଷେତ୍ରଫଳର ଆନୁମାନିକ ଅନୁପାତ କେତେ?</div>
+        <div class="options-container">
+            <div class="opt-card">(a) 1:2</div>
+            <div class="opt-card">(b) 5:9</div>
+            <div class="opt-card">(c) 2:3</div>
+            <div class="opt-card">(d) 3:4</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 73</div>
+        <div class="txt-en">A car wheel having a radius of 42 cm. What percentage of its circumference is covered in a half turn? (Use \(\pi\) = 22/7)</div>
+        <div class="txt-or">ଏକ କାର୍ ଚକର ବ୍ୟାସାର୍ଦ୍ଧ 42 ସେମି ଅଟେ। ଏକ ଅଧା ଘୂର୍ଣ୍ଣନ (half turn) ରେ ଏହାର ପରିଧି (circumference) ର କେତେ ପ୍ରତିଶତ ଅତିକ୍ରମ ହୁଏ? (\(\pi\) = 22/7 ବ୍ୟବହାର କରନ୍ତୁ)</div>
+        <div class="options-container">
+            <div class="opt-card">(a) 25%</div>
+            <div class="opt-card">(b) 40%</div>
+            <div class="opt-card">(c) 50%</div>
+            <div class="opt-card">(d) 60%</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 74</div>
+        <div class="txt-en">The line \(y = mx + 7\) passes through (2, 13). Find \(m\).</div>
+        <div class="txt-or">ସରଳରେଖା \(y = mx + 7\), ବିନ୍ଦୁ (2, 13) ଦେଇ ଗତି କରେ। \(m\) ର ମାନ ନିର୍ଣ୍ଣୟ କରନ୍ତୁ।</div>
+        <div class="options-container">
+            <div class="opt-card">(a) 2</div>
+            <div class="opt-card">(b) 3</div>
+            <div class="opt-card">(c) 6</div>
+            <div class="opt-card">(d) 5</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="q-num">QUESTION 75</div>
+        <div class="txt-en">Simplify: \((3 + 2.8) - 1.5\)</div>
+        <div class="txt-or">ସରଳ କରନ୍ତୁ: \((3 + 2.8) - 1.5\)</div>
+        <div class="options-container">
+            <div class="opt-card">(a) 3.2</div>
+            <div class="opt-card">(b) 4.3</div>
+            <div class="opt-card">(c) 5.4</div>
+            <div class="opt-card">(d) 6.2</div>
+        </div>
+    </div>
+
+</div>
+
+<div class="footer-controls">
+    <button class="nav-btn" id="prevBtn" onclick="changeQuestion(-1)" disabled>Previous</button>
+    
+    <div class="timer-section">
+        <div class="timer-box" id="timerDisplay">30s</div>
+        <button class="timer-btn" onclick="startTimer()">Start Timer</button>
+    </div>
+
+    <button class="nav-btn" id="nextBtn" onclick="changeQuestion(1)">Next</button>
+</div>
+
+<script>
+    let currentIdx = 0;
+    const questions = document.querySelectorAll('.question-box');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    
+    // Timer Variables
+    let timerInterval;
+    const timerDisplay = document.getElementById('timerDisplay');
+
+    function changeQuestion(dir) {
+        // पुराने प्रश्न को छुपाएं और टाइमर रीसेट करें
+        clearInterval(timerInterval);
+        timerDisplay.textContent = "30s";
+        timerDisplay.style.backgroundColor = "#ff4757";
+
+        questions[currentIdx].classList.remove('active');
+        currentIdx += dir;
+        questions[currentIdx].classList.add('active');
+
+        // बटन इनेबल/डिसेबल
+        prevBtn.disabled = currentIdx === 0;
+        nextBtn.disabled = currentIdx === questions.length - 1;
+        
+        // MathJax इक्वेशन रेंडरिंग अपडेट
+        if(typeof MathJax !== 'undefined') {
+            MathJax.typesetPromise();
+        }
+    }
+
+    function startTimer() {
+        clearInterval(timerInterval);
+        let timeLeft = 30;
+        timerDisplay.style.backgroundColor = "#2ed573"; // ग्रीन जब टाइमर चल रहा हो
+        timerDisplay.textContent = timeLeft + "s";
+
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            timerDisplay.textContent = timeLeft + "s";
+            
+            if(timeLeft <= 10) {
+                timerDisplay.style.backgroundColor = "#ffa500"; // ऑरेंज वार्निंग
+            }
+            
+            if(timeLeft <= 0) {
+                clearInterval(timerInterval);
+                timerDisplay.textContent = "TIME UP";
+                timerDisplay.style.backgroundColor = "#ff0000"; // रेड
+            }
+        }, 1000);
+    }
+</script>
+
+</body>
+</html>
