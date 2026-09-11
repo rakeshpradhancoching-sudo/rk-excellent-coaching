@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="or">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 10 Science Practice Set</title>
+  <style>
+    :root {
+      --primary-color: #0d47a1;
+      --secondary-color: #1976d2;
+      --light-bg: #e3f2fd;
+      --card-bg: #ffffff;
+      --text-color: #1a237e;
+      --border-color: #bbdefb;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f7fa;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      text-align: center;
+      padding: 25px 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(13, 71, 161, 0.2);
+      margin-bottom: 25px;
+    }
+
+    .header h1 {
+      margin: 0 0 10px 0;
+      font-size: 24px;
+    }
+
+    .header p {
+      margin: 0;
+      font-size: 15px;
+      opacity: 0.9;
+    }
+
+    .section-title {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 18px;
+      margin: 30px 0 15px 0;
+    }
+
+    .q-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-left: 5px solid var(--secondary-color);
+      border-radius: 8px;
+      padding: 18px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .q-text {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-color);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    @media (min-width: 600px) {
+      .options {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .option-label {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      padding: 10px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+    }
+
+    .option-label:hover {
+      background-color: var(--light-bg);
+      border-color: var(--secondary-color);
+    }
+
+    .option-label input {
+      margin-right: 10px;
+    }
+
+    .ans-btn {
+      background-color: var(--secondary-color);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background-color 0.2s ease;
+    }
+
+    .ans-btn:hover {
+      background-color: var(--primary-color);
+    }
+
+    .answer-box {
+      display: none;
+      margin-top: 12px;
+      padding: 10px 14px;
+      background-color: #e8f5e9;
+      border: 1px solid #c8e6c9;
+      color: #2e7d32;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 15px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>ଶ୍ରେଣୀ - ୧୦ : ବିଜ୍ଞାନ (Science) - ମାଧ୍ୟମିକ ପରୀକ୍ଷା ପ୍ରଶ୍ନୋତ୍ତର</h1>
+    <p>ସମୁଦାୟ ପ୍ରଶ୍ନ: ୫୦ | ସମୟ: ୧ ଘଣ୍ଟା</p>
+  </div>
+
+  <div class="section-title">Part I: ଭୌତିକ ବିଜ୍ଞାନ (Physical Science) — 1 to 25</div>
+
+  <!-- Q1 -->
+  <div class="q-card">
+    <div class="q-text">1. ସମତଳ ଦର୍ପଣର ଫୋକସ୍ ଦୂରତା (Focus length) କେତେ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q1"> (A) ଶୂନ୍ୟ (Zero)</label>
+      <label class="option-label"><input type="radio" name="q1"> (B) ଅନନ୍ତ (Infinite)</label>
+      <label class="option-label"><input type="radio" name="q1"> (C) 25 cm</label>
+      <label class="option-label"><input type="radio" name="q1"> (D) 1 cm</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans1')">Show Answer</button>
+    <div id="ans1" class="answer-box">Correct Answer: (B) ଅନନ୍ତ (Infinite)</div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-card">
+    <div class="q-text">2. ଆଲୋକର ପ୍ରତିସରଣ ସମୟରେ କେଉଁ ଗୁଣଟି ଅପରିବର୍ତ୍ତିତ ରହେ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q2"> (A) ବେଗ (Velocity)</label>
+      <label class="option-label"><input type="radio" name="q2"> (B) ତରଙ୍ଗଦୈର୍ଘ୍ୟ (Wavelength)</label>
+      <label class="option-label"><input type="radio" name="q2"> (C) ଆବୃତ୍ତି (Frequency)</label>
+      <label class="option-label"><input type="radio" name="q2"> (D) ତୀବ୍ରତା (Intensity)</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans2')">Show Answer</button>
+    <div id="ans2" class="answer-box">Correct Answer: (C) ଆବୃତ୍ତି (Frequency)</div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-card">
+    <div class="q-text">3. ଅବତଳ ଦର୍ପଣରେ ବସ୍ତୁ ବକ୍ରତା କେନ୍ଦ୍ର (C) ରେ ରହିଲେ ପ୍ରତିବିମ୍ବ କେଉଁଠାରେ ସୃଷ୍ଟି ହୁଏ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q3"> (A) F ରେ</label>
+      <label class="option-label"><input type="radio" name="q3"> (B) C ରେ</label>
+      <label class="option-label"><input type="radio" name="q3"> (C) F ଏବଂ C ମଝିରେ</label>
+      <label class="option-label"><input type="radio" name="q3"> (D) ଅନନ୍ତରେ</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans3')">Show Answer</button>
+    <div id="ans3" class="answer-box">Correct Answer: (B) C ରେ</div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-card">
+    <div class="q-text">4. ବିଦ୍ୟୁତ୍ ସ୍ରୋତର ଏସ.ଆଇ. (S.I.) ଏକକ କ’ଣ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q4"> (A) ଭୋଲ୍ଟ (Volt)</label>
+      <label class="option-label"><input type="radio" name="q4"> (B) ଓମ୍ (Ohm)</label>
+      <label class="option-label"><input type="radio" name="q4"> (C) ଆମ୍ପିୟର୍ (Ampere)</label>
+      <label class="option-label"><input type="radio" name="q4"> (D) ୱାଟ୍ (Watt)</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans4')">Show Answer</button>
+    <div id="ans4" class="answer-box">Correct Answer: (C) ଆମ୍ପିୟର୍ (Ampere)</div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-card">
+    <div class="q-text">5. ବିଦ୍ୟୁତ୍ ବିଭବାନ୍ତର ମାପିବା ପାଇଁ କେଉଁ ଯନ୍ତ୍ର ବ୍ୟବହାର କରାଯାଏ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q5"> (A) ଆମିଟର</label>
+      <label class="option-label"><input type="radio" name="q5"> (B) ଭୋଲ୍ଟମିଟର</label>
+      <label class="option-label"><input type="radio" name="q5"> (C) ଗାଲଭାନୋମିଟର</label>
+      <label class="option-label"><input type="radio" name="q5"> (D) ଜୁଲମିଟର</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans5')">Show Answer</button>
+    <div id="ans5" class="answer-box">Correct Answer: (B) ଭୋଲ୍ଟମିଟର</div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-card">
+    <div class="q-text">6. ପ୍ରତିରୋଧର (Resistance) ଏକକ କ’ଣ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q6"> (A) ଓମ୍ (Ohm)</label>
+      <label class="option-label"><input type="radio" name="q6"> (B) ଆମ୍ପିୟର୍</label>
+      <label class="option-label"><input type="radio" name="q6"> (C) କୁଲମ୍ବ</label>
+      <label class="option-label"><input type="radio" name="q6"> (D) ଭୋଲ୍ଟ</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans6')">Show Answer</button>
+    <div id="ans6" class="answer-box">Correct Answer: (A) ଓମ୍ (Ohm)</div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-card">
+    <div class="q-text">7. ସାଧାରଣ ନେତ୍ର ପାଇଁ ସ୍ପଷ୍ଟ ଦର୍ଶନର ସର୍ବନିମ୍ନ ଦୂରତା କେତେ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q7"> (A) 25 m</label>
+      <label class="option-label"><input type="radio" name="q7"> (B) 2.5 cm</label>
+      <label class="option-label"><input type="radio" name="q7"> (C) 25 cm</label>
+      <label class="option-label"><input type="radio" name="q7"> (D) 2.5 m</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans7')">Show Answer</button>
+    <div id="ans7" class="answer-box">Correct Answer: (C) 25 cm</div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q-card">
+    <div class="q-text">8. ମନୁଷ୍ୟ ଆଖିରେ ପ୍ରତିବିମ୍ବ କେଉଁଠାରେ ସୃଷ୍ଟି ହୁଏ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q8"> (A) କୋର୍ନିଆ</label>
+      <label class="option-label"><input type="radio" name="q8"> (B) ଆଇରିସ୍</label>
+      <label class="option-label"><input type="radio" name="q8"> (C) ରେଟିନା (Retina)</label>
+      <label class="option-label"><input type="radio" name="q8"> (D) ପ୍ୟୁପିଲ୍</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans8')">Show Answer</button>
+    <div id="ans8" class="answer-box">Correct Answer: (C) ରେଟିନା (Retina)</div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="q-card">
+    <div class="q-text">9. ଆକାଶର ନୀଳ ରଙ୍ଗ ଦେଖାଯିବାର କାରଣ କ’ଣ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q9"> (A) ଆଲୋକର ପ୍ରତିଫଳନ</label>
+      <label class="option-label"><input type="radio" name="q9"> (B) ଆଲୋକର ବିଚ୍ଛୁରଣ (Scattering)</label>
+      <label class="option-label"><input type="radio" name="q9"> (C) ଆଲୋକର ବିଚ୍ଛେପଣ</label>
+      <label class="option-label"><input type="radio" name="q9"> (D) ଆଲୋକର ପ୍ରତିସରଣ</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans9')">Show Answer</button>
+    <div id="ans9" class="answer-box">Correct Answer: (B) ଆଲୋକର ବିଚ୍ଛୁରଣ (Scattering)</div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="q-card">
+    <div class="q-text">10. ଲେନ୍ସ ପାୱାର୍ (Power of Lens) ର ଏସ.ଆଇ. ଏକକ କ’ଣ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q10"> (A) ମିଟର</label>
+      <label class="option-label"><input type="radio" name="q10"> (B) ସେଣ୍ଟିମିଟର</label>
+      <label class="option-label"><input type="radio" name="q10"> (C) ଡାୟୋପ୍ଟର (Dioptre)</label>
+      <label class="option-label"><input type="radio" name="q10"> (D) ୱାଟ୍</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans10')">Show Answer</button>
+    <div id="ans10" class="answer-box">Correct Answer: (C) ଡାୟୋପ୍ଟର (Dioptre)</div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="q-card">
+    <div class="q-text">11. ବିଦ୍ୟୁତ୍ ବଲ୍ବର ଫିଲାମେଣ୍ଟ କେଉଁ ଧାତୁରେ ତିଆରି?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q11"> (A) ତମ୍ବା</label>
+      <label class="option-label"><input type="radio" name="q11"> (B) ଟଙ୍ଗଷ୍ଟନ୍ (Tungsten)</label>
+      <label class="option-label"><input type="radio" name="q11"> (C) ଆଲୁମିନିୟମ୍</label>
+      <label class="option-label"><input type="radio" name="q11"> (D) କାଚ</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans11')">Show Answer</button>
+    <div id="ans11" class="answer-box">Correct Answer: (B) ଟଙ୍ଗଷ୍ଟନ୍ (Tungsten)</div>
+  </div>
+
+  <!-- Q12 -->
+  <div class="q-card">
+    <div class="q-text">12. ବିଦ୍ୟୁତ୍ ପ୍ରବାହ ଦ୍ୱାରା ସୃଷ୍ଟି ଚୁମ୍ବକୀୟ କ୍ଷେତ୍ରର ଦିଗ କେଉଁ ନିୟମ ଦ୍ୱାରା ଜଣାପଡ଼େ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q12"> (A) ଫ୍ଲେମିଙ୍ଗଙ୍କ ବାମହସ୍ତ ନିୟମ</label>
+      <label class="option-label"><input type="radio" name="q12"> (B) ଦକ୍ଷିଣହସ୍ତ ବୃଦ୍ଧାଙ୍ଗୁଳି ନିୟମ</label>
+      <label class="option-label"><input type="radio" name="q12"> (C) ଓମ୍‌ଙ୍କ ନିୟମ</label>
+      <label class="option-label"><input type="radio" name="q12"> (D) ଫାରାଡେଙ୍କ ନିୟମ</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans12')">Show Answer</button>
+    <div id="ans12" class="answer-box">Correct Answer: (B) ଦକ୍ଷିଣହସ୍ତ ବୃଦ୍ଧାଙ୍ଗୁଳି ନିୟମ</div>
+  </div>
+
+  <!-- Q13 -->
+  <div class="q-card">
+    <div class="q-text">13. pH ସ୍କେଲ୍‌ରେ ପ୍ରଶମ (Neutral) ଦ୍ରବଣର pH ମୂଲ୍ୟ କେତେ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q13"> (A) 0</label>
+      <label class="option-label"><input type="radio" name="q13"> (B) 7</label>
+      <label class="option-label"><input type="radio" name="q13"> (C) 14</label>
+      <label class="option-label"><input type="radio" name="q13"> (D) 1</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans13')">Show Answer</button>
+    <div id="ans13" class="answer-box">Correct Answer: (B) 7</div>
+  </div>
+
+  <!-- Q14 -->
+  <div class="q-card">
+    <div class="q-text">14. ଖାଇବା ସୋଡ଼ାର ଆଣବିକ ସଙ୍କେତ କ’ଣ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q14"> (A) Na2CO3</label>
+      <label class="option-label"><input type="radio" name="q14"> (B) NaHCO3</label>
+      <label class="option-label"><input type="radio" name="q14"> (C) NaOH</label>
+      <label class="option-label"><input type="radio" name="q14"> (D) CaCl2</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans14')">Show Answer</button>
+    <div id="ans14" class="answer-box">Correct Answer: (B) NaHCO3</div>
+  </div>
+
+  <!-- Q15 -->
+  <div class="q-card">
+    <div class="q-text">15. କେଉଁ ଧାତୁଟି ସାଧାରଣ ଉତ୍ତାପରେ ତରଳ ଅବସ୍ଥାରେ ଥାଏ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q15"> (A) ସୋଡିୟମ୍</label>
+      <label class="option-label"><input type="radio" name="q15"> (B) ପାରଦ (Mercury)</label>
+      <label class="option-label"><input type="radio" name="q15"> (C) ଲୁହା</label>
+      <label class="option-label"><input type="radio" name="q15"> (D) ସୁନା</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans15')">Show Answer</button>
+    <div id="ans15" class="answer-box">Correct Answer: (B) ପାରଦ (Mercury)</div>
+  </div>
+
+  <!-- Q16 -->
+  <div class="q-card">
+    <div class="q-text">16. କେଉଁ ଅଧାତୁଟି ଉଜ୍ଜ୍ୱଳ (Lustrous) ଅଟେ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q16"> (A) ଆୟୋଡିନ୍ (Iodine)</label>
+      <label class="option-label"><input type="radio" name="q16"> (B) ସଲଫର୍</label>
+      <label class="option-label"><input type="radio" name="q16"> (C) କାର୍ବନ୍</label>
+      <label class="option-label"><input type="radio" name="q16"> (D) ଅମ୍ଳଜାନ</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans16')">Show Answer</button>
+    <div id="ans16" class="answer-box">Correct Answer: (A) ଆୟୋଡିନ୍ (Iodine)</div>
+  </div>
+
+  <!-- Q17 -->
+  <div class="q-card">
+    <div class="q-text">17. ସିନ୍ନାବାର୍ (Cinnabar) କେଉଁ ଧାତୁର ପିଣ୍ଡ (Ore)?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q17"> (A) ତମ୍ବା</label>
+      <label class="option-label"><input type="radio" name="q17"> (B) ପାରଦ (Mercury)</label>
+      <label class="option-label"><input type="radio" name="q17"> (C) ଆଲୁମିନିୟମ୍</label>
+      <label class="option-label"><input type="radio" name="q17"> (D) ଜିଙ୍କ୍</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans17')">Show Answer</button>
+    <div id="ans17" class="answer-box">Correct Answer: (B) ପାରଦ (Mercury)</div>
+  </div>
+
+  <!-- Q18 -->
+  <div class="q-card">
+    <div class="q-text">18. ଆଲକେନ୍ (Alkane) ର ସାଧାରଣ ସଙ୍କେତ କ’ଣ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q18"> (A) CnH2n</label>
+      <label class="option-label"><input type="radio" name="q18"> (B) CnH2n+2</label>
+      <label class="option-label"><input type="radio" name="q18"> (C) CnH2n-2</label>
+      <label class="option-label"><input type="radio" name="q18"> (D) CnHn</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans18')">Show Answer</button>
+    <div id="ans18" class="answer-box">Correct Answer: (B) CnH2n+2</div>
+  </div>
+
+  <!-- Q19 -->
+  <div class="q-card">
+    <div class="q-text">19. ମିଥେନ୍ (Methane) ର ଆଣବିକ ସଙ୍କେତ କ’ଣ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q19"> (A) CH4</label>
+      <label class="option-label"><input type="radio" name="q19"> (B) C2H6</label>
+      <label class="option-label"><input type="radio" name="q19"> (C) C3H8</label>
+      <label class="option-label"><input type="radio" name="q19"> (D) C4H10</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans19')">Show Answer</button>
+    <div id="ans19" class="answer-box">Correct Answer: (A) CH4</div>
+  </div>
+
+  <!-- Q20 -->
+  <div class="q-card">
+    <div class="q-text">20. ଆଧୁନିକ ପର୍ଯ୍ୟାୟ ସାରଣୀରେ କେତୋଟି ପର୍ଯ୍ୟାୟ (Periods) ଅଛି?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q20"> (A) 7</label>
+      <label class="option-label"><input type="radio" name="q20"> (B) 18</label>
+      <label class="option-label"><input type="radio" name="q20"> (C) 8</label>
+      <label class="option-label"><input type="radio" name="q20"> (D) 10</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans20')">Show Answer</button>
+    <div id="ans20" class="answer-box">Correct Answer: (A) 7</div>
+  </div>
+
+  <!-- Q21 -->
+  <div class="q-card">
+    <div class="q-text">21. ଆଧୁନିକ ପର୍ଯ୍ୟାୟ ସାରଣୀର ଜନକ କିଏ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q21"> (A) ମେଣ୍ଡେଲିଭ୍</label>
+      <label class="option-label"><input type="radio" name="q21"> (B) ମୋସ୍‌ଲେ (Henry Moseley)</label>
+      <label class="option-label"><input type="radio" name="q21"> (C) ଡୋବେରାଇନର୍</label>
+      <label class="option-label"><input type="radio" name="q21"> (D) ନ୍ୟୁଲ୍ୟାଣ୍ଡସ୍</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans21')">Show Answer</button>
+    <div id="ans21" class="answer-box">Correct Answer: (B) ମୋସ୍‌ଲେ (Henry Moseley)</div>
+  </div>
+
+  <!-- Q22 -->
+  <div class="q-card">
+    <div class="q-text">22. ଲୁହା କଳଙ୍କି ଲଗିବା କିପରି ପ୍ରତିକ୍ରିୟା?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q22"> (A) ଜାରଣ (Oxidation)</label>
+      <label class="option-label"><input type="radio" name="q22"> (B) ବିଜାରଣ</label>
+      <label class="option-label"><input type="radio" name="q22"> (C) ସଂଶ୍ଳେଷଣ</label>
+      <label class="option-label"><input type="radio" name="q22"> (D) ବିଘଟନ</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans22')">Show Answer</button>
+    <div id="ans22" class="answer-box">Correct Answer: (A) ଜାରଣ (Oxidation)</div>
+  </div>
+
+  <!-- Q23 -->
+  <div class="q-card">
+    <div class="q-text">23. ପ୍ଲାଷ୍ଟର ଅଫ୍ ପ୍ୟାରିସ୍‌ର ସାଧାରଣ ସଙ୍କେତ କ’ଣ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q23"> (A) CaSO4 · 2H2O</label>
+      <label class="option-label"><input type="radio" name="q23"> (B) CaSO4 · ½H2O</label>
+      <label class="option-label"><input type="radio" name="q23"> (C) CaCO3</label>
+      <label class="option-label"><input type="radio" name="q23"> (D) CaO</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans23')">Show Answer</button>
+    <div id="ans23" class="answer-box">Correct Answer: (B) CaSO4 · ½H2O</div>
+  </div>
+
+  <!-- Q24 -->
+  <div class="q-card">
+    <div class="q-text">24. ଅମ୍ଳରାଜ (Aqua Regia) ରେ HCl ଏବଂ HNO3 ର ଅନୁପାତ କେତେ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q24"> (A) 1 : 3</label>
+      <label class="option-label"><input type="radio" name="q24"> (B) 3 : 1</label>
+      <label class="option-label"><input type="radio" name="q24"> (C) 2 : 1</label>
+      <label class="option-label"><input type="radio" name="q24"> (D) 1 : 1</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans24')">Show Answer</button>
+    <div id="ans24" class="answer-box">Correct Answer: (B) 3 : 1</div>
+  </div>
+
+  <!-- Q25 -->
+  <div class="q-card">
+    <div class="q-text">25. ଦ୍ୱିପ୍ରତିସ୍ଥାପନ ପ୍ରତିକ୍ରିୟାରେ କ’ଣ ସୃଷ୍ଟି ହୁଏ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q25"> (A) ଅବକ୍ଷେପ (Precipitate)</label>
+      <label class="option-label"><input type="radio" name="q25"> (B) କେବଳ ଗ୍ୟାସ୍</label>
+      <label class="option-label"><input type="radio" name="q25"> (C) ଉତ୍ତାପ ଶୋଷଣ</label>
+      <label class="option-label"><input type="radio" name="q25"> (D) କୌଣସିଟି ନୁହେଁ</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans25')">Show Answer</button>
+    <div id="ans25" class="answer-box">Correct Answer: (A) ଅବକ୍ଷେପ (Precipitate)</div>
+  </div>
+
+  <div class="section-title">Part II: ଜୀବ ବିଜ୍ଞାନ (Life Science) — 26 to 50</div>
+
+  <!-- Q26 -->
+  <div class="q-card">
+    <div class="q-text">26. ଉଦ୍ଭିଦରେ ଜଳ ଏବଂ ଖଣିଜ ଲବଣର ପରିବହନ କାହା ଦ୍ୱାରା ହୋଇଥାଏ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q26"> (A) ଫ୍ଲୋଏମ୍</label>
+      <label class="option-label"><input type="radio" name="q26"> (B) ଜାଇଲେମ୍</label>
+      <label class="option-label"><input type="radio" name="q26"> (C) ଷ୍ଟୋମାଟା</label>
+      <label class="option-label"><input type="radio" name="q26"> (D) କୋଷଭିତ୍ତି</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans26')">Show Answer</button>
+    <div id="ans26" class="answer-box">Correct Answer: (B) ଜାଇଲେମ୍</div>
+  </div>
+
+  <!-- Q27 -->
+  <div class="q-card">
+    <div class="q-text">27. ମନୁଷ୍ୟ ଶରୀରରେ ମୂତ୍ର ନିଷ୍କାସନ ପାଇଁ ନିମ୍ନଲିଖିତ ମଧ୍ୟରୁ କେଉଁଟି ପ୍ରାଥମିକ ରେଚନ ଅଙ୍ଗ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q27"> (A) ଯକୃତ୍</label>
+      <label class="option-label"><input type="radio" name="q27"> (B) ବୃକ୍କ (Kidney)</label>
+      <label class="option-label"><input type="radio" name="q27"> (C) ଫୁସଫୁସ୍</label>
+      <label class="option-label"><input type="radio" name="q27"> (D) ଚର୍ମ</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans27')">Show Answer</button>
+    <div id="ans27" class="answer-box">Correct Answer: (B) ବୃକ୍କ (Kidney)</div>
+  </div>
+
+  <!-- Q28 -->
+  <div class="q-card">
+    <div class="q-text">28. ଗ୍ଲୁକୋଜ୍‌ର ବିଘଟନ (Glycolysis) କୋଷର କେଉଁ ଅଂଶରେ ସଂଘଟିତ ହୋଇଥାଏ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q28"> (A) ମାଇଟୋକଣ୍ଡ୍ରିଆ</label>
+      <label class="option-label"><input type="radio" name="q28"> (B) କୋଷଜୀବକ (Cytoplasm)</label>
+      <label class="option-label"><input type="radio" name="q28"> (C) ନିଉକ୍ଲିୟସ୍</label>
+      <label class="option-label"><input type="radio" name="q28"> (D) ରସଧାନୀ</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans28')">Show Answer</button>
+    <div id="ans28" class="answer-box">Correct Answer: (B) କୋଷଜୀବକ (Cytoplasm)</div>
+  </div>
+
+  <!-- Q29 -->
+  <div class="q-card">
+    <div class="q-text">29. ନିମ୍ନଲିଖିତ ମଧ୍ୟରୁ କେଉଁ ହରମୋନ୍ ଉଦ୍ଭିଦର ବୃଦ୍ଧି ନିରୋଧକ ଭାବରେ କାର୍ଯ୍ୟ କରେ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q29"> (A) ଅକ୍ସିନ୍</label>
+      <label class="option-label"><input type="radio" name="q29"> (B) ଜିବରେଲିନ୍</label>
+      <label class="option-label"><input type="radio" name="q29"> (C) ଆବସିସିକ୍ ଅମ୍ଳ (Abscisic Acid)</label>
+      <label class="option-label"><input type="radio" name="q29"> (D) ସାଇଟୋକାଇନିନ୍</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans29')">Show Answer</button>
+    <div id="ans29" class="answer-box">Correct Answer: (C) ଆବସିସିକ୍ ଅମ୍ଳ (Abscisic Acid)</div>
+  </div>
+
+  <!-- Q30 -->
+  <div class="q-card">
+    <div class="q-text">30. ଏକ ପରିସଂସ୍ଥାରେ (Ecosystem) ଶକ୍ତିର ପ୍ରବାହ କିପରି ହୋଇଥାଏ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q30"> (A) ଏକମୁଖୀ (Unidirectional)</label>
+      <label class="option-label"><input type="radio" name="q30"> (B) ଦ୍ୱିମୁଖୀ</label>
+      <label class="option-label"><input type="radio" name="q30"> (C) ଚକ୍ରୀୟ</label>
+      <label class="option-label"><input type="radio" name="q30"> (D) ବହୁମୁଖୀ</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans30')">Show Answer</button>
+    <div id="ans30" class="answer-box">Correct Answer: (A) ଏକମୁଖୀ (Unidirectional)</div>
+  </div>
+
+  <!-- Q31 -->
+  <div class="q-card">
+    <div class="q-text">31. ମନୁଷ୍ୟ ହୃତ୍‌ପିଣ୍ଡରେ କେତୋଟି କୋଠରୀ ଥାଏ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q31"> (A) 2</label>
+      <label class="option-label"><input type="radio" name="q31"> (B) 3</label>
+      <label class="option-label"><input type="radio" name="q31"> (C) 4</label>
+      <label class="option-label"><input type="radio" name="q31"> (D) 5</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans31')">Show Answer</button>
+    <div id="ans31" class="answer-box">Correct Answer: (C) 4</div>
+  </div>
+
+  <!-- Q32 -->
+  <div class="q-card">
+    <div class="q-text">32. ଉଦ୍ଭିଦର ପତ୍ରରେ ଥିବା ସୂକ୍ଷ୍ମ ଛିଦ୍ରକୁ କ’ଣ କୁହାଯାଏ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q32"> (A) ଷ୍ଟୋମାଟା / ଷ୍ଟୋମା (Stomata)</label>
+      <label class="option-label"><input type="radio" name="q32"> (B) ଲୋମ</label>
+      <label class="option-label"><input type="radio" name="q32"> (C) ଜାଇଲେମ୍</label>
+      <label class="option-label"><input type="radio" name="q32"> (D) କ୍ଲୋରୋପ୍ଲାଷ୍ଟ</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans32')">Show Answer</button>
+    <div id="ans32" class="answer-box">Correct Answer: (A) ଷ୍ଟୋମାଟା / ଷ୍ଟୋମା (Stomata)</div>
+  </div>
+
+  <!-- Q33 -->
+  <div class="q-card">
+    <div class="q-text">33. ଆଲୋକ ସଂଶ୍ଳେଷଣ ପ୍ରକ୍ରିୟାରେ କେଉଁ ଗ୍ୟାସ୍ ନିର୍ଗତ ହୁଏ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q33"> (A) କାର୍ବନ ଡାଇଅକ୍ସାଇଡ୍</label>
+      <label class="option-label"><input type="radio" name="q33"> (B) ଅମ୍ଳଜାନ (Oxygen)</label>
+      <label class="option-label"><input type="radio" name="q33"> (C) ନାଇଟ୍ରୋଜେନ୍</label>
+      <label class="option-label"><input type="radio" name="q33"> (D) ହାଇଡ୍ରୋଜେନ୍</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans33')">Show Answer</button>
+    <div id="ans33" class="answer-box">Correct Answer: (B) ଅମ୍ଳଜାନ (Oxygen)</div>
+  </div>
+
+  <!-- Q34 -->
+  <div class="q-card">
+    <div class="q-text">34. ମନୁଷ୍ୟ କ୍ରୋମୋଜୋମ୍ ସଂଖ୍ୟା କେତେ ଯୋଡ଼ା?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q34"> (A) 22 ଯୋଡ଼ା</label>
+      <label class="option-label"><input type="radio" name="q34"> (B) 23 ଯୋଡ଼ା</label>
+      <label class="option-label"><input type="radio" name="q34"> (C) 46 ଯୋଡ଼ା</label>
+      <label class="option-label"><input type="radio" name="q34"> (D) 24 ଯୋଡ଼ା</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans34')">Show Answer</button>
+    <div id="ans34" class="answer-box">Correct Answer: (B) 23 ଯୋଡ଼ା</div>
+  </div>
+
+  <!-- Q35 -->
+  <div class="q-card">
+    <div class="q-text">35. ଇନ୍‌ସୁଲିନ୍ ହରମୋନ୍ କେଉଁ ଗ୍ରନ୍ଥିରୁ ସ୍ରବିତ ହୁଏ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q35"> (A) ଥାଇରଏଡ୍</label>
+      <label class="option-label"><input type="radio" name="q35"> (B) ଅଗ୍ନ୍ୟାଶୟ (Pancreas)</label>
+      <label class="option-label"><input type="radio" name="q35"> (C) ପିଟ୍ୟୁଟାରୀ</label>
+      <label class="option-label"><input type="radio" name="q35"> (D) ଆଡ୍ରେନାଲ୍</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans35')">Show Answer</button>
+    <div id="ans35" class="answer-box">Correct Answer: (B) ଅଗ୍ନ୍ୟାଶୟ (Pancreas)</div>
+  </div>
+
+  <!-- Q36 -->
+  <div class="q-card">
+    <div class="q-text">36. ଅବଶ୍ୱସନ (Anaerobic Respiration) ରେ ଗ୍ଲୁକୋଜ୍ ଭାଙ୍ଗି କ’ଣ ତିଆରି ହୁଏ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q36"> (A) ଲାକ୍ଟିକ୍ ଅମ୍ଳ କିମ୍ବା ଇଥାନୋଲ୍</label>
+      <label class="option-label"><input type="radio" name="q36"> (B) ସାଇଟ୍ରିକ୍ ଅମ୍ଳ</label>
+      <label class="option-label"><input type="radio" name="q36"> (C) ପ୍ରୋଟିନ୍</label>
+      <label class="option-label"><input type="radio" name="q36"> (D) ଫ୍ୟାଟ୍</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans36')">Show Answer</button>
+    <div id="ans36" class="answer-box">Correct Answer: (A) ଲାକ୍ଟିକ୍ ଅମ୍ଳ କିମ୍ବା ଇଥାନୋଲ୍</div>
+  </div>
+
+  <!-- Q37 -->
+  <div class="q-card">
+    <div class="q-text">37. ଡି.ଏନ୍.ଏ (DNA) ର ସମ୍ପୂର୍ଣ୍ଣ ନାମ କ’ଣ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q37"> (A) Deoxyribonucleic Acid</label>
+      <label class="option-label"><input type="radio" name="q37"> (B) Ribonucleic Acid</label>
+      <label class="option-label"><input type="radio" name="q37"> (C) Dual Nucleic Acid</label>
+      <label class="option-label"><input type="radio" name="q37"> (D) Dynamic Nuclear Acid</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans37')">Show Answer</button>
+    <div id="ans37" class="answer-box">Correct Answer: (A) Deoxyribonucleic Acid</div>
+  </div>
+
+  <!-- Q38 -->
+  <div class="q-card">
+    <div class="q-text">38. ମନୁଷ୍ୟ ଶରୀରର ସବୁଠାରୁ ବଡ଼ ଗ୍ରନ୍ଥି କେଉଁଟି?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q38"> (A) ଯକୃତ୍ (Liver)</label>
+      <label class="option-label"><input type="radio" name="q38"> (B) ଅଗ୍ନ୍ୟାଶୟ</label>
+      <label class="option-label"><input type="radio" name="q38"> (C) ଥାଇରଏଡ୍</label>
+      <label class="option-label"><input type="radio" name="q38"> (D) ପିଟ୍ୟୁଟାରୀ</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans38')">Show Answer</button>
+    <div id="ans38" class="answer-box">Correct Answer: (A) ଯକୃତ୍ (Liver)</div>
+  </div>
+
+  <!-- Q39 -->
+  <div class="q-card">
+    <div class="q-text">39. ପରାଗସଙ୍ଗମ (Pollination) ପରେ ଓଭ୍ୟୁଲ୍ (Ovule) କାହାରେ ପରିଣତ ହୁଏ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q39"> (A) ଫଳ</label>
+      <label class="option-label"><input type="radio" name="q39"> (B) ମଞ୍ଜି (Seed)</label>
+      <label class="option-label"><input type="radio" name="q39"> (C) ଫୁଲ</label>
+      <label class="option-label"><input type="radio" name="q39"> (D) ପତ୍ର</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans39')">Show Answer</button>
+    <div id="ans39" class="answer-box">Correct Answer: (B) ମଞ୍ଜି (Seed)</div>
+  </div>
+
+  <!-- Q40 -->
+  <div class="q-card">
+    <div class="q-text">40. ଏଡ୍ସ (AIDS) ରୋଗ କାହା ଦ୍ୱାରା ବ୍ୟାପିଥାଏ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q40"> (A) ବ୍ୟାକ୍ଟେରିଆ</label>
+      <label class="option-label"><input type="radio" name="q40"> (B) ଭୂତାଣୁ (HIV Virus)</label>
+      <label class="option-label"><input type="radio" name="q40"> (C) କବକ</label>
+      <label class="option-label"><input type="radio" name="q40"> (D) ପ୍ରୋଟୋଜୋଆ</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans40')">Show Answer</button>
+    <div id="ans40" class="answer-box">Correct Answer: (B) ଭୂତାଣୁ (HIV Virus)</div>
+  </div>
+
+  <!-- Q41 -->
+  <div class="q-card">
+    <div class="q-text">41. ମାଣ୍ଡେଲଙ୍କ ଆନୁବଂଶିକତା ନିୟମ ପରୀକ୍ଷା ପାଇଁ ସେ କେଉଁ ଗଛ ବାଛିଥିଲେ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q41"> (A) ମଟର ଗଛ (Pea Plant)</label>
+      <label class="option-label"><input type="radio" name="q41"> (B) ସୋରିଷ ଗଛ</label>
+      <label class="option-label"><input type="radio" name="q41"> (C) ଗୋଲାପ ଗଛ</label>
+      <label class="option-label"><input type="radio" name="q41"> (D) ଧାନ ଗଛ</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans41')">Show Answer</button>
+    <div id="ans41" class="answer-box">Correct Answer: (A) ମଟର ଗଛ (Pea Plant)</div>
+  </div>
+
+  <!-- Q42 -->
+  <div class="q-card">
+    <div class="q-text">42. ମନୁଷ୍ୟ ରକ୍ତରେ ଅମ୍ଳଜାନ ବହନ କରୁଥିବା ରଞ୍ଜକର ନାମ କ’ଣ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q42"> (A) ହିମୋଗ୍ଲୋବିନ୍ (Hemoglobin)</label>
+      <label class="option-label"><input type="radio" name="q42"> (B) କ୍ଲୋରୋଫିଲ୍</label>
+      <label class="option-label"><input type="radio" name="q42"> (C) ପ୍ଲାଜ୍ମା</label>
+      <label class="option-label"><input type="radio" name="q42"> (D) ଶ୍ୱେତ ରକ୍ତ କଣିକା</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans42')">Show Answer</button>
+    <div id="ans42" class="answer-box">Correct Answer: (A) ହିମୋଗ୍ଲୋବିନ୍ (Hemoglobin)</div>
+  </div>
+
+  <!-- Q43 -->
+  <div class="q-card">
+    <div class="q-text">43. କାଲଭିନ୍ ଚକ୍ର କୋଷର କେଉଁଠାରେ ଘଟେ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q43"> (A) ଷ୍ଟ୍ରୋମା (Stroma)</label>
+      <label class="option-label"><input type="radio" name="q43"> (B) ଗ୍ରାନା</label>
+      <label class="option-label"><input type="radio" name="q43"> (C) ମାଇଟୋକଣ୍ଡ୍ରିଆ</label>
+      <label class="option-label"><input type="radio" name="q43"> (D) ନିଉକ୍ଲିୟସ୍</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans43')">Show Answer</button>
+    <div id="ans43" class="answer-box">Correct Answer: (A) ଷ୍ଟ୍ରୋମା (Stroma)</div>
+  </div>
+
+  <!-- Q44 -->
+  <div class="q-card">
+    <div class="q-text">44. ନିମ୍ନ ମଧ୍ୟରୁ କେଉଁଟି ଏକ ହରମୋନ୍ ନୁହେଁ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q44"> (A) ଥାଇରୋକ୍ସିନ୍</label>
+      <label class="option-label"><input type="radio" name="q44"> (B) ଆଡ୍ରେନାଲିନ୍</label>
+      <label class="option-label"><input type="radio" name="q44"> (C) ପେପ୍ସିନ୍ (Pepsin)</label>
+      <label class="option-label"><input type="radio" name="q44"> (D) ଇନ୍‌ସୁଲିନ୍</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans44')">Show Answer</button>
+    <div id="ans44" class="answer-box">Correct Answer: (C) ପେପ୍ସିନ୍ (Pepsin - ଏହା ଏକ ଏନ୍‌ଜାଇମ୍)</div>
+  </div>
+
+  <!-- Q45 -->
+  <div class="q-card">
+    <div class="q-text">45. ପରିସଂସ୍ଥାରେ ଅପଘଟକ (Decomposers) ଭାବରେ କିଏ କାର୍ଯ୍ୟ କରନ୍ତି?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q45"> (A) ସବୁଜ ଉଦ୍ଭିଦ</label>
+      <label class="option-label"><input type="radio" name="q45"> (B) ବ୍ୟାକ୍ଟେରିଆ ଓ କବକ</label>
+      <label class="option-label"><input type="radio" name="q45"> (C) ହରିଣ ଓ ଛେଳି</label>
+      <label class="option-label"><input type="radio" name="q45"> (D) ବାଘ ଓ ସିଂହ</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans45')">Show Answer</button>
+    <div id="ans45" class="answer-box">Correct Answer: (B) ବ୍ୟାକ୍ଟେରିଆ ଓ କବକ</div>
+  </div>
+
+  <!-- Q46 -->
+  <div class="q-card">
+    <div class="q-text">46. ମାଂସାହାରୀ ଜୀବମାନେ ଖାଦ୍ୟ ଶୃଙ୍ଖଳାର କେଉଁ ସ୍ତରରେ ରହନ୍ତି?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q46"> (A) ପ୍ରାଥମିକ ଭକ୍ଷକ</label>
+      <label class="option-label"><input type="radio" name="q46"> (B) ଦ୍ୱିତୀୟକ/ତୃତୀୟକ ଭକ୍ଷକ</label>
+      <label class="option-label"><input type="radio" name="q46"> (C) ଉତ୍ପାଦକ</label>
+      <label class="option-label"><input type="radio" name="q46"> (D) ଅପଘଟକ</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans46')">Show Answer</button>
+    <div id="ans46" class="answer-box">Correct Answer: (B) ଦ୍ୱିତୀୟକ/ତୃତୀୟକ ଭକ୍ଷକ</div>
+  </div>
+
+  <!-- Q47 -->
+  <div class="q-card">
+    <div class="q-text">47. ଶ୍ୱସନ ପ୍ରକ୍ରିୟା ଏକ କିପ୍ରକାର ପ୍ରତିକ୍ରିୟା?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q47"> (A) ତାପଉତ୍ପାଦୀ (Exothermic)</label>
+      <label class="option-label"><input type="radio" name="q47"> (B) ତାପଶୋଷୀ (Endothermic)</label>
+      <label class="option-label"><input type="radio" name="q47"> (C) ବିଘଟନ</label>
+      <label class="option-label"><input type="radio" name="q47"> (D) ସଂଶ୍ଳେଷଣ</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans47')">Show Answer</button>
+    <div id="ans47" class="answer-box">Correct Answer: (A) ତାପଉତ୍ପାଦୀ (Exothermic)</div>
+  </div>
+
+  <!-- Q48 -->
+  <div class="q-card">
+    <div class="q-text">48. ମନୁଷ୍ୟ କ୍ଷୁଦ୍ରାନ୍ତ୍ରରେ ଖାଦ୍ୟର ଶୋଷଣ ପାଇଁ ଥିବା ଆଙ୍ଗୁଠି ଭଳି ଅଂଶକୁ କ’ଣ କୁହାଯାଏ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q48"> (A) ଭିଲାଇ (Villi)</label>
+      <label class="option-label"><input type="radio" name="q48"> (B) ଆଲଭିଓଲାଇ</label>
+      <label class="option-label"><input type="radio" name="q48"> (C) ନେଫ୍ରୋନ୍</label>
+      <label class="option-label"><input type="radio" name="q48"> (D) ନିଉରୋନ୍</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans48')">Show Answer</button>
+    <div id="ans48" class="answer-box">Correct Answer: (A) ଭିଲାଇ (Villi)</div>
+  </div>
+
+  <!-- Q49 -->
+  <div class="q-card">
+    <div class="q-text">49. ସ୍ନାୟୁକୋଷର (Neuron) ମୁଖ୍ୟ ଗଠନମୂଳକ ଏବଂ କାର୍ଯ୍ୟକାରୀ ଏକକ କ’ଣ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q49"> (A) ନେଫ୍ରୋନ୍</label>
+      <label class="option-label"><input type="radio" name="q49"> (B) ଆକ୍ସନ୍</label>
+      <label class="option-label"><input type="radio" name="q49"> (C) ନିଉରୋନ୍</label>
+      <label class="option-label"><input type="radio" name="q49"> (D) ସାଇଟନ୍</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans49')">Show Answer</button>
+    <div id="ans49" class="answer-box">Correct Answer: (C) ନିଉରୋନ୍</div>
+  </div>
+
+  <!-- Q50 -->
+  <div class="q-card">
+    <div class="q-text">50. ଓଜୋନ୍ 스ତର (Ozone Layer) ଆମକୁ କେଉଁ ବିକିରଣରୁ ରକ୍ଷା କରେ?</div>
+    <div class="options">
+      <label class="option-label"><input type="radio" name="q50"> (A) ଅତିବାଇଗଣୀ ରଶ୍ମି (UV Rays)</label>
+      <label class="option-label"><input type="radio" name="q50"> (B) ଅବଲୋହିତ ରଶ୍ମି (Infrared)</label>
+      <label class="option-label"><input type="radio" name="q50"> (C) ଏକ୍ସ-ରେ (X-Ray)</label>
+      <label class="option-label"><input type="radio" name="q50"> (D) ଗାମା-ରେ (Gamma Ray)</label>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('ans50')">Show Answer</button>
+    <div id="ans50" class="answer-box">Correct Answer: (A) ଅତିବାଇଗଣୀ ରଶ୍ମି (UV Rays)</div>
+  </div>
+
+</div>
+
+<script>
+  function toggleAns(id) {
+    const ansBox = document.getElementById(id);
+    const btn = ansBox.previousElementSibling;
+    
+    if (ansBox.style.display === "block") {
+      ansBox.style.display = "none";
+      btn.textContent = "Show Answer";
+    } else {
+      ansBox.style.display = "block";
+      btn.textContent = "Hide Answer";
+    }
+  }
+</script>
+
+</body>
+</html>
