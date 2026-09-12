@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OES Education Mock Test - 60 Questions</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); display: flex; justify-content: center; min-height: 100vh; padding: 20px; }
+
+    .container { width: 100%; max-width: 800px; background: var(--card-bg); padding: 30px; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+    
+    /* Screen Styles */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    h1, h2 { color: #0f172a; margin-bottom: 15px; text-align: center; }
+    .subtitle { text-align: center; color: #64748b; margin-bottom: 25px; }
+
+    /* Form Styles */
+    .form-group { margin-bottom: 20px; }
+    label { display: block; margin-bottom: 8px; font-weight: 600; }
+    input[type="text"] { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 16px; }
+    
+    .btn { background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: 600; width: 100%; transition: background 0.2s; }
+    .btn:hover { background: var(--primary-dark); }
+    .btn-secondary { background: #64748b; }
+    .btn-secondary:hover { background: #475569; }
+
+    /* Header Bar */
+    .test-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 15px; border-bottom: 2px solid #e2e8f0; margin-bottom: 20px; }
+    .timer { font-size: 20px; font-weight: bold; color: var(--danger); background: #fee2e2; padding: 6px 14px; border-radius: 20px; }
+
+    /* Question Styles */
+    .question-title { font-size: 18px; font-weight: 600; margin-bottom: 20px; }
+    .options-list { list-style: none; margin-bottom: 25px; }
+    .option-item { background: #f1f5f9; border: 2px solid #e2e8f0; padding: 14px; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: all 0.2s; }
+    .option-item:hover { border-color: var(--primary); background: #eff6ff; }
+    .option-item.selected { border-color: var(--primary); background: #dbeafe; font-weight: 600; }
+
+    /* Navigation */
+    .nav-buttons { display: flex; justify-content: space-between; gap: 15px; }
+    .nav-buttons .btn { width: auto; flex: 1; }
+
+    /* Scorecard Styles */
+    .score-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; margin: 25px 0; text-align: center; }
+    .score-card { background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; }
+    .score-card .number { font-size: 24px; font-weight: bold; color: var(--primary); }
+    .status-badge { display: inline-block; padding: 8px 16px; border-radius: 20px; font-weight: bold; font-size: 18px; margin-bottom: 15px; }
+    .pass { background: #dcfce7; color: var(--success); }
+    .fail { background: #fee2e2; color: var(--danger); }
+
+    .review-section { margin-top: 30px; }
+    .review-item { padding: 15px; border-bottom: 1px solid #e2e8f0; font-size: 14px; }
+    .review-item.correct { border-left: 4px solid var(--success); }
+    .review-item.incorrect { border-left: 4px solid var(--danger); }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  
+  <!-- Screen 1: Registration / Start Screen -->
+  <div id="startScreen" class="screen active">
+    <h1>Odisha Education Service (OES)</h1>
+    <p class="subtitle">Education Paper - Mock Test (60 Questions)</p>
+    
+    <div class="form-group">
+      <label for="userName">अपना नाम दर्ज करें:</label>
+      <input type="text" id="userName" placeholder="उदाहरण: Ramesh Kumar" required>
+    </div>
+
+    <div style="background: #eff6ff; padding: 15px; border-radius: 8px; margin-bottom: 25px; font-size: 14px;">
+      <p><strong>परीक्षण के नियम:</strong></p>
+      <ul>
+        <li>कुल प्रश्न: <strong>60</strong></li>
+        <li>समय सीमा: <strong>60 मिनट</strong></li>
+        <li>उत्तीर्ण अंक: <strong>50% (30/60)</strong></li>
+        <li>समय समाप्त होने पर टेस्ट स्वतः सबमिट हो जाएगा।</li>
+      </ul>
+    </div>
+
+    <button class="btn" onclick="startTest()">टेस्ट शुरू करें</button>
+  </div>
+
+  <!-- Screen 2: Test / Quiz Screen -->
+  <div id="quizScreen" class="screen">
+    <div class="test-header">
+      <div>
+        <small color="#64748b">परीक्षार्थी:</small>
+        <div id="displayName" style="font-weight: bold;">-</div>
+      </div>
+      <div class="timer" id="timerDisplay">60:00</div>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; color: #64748b;">
+      <span id="questionCounter">प्रश्न 1 / 60</span>
+      <span id="answeredCounter">उत्तर दिए गए: 0</span>
+    </div>
+
+    <div class="question-title" id="questionText">प्रश्‍न लोड हो रहा है...</div>
+    <ul class="options-list" id="optionsContainer"></ul>
+
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" id="prevBtn" onclick="navigate(-1)">पिछला</button>
+      <button class="btn" id="nextBtn" onclick="navigate(1)">अगला</button>
+      <button class="btn" id="submitBtn" onclick="submitTest()" style="background: var(--success); display: none;">टेस्ट सबमिट करें</button>
+    </div>
+  </div>
+
+  <!-- Screen 3: Scorecard & Result Screen -->
+  <div id="resultScreen" class="screen">
+    <h2>परीक्षा परिणाम (Score Card)</h2>
+    <div style="text-align: center;">
+      <p id="resultCandidateName" style="font-size: 18px; margin-bottom: 10px;"></p>
+      <div id="statusBadge" class="status-badge">-</div>
+    </div>
+
+    <div class="score-summary">
+      <div class="score-card"><div class="number" id="totalScore">0/60</div><div>कुल प्राप्तांक</div></div>
+      <div class="score-card"><div class="number" id="percentage">0%</div><div>प्रतिशत</div></div>
+      <div class="score-card"><div class="number" id="correctCount" style="color: var(--success);">0</div><div>सही</div></div>
+      <div class="score-card"><div class="number" id="incorrectCount" style="color: var(--danger);">0</div><div>गलत</div></div>
+    </div>
+
+    <button class="btn" onclick="location.reload()" style="margin-bottom: 25px;">पुनः टेस्ट दें (Retake)</button>
+
+    <div class="review-section">
+      <h3>उत्तर कुंजी एवं समीक्षा (Answer Key Review)</h3>
+      <div id="reviewContainer"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Questions Bank - 60 Questions
+  const questions = [
+    { q: "Which condition of mind is dominated by 'Rajas'?", options: ["Calmness and Purity", "Activity and Passion", "Inertia and Darkness", "Ignorance"], ans: 1 },
+    { q: "Ascending order of the last 5 steps of Patanjali Yoga?", options: ["Pratyahara, Dharana, Dhyana, Samadhi", "Dharana, Dhyana, Samadhi, Pratyahara", "Asana, Pranayama, Pratyahara", "Yama, Niyama, Asana"], ans: 0 },
+    { q: "Aurobindo's evolution order: Physical, Vital, Mental, Psychic, Spiritual.", options: ["Physical, Mental, Vital, Spiritual", "Physical, Vital, Mental, Psychic, Spiritual", "Vital, Physical, Mental, Spiritual", "Mental, Vital, Physical, Spiritual"], ans: 1 },
+    { q: "Which school of Indian Philosophy is closer to Pragmatism in Ontology?", options: ["Samkhya", "Buddhism", "Jainism", "Vedanta"], ans: 1 },
+    { q: "Which philosophy advocates objective reality?", options: ["Idealism", "Realism", "Pragmatism", "Naturalism"], ans: 1 },
+    { q: "According to Aristotle, who is the efficient cause behind a building?", options: ["The Bricks & Mortar", "The Architect/Builder", "The Blueprint", "The Purpose"], ans: 1 },
+    { q: "NOT correct about Gandhian concept of education?", options: ["Craft-centric education", "Mother tongue medium", "Purely theoretical learning", "Self-reliance"], ans: 2 },
+    { q: "The slogan 'Back to Nature' is associated with:", options: ["Idealism", "Realism", "Naturalism", "Pragmatism"], ans: 2 },
+    { q: "According to Thorndike's Law of Effect:", options: ["Practice leads to learning", "Learning is facilitated by reward/satisfaction", "Readiness determines learning", "None"], ans: 1 },
+    { q: "Order of Piaget's Cognitive Development stages:", options: ["Sensorimotor, Pre-operational, Concrete operational, Formal operational", "Pre-operational, Sensorimotor, Concrete operational", "Concrete, Sensorimotor, Pre-operational", "Formal, Concrete, Sensorimotor"], ans: 0 },
+    { q: "Who propounded Operant Conditioning?", options: ["Pavlov", "B.F. Skinner", "Thorndike", "Kohler"], ans: 1 },
+    { q: "Sudden discovery of relationship between problem and solution is called:", options: ["Trial & Error", "Classical Conditioning", "Insightful Learning", "Operant Conditioning"], ans: 2 },
+    { q: "Who observed that cognitive functioning is a product of social interaction?", options: ["Piaget", "Lev Vygotsky", "Skinner", "Bruner"], ans: 1 },
+    { q: "Concept of Functional Autonomy of Motives propounded by:", options: ["Maslow", "Gordon Allport", "Freud", "Lewin"], ans: 1 },
+    { q: "IQ of a child with Mental Age 25 and Chronological Age 20?", options: ["100", "120", "125", "130"], ans: 2 },
+    { q: "Taking students to historical sites for learning is an example of:", options: ["Behaviorism", "Contextualism", "Constructivism", "Cognitivism"], ans: 1 },
+    { q: "Top level in Maslow's Hierarchy of Needs:", options: ["Safety Needs", "Esteem Needs", "Self-Actualization", "Belongingness"], ans: 2 },
+    { q: "Which statement is NOT correct about culture?", options: ["Culture is dynamic", "Culture is learned", "Culture is biologically inherited", "Culture is shared"], ans: 2 },
+    { q: "In Marxist system, a student weak in academic studies is sent to:", options: ["Higher Academic Stream", "Vocational/Technical Training", "Defense Services", "Special Classes"], ans: 1 },
+    { q: "Period of adaptation when technology changes fast is called:", options: ["Cultural Shock", "Cultural Lag", "Cultural Assimilation", "Cultural Diffusion"], ans: 1 },
+    { q: "NOT a characteristic of a culturally responsive teacher?", options: ["Respecting diversity", "Multicultural perspective", "Stereotyping students", "Inclusive environment"], ans: 2 },
+    { q: "Inherited characteristics of a person are determined at:", options: ["Birth", "Conception", "Infancy", "Adolescence"], ans: 1 },
+    { q: "Grouping students by ability levels is called:", options: ["Ability / Homogeneous Grouping", "Random Grouping", "Social Grouping", "Heterogeneous Grouping"], ans: 0 },
+    { q: "NOT proposed by Sheldon as a personality body type?", options: ["Endomorphic", "Mesomorphic", "Ectomorphic", "Activemorphic"], ans: 3 },
+    { q: "NOT a characteristic of a neurotic personality?", options: ["Emotional Instability", "Anxiety", "High Emotional Stability", "Guilt"], ans: 2 },
+    { q: "Factors shaping personality?", options: ["Heredity only", "Environment only", "Both Heredity & Environment", "Neither"], ans: 2 },
+    { q: "Child wanting to be both doctor and engineer faces which conflict?", options: ["Approach-Approach Conflict", "Avoidance-Avoidance", "Approach-Avoidance", "Double Avoidance"], ans: 0 },
+    { q: "Feeling proud by saying maternal uncle is MP uses which defense mechanism?", options: ["Projection", "Identification", "Rationalization", "Sublimation"], ans: 1 },
+    { q: "Directing aggressive energy into sports is called:", options: ["Projection", "Sublimation", "Rationalization", "Regression"], ans: 1 },
+    { q: "Most popular technique for measuring psychological adjustment?", options: ["Rorschach Test", "Adjustment Inventories / Questionnaires", "Case Study", "Peer Rating"], ans: 1 },
+    { q: "Concept of 'Light but Tight' regulatory framework is given by:", options: ["NPE 1986", "NEP 2020", "Mudaliar Commission", "Kothari Commission"], ans: 1 },
+    { q: "Head of an educational institution in a democracy should act as:", options: ["Autocrat", "Democratic Leader/Facilitator", "Observer", "Bureaucrat"], ans: 1 },
+    { q: "Educational Administration gives maximum importance to:", options: ["Infrastructure", "Human Development & Resource Utilization", "Finance", "Compliance"], ans: 1 },
+    { q: "Jawahar Navodaya Vidyalayas (JNVs) are established for:", options: ["Urban students", "Talented rural children", "Adult literacy", "Higher education"], ans: 1 },
+    { q: "NEP 2020 replaces School Management Committee (SMC) with:", options: ["PTA", "School Complex Management Committee (SCMC)", "BRC", "DEO"], ans: 1 },
+    { q: "Full form of AICTE:", options: ["All India Council for Teacher Education", "All India Council for Technical Education", "All India Committee for Technical Education", "None"], ans: 1 },
+    { q: "Full form of CBCS:", options: ["Course Based Credit System", "Choice Based Credit System", "Central Board Credit System", "Comprehensive Base Credit System"], ans: 1 },
+    { q: "Proposed budget for Education as % of GDP in national policies:", options: ["3%", "4%", "6%", "10%"], ans: 2 },
+    { q: "Planning and monitoring teacher training at district level is done by:", options: ["NCERT", "SCERT", "DIET", "UGC"], ans: 2 },
+    { q: "Best supervision style for optimal results:", options: ["Authoritarian", "Expert Supervision", "Inspectional", "Laissez-faire"], ans: 1 },
+    { q: "Full form of NIEPA:", options: ["National Institute of Educational Planning and Administration", "National Initiative for Progress", "National Institute of Elementary Pedagogy", "National Educational Policy"], ans: 0 },
+    { q: "Best leadership style in the field of education:", options: ["Transactional Leadership", "Autocratic Leadership", "Transformational Leadership", "Passive Leadership"], ans: 2 },
+    { q: "Universal Design for Learning (UDL) aims to:", options: ["Single rigid curriculum", "Flexible options for learning & expression", "Separate disabled children", "Lower standards"], ans: 1 },
+    { q: "Dyslexia is related to difficulty in:", options: ["Mathematics", "Reading & Spelling", "Writing", "Listening"], ans: 1 },
+    { q: "Dysgraphia is related to difficulty in:", options: ["Reading", "Mathematics", "Writing & motor skills", "Listening"], ans: 2 },
+    { q: "RCI stands for:", options: ["Rehabilitation Council of India", "Regional Center of Innovation", "Research Council of Inclusive Education", "Reconstruction Council"], ans: 0 },
+    { q: "NEP 2020 school structure:", options: ["5+3+3+4 Structure", "3+5+3+4 Structure", "5+4+3+3 Structure", "10+2 Structure"], ans: 0 },
+    { q: "Formative Evaluation is conducted:", options: ["At end of session", "Continuously during teaching-learning process", "For job selection", "In entrance exams"], ans: 1 },
+    { q: "A test is 'Valid' if it:", options: ["Yields consistent results", "Measures accurately what it claims to measure", "Is easy to score", "Contains objective questions"], ans: 1 },
+    { q: "Action Research is primarily conducted by:", options: ["External researchers", "Classroom teachers & practitioners", "Policy makers", "Foreign agencies"], ans: 1 },
+    { q: "ZPD (Zone of Proximal Development) concept by:", options: ["Piaget", "Vygotsky", "Bruner", "Rogers"], ans: 1 },
+    { q: "Example of negative transfer of learning:", options: ["Driving car after cycle", "Old keyboard habits slowing new typing", "Addition helping multiplication", "Hindi helping Odia"], ans: 1 },
+    { q: "Test measuring potential to acquire future skills:", options: ["Achievement Test", "Aptitude Test", "Diagnostic Test", "Intelligence Test"], ans: 1 },
+    { q: "SWAYAM PRABHA uses how many DTH channels?", options: ["12", "34 / 80+", "5", "100"], ans: 1 },
+    { q: "Values are absolute and unchanging according to:", options: ["Pragmatism", "Naturalism", "Idealism", "Existentialism"], ans: 2 },
+    { q: "Negative Education for young children was proposed by:", options: ["John Dewey", "J.J. Rousseau", "Vivekananda", "Tagore"], ans: 1 },
+    { q: "Achievement Motivation research propounded by:", options: ["David McClelland", "Skinner", "Carl Jung", "Bandura"], ans: 0 },
+    { q: "Intrinsic motivator for learning:", options: ["Praise", "Fear of punishment", "Curiosity & Personal Interest", "Cash prize"], ans: 2 },
+    { q: "RTE Act was passed in India in which year?", options: ["2005", "2009", "2010", "2015"], ans: 1 },
+    { q: "Leadership style giving complete freedom to subordinates without intervention:", options: ["Democratic", "Autocratic", "Laissez-faire", "Authoritative"], ans: 2 }
+  ];
+
+  let currentIdx = 0;
+  let userAnswers = new Array(questions.length).fill(null);
+  let userName = "";
+  let timeLeft = 3600; // 60 minutes
+  let timerInterval;
+
+  function startTest() {
+    const nameInput = document.getElementById("userName").value.trim();
+    if (!nameInput) {
+      alert("कृपया अपना नाम दर्ज करें!");
+      return;
+    }
+    userName = nameInput;
+    document.getElementById("displayName").innerText = userName;
+
+    document.getElementById("startScreen").classList.remove("active");
+    document.getElementById("quizScreen").classList.add("active");
+
+    renderQuestion();
+    startTimer();
+  }
+
+  function startTimer() {
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      document.getElementById("timerDisplay").innerText = 
+        `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        alert("समय समाप्त हो गया है! आपका टेस्ट स्वतः सबमिट हो रहा है।");
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function renderQuestion() {
+    const q = questions[currentIdx];
+    document.getElementById("questionCounter").innerText = `प्रश्न ${currentIdx + 1} / ${questions.length}`;
+    document.getElementById("questionText").innerText = `${currentIdx + 1}. ${q.q}`;
+
+    const optionsContainer = document.getElementById("optionsContainer");
+    optionsContainer.innerHTML = "";
+
+    q.options.forEach((opt, idx) => {
+      const li = document.createElement("li");
+      li.className = `option-item ${userAnswers[currentIdx] === idx ? 'selected' : ''}`;
+      li.innerText = opt;
+      li.onclick = () => selectOption(idx);
+      optionsContainer.appendChild(li);
+    });
+
+    document.getElementById("prevBtn").style.visibility = currentIdx === 0 ? "hidden" : "visible";
+    
+    if (currentIdx === questions.length - 1) {
+      document.getElementById("nextBtn").style.display = "none";
+      document.getElementById("submitBtn").style.display = "inline-block";
+    } else {
+      document.getElementById("nextBtn").style.display = "inline-block";
+      document.getElementById("submitBtn").style.display = "none";
+    }
+
+    updateAnsweredCount();
+  }
+
+  function selectOption(idx) {
+    userAnswers[currentIdx] = idx;
+    renderQuestion();
+  }
+
+  function navigate(direction) {
+    currentIdx += direction;
+    renderQuestion();
+  }
+
+  function updateAnsweredCount() {
+    const count = userAnswers.filter(a => a !== null).length;
+    document.getElementById("answeredCounter").innerText = `उत्तर दिए गए: ${count}`;
+  }
+
+  function submitTest() {
+    clearInterval(timerInterval);
+
+    let correct = 0;
+    let incorrect = 0;
+
+    questions.forEach((q, idx) => {
+      if (userAnswers[idx] === q.ans) {
+        correct++;
+      } else if (userAnswers[idx] !== null) {
+        incorrect++;
+      }
+    });
+
+    const percentageVal = ((correct / questions.length) * 100).toFixed(1);
+    const isPass = correct >= 30;
+
+    document.getElementById("quizScreen").classList.remove("active");
+    document.getElementById("resultScreen").classList.add("active");
+
+    document.getElementById("resultCandidateName").innerText = `परीक्षार्थी: ${userName}`;
+    const badge = document.getElementById("statusBadge");
+    badge.innerText = isPass ? "PASS (उत्तीर्ण)" : "FAIL (अनुत्तीर्ण)";
+    badge.className = `status-badge ${isPass ? 'pass' : 'fail'}`;
+
+    document.getElementById("totalScore").innerText = `${correct}/${questions.length}`;
+    document.getElementById("percentage").innerText = `${percentageVal}%`;
+    document.getElementById("correctCount").innerText = correct;
+    document.getElementById("incorrectCount").innerText = incorrect;
+
+    // Review Section
+    const reviewContainer = document.getElementById("reviewContainer");
+    reviewContainer.innerHTML = "";
+    questions.forEach((q, idx) => {
+      const userAnsIdx = userAnswers[idx];
+      const isCorrect = userAnsIdx === q.ans;
+      
+      const div = document.createElement("div");
+      div.className = `review-item ${isCorrect ? 'correct' : 'incorrect'}`;
+      div.innerHTML = `
+        <p><strong>Q${idx + 1}: ${q.q}</strong></p>
+        <p>आपका उत्तर: <span style="color: ${isCorrect ? 'var(--success)' : 'var(--danger)'}; font-weight: bold;">
+          ${userAnsIdx !== null ? q.options[userAnsIdx] : 'उत्तर नहीं दिया'}
+        </span></p>
+        <p>सही उत्तर: <span style="color: var(--success); font-weight: bold;">${q.options[q.ans]}</span></p>
+      `;
+      reviewContainer.appendChild(div);
+    });
+  }
+</script>
+
+</body>
+</html>
