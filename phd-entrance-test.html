@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="or">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ph.D. Entrance Examination - Education Mock Test</title>
+  <style>
+    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: #f4f6f9; margin: 0; padding: 20px; color: #333; }
+    .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    h1, h2 { text-align: center; color: #1a365d; margin-bottom: 5px; }
+    .sub-title { text-align: center; color: #4a5568; margin-bottom: 20px; font-weight: 600; }
+    
+    /* Config Panel */
+    #start-screen { text-align: center; padding: 30px 10px; }
+    .input-group { margin: 20px 0; }
+    .input-group label { display: block; font-size: 1.1rem; margin-bottom: 8px; font-weight: bold; }
+    .input-group input { padding: 10px 15px; font-size: 1rem; width: 100%; max-width: 350px; border: 2px solid #cbd5e0; border-radius: 5px; text-align: center; }
+    
+    /* Timer Header */
+    .test-header { display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: #fff; padding: 15px 0; border-bottom: 2px solid #e2e8f0; z-index: 100; }
+    .timer { font-size: 1.2rem; font-weight: bold; color: #e53e3e; background: #fff5f5; padding: 8px 15px; border-radius: 5px; border: 1px solid #feb2b2; }
+    
+    /* Questions */
+    .question-card { border: 1px solid #e2e8f0; border-radius: 6px; padding: 15px; margin-bottom: 20px; background: #fafbfc; }
+    .question-title { font-weight: bold; font-size: 1rem; margin-bottom: 12px; color: #2d3748; }
+    .options label { display: block; padding: 8px 12px; margin: 6px 0; background: #fff; border: 1px solid #cbd5e0; border-radius: 4px; cursor: pointer; transition: all 0.2s; }
+    .options label:hover { background: #ebf8ff; border-color: #3182ce; }
+    .options input { margin-right: 10px; }
+
+    /* Buttons */
+    .btn { background: #3182ce; color: #fff; border: none; padding: 12px 25px; font-size: 1rem; font-weight: bold; border-radius: 5px; cursor: pointer; transition: background 0.2s; }
+    .btn:hover { background: #2b6cb0; }
+    .btn-submit { display: block; width: 100%; margin-top: 25px; background: #38a169; }
+    .btn-submit:hover { background: #2f855a; }
+
+    /* Scorecard */
+    #result-screen { display: none; text-align: center; }
+    .scorecard { background: #f7fafc; border: 2px solid #e2e8f0; border-radius: 8px; padding: 25px; margin-top: 20px; }
+    .status-badge { font-size: 1.8rem; font-weight: bold; margin: 15px 0; display: inline-block; padding: 8px 25px; border-radius: 30px; }
+    .status-pass { background: #c6f6d5; color: #22543d; }
+    .status-fail { background: #fed7d7; color: #742a2a; }
+    .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin: 20px 0; }
+    .metric-box { background: #fff; padding: 15px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+    .metric-val { font-size: 1.4rem; font-weight: bold; color: #2b6cb0; }
+    
+    /* Answer Key Details */
+    .answer-key { text-align: left; margin-top: 30px; }
+    .ans-card { border-left: 4px solid #cbd5e0; padding: 10px 15px; margin-bottom: 12px; background: #fff; }
+    .ans-correct { border-left-color: #38a169; background: #f0fff4; }
+    .ans-incorrect { border-left-color: #e53e3e; background: #fff5f5; }
+    
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- 1. START SCREEN -->
+  <div id="start-screen">
+    <h1>Ph.D. Entrance Examination - 2020</h1>
+    <div class="sub-title">SUBJECT: EDUCATION (PART-A Mock Test)</div>
+    
+    <div class="input-group">
+      <label for="candidate-name">Enter Candidate Name:</label>
+      <input type="text" id="candidate-name" placeholder="Your Full Name" required>
+    </div>
+    
+    <p><strong>Total Questions:</strong> 50 | <strong>Time Limit:</strong> 60 Minutes | <strong>Passing Marks:</strong> 70% (35/50)</p>
+    <button class="btn" onclick="startTest()">Start Mock Test</button>
+  </div>
+
+  <!-- 2. TEST SCREEN -->
+  <div id="test-screen" class="hidden">
+    <div class="test-header">
+      <div><strong>Candidate:</strong> <span id="disp-name"></span></div>
+      <div class="timer">Time Remaining: <span id="time-display">60:00</span></div>
+    </div>
+
+    <form id="quiz-form">
+      <div id="questions-container"></div>
+      <button type="button" class="btn btn-submit" onclick="submitTest()">Submit Examination</button>
+    </form>
+  </div>
+
+  <!-- 3. RESULT SCREEN / SCORECARD -->
+  <div id="result-screen">
+    <h2>Examination Performance Report</h2>
+    
+    <div class="scorecard">
+      <h3 style="margin-top:0;">Candidate Name: <span id="res-name"></span></h3>
+      
+      <div id="status-container"></div>
+
+      <div class="metric-grid">
+        <div class="metric-box">
+          <div>Total Score</div>
+          <div class="metric-val"><span id="res-score">0</span> / 50</div>
+        </div>
+        <div class="metric-box">
+          <div>Percentage</div>
+          <div class="metric-val" id="res-percent">0%</div>
+        </div>
+        <div class="metric-box">
+          <div>Correct Answers</div>
+          <div class="metric-val" style="color:#38a169;" id="res-correct">0</div>
+        </div>
+        <div class="metric-box">
+          <div>Wrong Answers</div>
+          <div class="metric-val" style="color:#e53e3e;" id="res-wrong">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Answer Key Section -->
+    <div class="answer-key">
+      <h3>Detailed Answer Key & Explanations</h3>
+      <div id="answer-key-container"></div>
+    </div>
+    
+    <button class="btn" style="margin-top:20px;" onclick="location.reload()">Re-take Test</button>
+  </div>
+</div>
+
+<script>
+// 50 Questions Data directly populated from the PDF Document
+const quizData = [
+  { q: "1. If a researcher conducts a research to find out which administrative style contributes more to institutional effectiveness, it is", options: ["(A) Action Research", "(B) Applied Research", "(C) Basic Research", "(D) Field Research"], correct: 1 },
+  { q: "2. Which type of research helps to study the present status?", options: ["(A) Experimental Research", "(B) Evaluation Research", "(C) Descriptive Survey Research", "(D) Expost Facto Design"], correct: 2 },
+  { q: "3. Which one of the following is an example for directional hypothesis?", options: ["(A) There exists a difference between Emotional Intelligence of secondary school boys and girls", "(B) There exists no difference between Emotional Intelligence of secondary school boys and girls", "(C) Secondary school girls Emotional Intelligence is higher than the boys", "(D) There exists a relationship between secondary school students Emotional Intelligence and Academic Achievement"], correct: 2 },
+  { q: "4. Characteristics common to all experimental design is", options: ["(A) Administration of pre-test", "(B) Random selection of subjects", "(C) Control of internal invalidity", "(D) Control of external invalidity"], correct: 2 },
+  { q: "5. Two important data sources in qualitative research are", options: ["(A) Interview and observation", "(B) Documents and photographs", "(C) Interview and documents", "(D) Observation and artifacts"], correct: 0 },
+  { q: "6. Statistical method of controlling extraneous variable is", options: ["(A) Factorial Design", "(B) Analysis of Covariance (ANCOVA)", "(C) Analysis of Variance (ANOVA)", "(D) Factor Analysis"], correct: 1 },
+  { q: "7. Best experimental design to study the effect Co-operative learning and self directed learning on Achievement in Science among students with different levels of intelligence.", options: ["(A) Post-test only equivalent group design", "(B) Pre test - Post test equivalent group design", "(C) Solomon Four Group design", "(D) Factorial Design"], correct: 3 },
+  { q: "8. Specific feature which differentiates all experimental research from other methods of research is", options: ["(A) Direct observation of events", "(B) Control of variables", "(C) Manipulation of Independent variable", "(D) Study of cause - effect relationship"], correct: 2 },
+  { q: "9. Variable which is manipulated by the researcher is an experimental research is", options: ["(A) Control variable", "(B) Treatment variable", "(C) Confounding variable", "(D) Extraneous variable"], correct: 1 },
+  { q: "10. Which of the following design will have the threat of Interaction of testing and treatment?", options: ["(A) Solomon Four Group design", "(B) Static group comparison design", "(C) Post-test only equivalent group design", "(D) Pre-test and post-test equivalent groups"], correct: 3 },
+  { q: "11. Validity in interviews is strengthened by the following EXCEPT", options: ["(A) Building rapport with interviewers", "(B) Multiple questions cover the same theme", "(C) Constructing interview schedules that contain themes drawn from the literature", "(D) Prompting respondents to expand on initial responses"], correct: 3 },
+  { q: "12. Which of the following is an example for ratio scale?", options: ["(A) Marital status", "(B) Temperature measured in Kelvin scale", "(C) Military Ranks", "(D) Religion of the people"], correct: 1 },
+  { q: "13. In qualitative research, sampling that involves selecting diverse cases is referred as:", options: ["(A) Typical-case sampling", "(B) Critical-case sampling", "(C) Intensity sampling", "(D) Maximum variation sampling"], correct: 3 },
+  { q: "14. Under which condition stratified random sampling is applied?", options: ["(A) The universe is homogeneous", "(B) The universe is heterogeneous", "(C) Selected groups need to be classified", "(D) Data about the universe is not available"], correct: 1 },
+  { q: "15. Which measures the extent to which scores from a test can be used to infer or predict?", options: ["(A) Face validity", "(B) Content validity", "(C) Criterion-related validity", "(D) Construct validity"], correct: 2 },
+  { q: "16. The 'reliability' of an instrument answers the following question of a researcher.", options: ["(A) Does it give consistent result?", "(B) Does it measure what it is supposed to measure?", "(C) Can the result be generalized?", "(D) Does it have face reliability?"], correct: 0 },
+  { q: "17. A researcher secretly becomes an active member of a group in order to observe their behaviour. This researcher is acting as:", options: ["(A) An overt participant observer", "(B) A covert non-participant observer", "(C) A covert participant observer", "(D) None of the above"], correct: 2 },
+  { q: "18. An ordinal scale is", options: ["(A) The simple form of measurement", "(B) A scale with an absolute zero point", "(C) A rank-order scale measurement", "(D) A scale with equal intervals between ranks"], correct: 2 },
+  { q: "19. Sampling frame refers to", options: ["(A) Fixing the sample size based on population size", "(B) Defining and selecting sample unit from the population", "(C) Identification of target and accessible population", "(D) Preparing a complete list of the units of a finite population for drawing a sample"], correct: 3 },
+  { q: "20. If the group of sample unit in research contains group of elements it is popularly known as:", options: ["(A) Quota sampling", "(B) Cluster sampling", "(C) Unit sampling", "(D) Strata sampling"], correct: 1 },
+  { q: "21. Quartile deviation of the distribution having Q1=45 and Q3=66", options: ["(A) 10.5", "(B) 55", "(C) -10.5", "(D) 5.5"], correct: 0 },
+  { q: "22. The value of mean, median and mode coincides when the distribution is", options: ["(A) Negatively skewed", "(B) Symmetrical", "(C) Positively skewed", "(D) Asymmetrical"], correct: 1 },
+  { q: "23. To predict the value of the dependent variable for a new case based on the knowledge of one or more independent variable, we would use", options: ["(A) Regression analysis", "(B) Correlation analysis", "(C) Kolmogorov - Smirnov test", "(D) One-way analysis of variance"], correct: 0 },
+  { q: "24. When one variable is continuous and the other is true dichotomous, the appropriate statistics to find the correlation between the two.", options: ["(A) Biserial correlation 'r'", "(B) Karl Pearson 'r'", "(C) Spearman correlation 'ρ' (Rho)", "(D) Point-Biserial correlation r_pb"], correct: 3 },
+  { q: "25. If two variable changes together to magnitude with same direction the relationship is", options: ["(A) Positive", "(B) Zero", "(C) Negative", "(D) Significant"], correct: 0 },
+  { q: "26. Which correlation is the strongest?", options: ["(A) +.80", "(B) -.60", "(C) -1.00", "(D) +.05"], correct: 2 },
+  { q: "27. If the Kurtosis of a distribution is greater than .263 the distribution is", options: ["(A) Platykurtic", "(B) Mesokurtic", "(C) Leptokurtic", "(D) Semikurtic"], correct: 0 },
+  { q: "28. This is a feature of positively skewed distribution", options: ["(A) Mean < Median", "(B) Mean > Median", "(C) Mean < Mode", "(D) Mean = Mode"], correct: 1 },
+  { q: "29. Prediction is possible only with this type of correlation", options: ["(A) Partial", "(B) Biserial", "(C) Product Moment", "(D) Point Biserial"], correct: 2 },
+  { q: "30. The square of Pearson's Product Moment Correlation is known as", options: ["(A) Coefficient of variation", "(B) Coefficient of determination", "(C) Contingency coefficient", "(D) Phi coefficient"], correct: 1 },
+  { q: "31. Which one of the following is a non-parametric test?", options: ["(A) 't' test", "(B) ANOVA test", "(C) Mann Whitney U Test", "(D) MANOVA test"], correct: 2 },
+  { q: "32. Appropriate test to compare the performance of a group before and after the intervention programme is", options: ["(A) Paired 't' - test", "(B) One-way Analysis of variance", "(C) Chi-square test", "(D) Independent sample 't'-test"], correct: 0 },
+  { q: "33. A researcher commits Type I error when he/she", options: ["(A) Rejects the null hypothesis when it is true", "(B) Rejects the null hypothesis when it is false", "(C) Retains the null hypothesis when it is false", "(D) Retains the null hypothesis when it is true"], correct: 0 },
+  { q: "34. The Chi-square test with 3x3 table will have the degree of freedom value (df) of", options: ["(A) 6", "(B) 9", "(C) 4", "(D) 8"], correct: 2 },
+  { q: "35. One variable has 3 categories, another variable is continuous and the distribution is normal. The best test to be applied is", options: ["(A) Two way ANOVA", "(B) Chi-square test", "(C) Kruskal-Wallis test", "(D) One way ANOVA"], correct: 3 },
+  { q: "36. Appropriate test to study the relationship between two categorical variables with 3 categories each", options: ["(A) Chi-square test", "(B) Mann Whitney U - test", "(C) Kruskal-Wallis test", "(D) Wilcoxon Matched pair test"], correct: 0 },
+  { q: "37. In this case one way ANOVA test is used", options: ["(A) Both the variables are continuous", "(B) One continuous and one categorical variable with exact two categories", "(C) One categorical variable with more than two categories and one continuous variable", "(D) All the above"], correct: 2 },
+  { q: "38. \"Power of the test of significance\" refers to the probability of", options: ["(A) Incorrect rejection of the null hypothesis", "(B) Correct rejection of the null hypothesis", "(C) Correct acceptance of the null hypothesis", "(D) Incorrect acceptance of the null hypothesis"], correct: 1 },
+  { q: "39. Mann Whitney U test is used for testing the relationship between", options: ["(A) One continuous and one categorical variable with more than two categories", "(B) One continuous and one categorical variable with exact two categories", "(C) Both the variables are continuous and normally distributed", "(D) Both are categorical with unequal categories"], correct: 1 },
+  { q: "40. Non rejection of null hypothesis when it is false result in", options: ["(A) Type I error", "(B) Sampling error", "(C) Standard error", "(D) Type II error"], correct: 3 },
+  { q: "41. Software approach to Educational Technology has its origin in", options: ["(A) Management Science", "(B) Behavioural Science", "(C) Physical Science", "(D) Engineering Science"], correct: 1 },
+  { q: "42. Aim of Instructional Technology is", options: ["(A) Optimize the outcome of Instructional system", "(B) Develop new strategies of teaching", "(C) Introduce Pupil centred instruction", "(D) Improve evaluation process"], correct: 0 },
+  { q: "43. Any thing that distorts the message in the communication process is referred as", options: ["(A) Disturbance", "(B) Barrier", "(C) Distraction", "(D) Noise"], correct: 3 },
+  { q: "44. Small units of instruction provided in Programmed Instruction is referred as", options: ["(A) Block", "(B) Loop", "(C) Frame", "(D) Unit"], correct: 2 },
+  { q: "45. Individual learning technique developed based on Skinner's Response centred theory", options: ["(A) Personalised System of Instruction", "(B) Programmed Instruction", "(C) Self-directed Learning", "(D) Computer Assisted Learning"], correct: 1 },
+  { q: "46. Essential component of a system", options: ["(A) Input, output, process, environment", "(B) Input, process, output and feedback", "(C) Input, output and feedback", "(D) Input, process, output, feedback and environment"], correct: 3 },
+  { q: "47. This acts as a background barrier in the communication process", options: ["(A) Physical discomfort", "(B) Hierarchical relationship", "(C) Prejudice", "(D) Generation gap"], correct: 2 },
+  { q: "48. After effect of learning activities is called", options: ["(A) Learning experience", "(B) Instruction", "(C) Achievement", "(D) Learning"], correct: 0 },
+  { q: "49. Educational Broadcasting is an example for", options: ["(A) Group Learning Technique", "(B) Mass Instruction Technique", "(C) Individualized Learning", "(D) Self Instruction Technique"], correct: 1 },
+  { q: "50. Mastery Learning is emphasized in", options: ["(A) Programmed Learning", "(B) CAI", "(C) PSI", "(D) Multi-media Learning"], correct: 2 }
+];
+
+let timerInterval;
+let timeLeft = 3600; // 60 minutes in seconds
+let candidateName = "";
+
+function startTest() {
+  const nameInput = document.getElementById('candidate-name').value.trim();
+  if(!nameInput) {
+    alert("Krupaya apna Name enter karein!");
+    return;
+  }
+  candidateName = nameInput;
+  document.getElementById('disp-name').innerText = candidateName;
+  
+  document.getElementById('start-screen').classList.add('hidden');
+  document.getElementById('test-screen').classList.remove('hidden');
+
+  renderQuestions();
+  startTimer();
+}
+
+function renderQuestions() {
+  const container = document.getElementById('questions-container');
+  container.innerHTML = "";
+  
+  quizData.forEach((item, idx) => {
+    const qCard = document.createElement('div');
+    qCard.className = 'question-card';
+    
+    let optionsHTML = '';
+    item.options.forEach((opt, oIdx) => {
+      optionsHTML += `
+        <label>
+          <input type="radio" name="q${idx}" value="${oIdx}">
+          ${opt}
+        </label>
+      `;
+    });
+    
+    qCard.innerHTML = `
+      <div class="question-title">${item.q}</div>
+      <div class="options">${optionsHTML}</div>
+    `;
+    container.appendChild(qCard);
+  });
+}
+
+function startTimer() {
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+    document.getElementById('time-display').innerText = 
+      `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+    if(timeLeft <= 0) {
+      clearInterval(timerInterval);
+      alert("Time is up! Submitting your test automatically.");
+      submitTest();
+    }
+  }, 1000);
+}
+
+function submitTest() {
+  clearInterval(timerInterval);
+  
+  let score = 0;
+  let correctCount = 0;
+  let wrongCount = 0;
+  
+  const keyContainer = document.getElementById('answer-key-container');
+  keyContainer.innerHTML = "";
+
+  quizData.forEach((item, idx) => {
+
