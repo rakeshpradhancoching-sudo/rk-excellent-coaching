@@ -11,11 +11,9 @@
     h1, h2 { text-align: center; color: #1a365d; margin-bottom: 5px; }
     .sub-title { text-align: center; color: #4a5568; margin-bottom: 20px; font-weight: 600; }
     
-    /* Config Panel */
-    #start-screen { text-align: center; padding: 30px 10px; }
-    .input-group { margin: 20px 0; }
-    .input-group label { display: block; font-size: 1.1rem; margin-bottom: 8px; font-weight: bold; }
-    .input-group input { padding: 10px 15px; font-size: 1rem; width: 100%; max-width: 350px; border: 2px solid #cbd5e0; border-radius: 5px; text-align: center; }
+    /* Start Screen */
+    #start-screen { text-align: center; padding: 40px 10px; }
+    .test-info { margin: 25px 0; font-size: 1.1rem; line-height: 1.8; color: #4a5568; }
     
     /* Timer Header */
     .test-header { display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: #fff; padding: 15px 0; border-bottom: 2px solid #e2e8f0; z-index: 100; }
@@ -29,7 +27,7 @@
     .options input { margin-right: 10px; }
 
     /* Buttons */
-    .btn { background: #3182ce; color: #fff; border: none; padding: 12px 25px; font-size: 1rem; font-weight: bold; border-radius: 5px; cursor: pointer; transition: background 0.2s; }
+    .btn { background: #3182ce; color: #fff; border: none; padding: 12px 30px; font-size: 1.1rem; font-weight: bold; border-radius: 5px; cursor: pointer; transition: background 0.2s; }
     .btn:hover { background: #2b6cb0; }
     .btn-submit { display: block; width: 100%; margin-top: 25px; background: #38a169; }
     .btn-submit:hover { background: #2f855a; }
@@ -61,19 +59,19 @@
     <h1>Ph.D. Entrance Examination - 2020</h1>
     <div class="sub-title">SUBJECT: EDUCATION (PART-A Mock Test)</div>
     
-    <div class="input-group">
-      <label for="candidate-name">Enter Candidate Name:</label>
-      <input type="text" id="candidate-name" placeholder="Your Full Name" required>
+    <div class="test-info">
+      <p><strong>Total Questions:</strong> 50</p>
+      <p><strong>Time Limit:</strong> 60 Minutes</p>
+      <p><strong>Passing Marks:</strong> 70% (35/50)</p>
     </div>
     
-    <p><strong>Total Questions:</strong> 50 | <strong>Time Limit:</strong> 60 Minutes | <strong>Passing Marks:</strong> 70% (35/50)</p>
-    <button class="btn" onclick="startTest()">Start Mock Test</button>
+    <button class="btn" onclick="startTest()">Start Test Direct</button>
   </div>
 
   <!-- 2. TEST SCREEN -->
   <div id="test-screen" class="hidden">
     <div class="test-header">
-      <div><strong>Candidate:</strong> <span id="disp-name"></span></div>
+      <div><strong>Ph.D. Entrance Mock Test</strong></div>
       <div class="timer">Time Remaining: <span id="time-display">60:00</span></div>
     </div>
 
@@ -88,8 +86,6 @@
     <h2>Examination Performance Report</h2>
     
     <div class="scorecard">
-      <h3 style="margin-top:0;">Candidate Name: <span id="res-name"></span></h3>
-      
       <div id="status-container"></div>
 
       <div class="metric-grid">
@@ -178,17 +174,8 @@ const quizData = [
 
 let timerInterval;
 let timeLeft = 3600; 
-let candidateName = "";
 
 function startTest() {
-  const nameInput = document.getElementById('candidate-name').value.trim();
-  if(!nameInput) {
-    alert("Krupaya apna Name enter karein!");
-    return;
-  }
-  candidateName = nameInput;
-  document.getElementById('disp-name').innerText = candidateName;
-  
   document.getElementById('start-screen').classList.add('hidden');
   document.getElementById('test-screen').classList.remove('hidden');
 
@@ -250,4 +237,50 @@ function submitTest() {
 
   quizData.forEach((item, idx) => {
     const selected = document.querySelector(`input[name="q${idx}"]:checked`);
-    cons
+    const userAns = selected ? parseInt(selected.value) : -1;
+    const isCorrect = userAns === item.correct;
+    
+    if(isCorrect) {
+      score++;
+      correctCount++;
+    } else {
+      wrongCount++;
+    }
+
+    const ansCard = document.createElement('div');
+    ansCard.className = `ans-card ${isCorrect ? 'ans-correct' : 'ans-incorrect'}`;
+    
+    const userAnsText = userAns !== -1 ? item.options[userAns] : "Not Answered";
+    const correctAnsText = item.options[item.correct];
+    
+    ansCard.innerHTML = `
+      <strong>${item.q}</strong><br>
+      <span>Your Answer: ${userAnsText} ${isCorrect ? '✔' : '✖'}</span><br>
+      <span style="color:#2b6cb0;">Correct Answer: ${correctAnsText}</span>
+    `;
+    keyContainer.appendChild(ansCard);
+  });
+
+  const percentage = (score / 50) * 100;
+  const isPassed = percentage >= 70;
+
+  document.getElementById('res-score').innerText = score;
+  document.getElementById('res-percent').innerText = percentage.toFixed(1) + "%";
+  document.getElementById('res-correct').innerText = correctCount;
+  document.getElementById('res-wrong').innerText = wrongCount;
+
+  const statusContainer = document.getElementById('status-container');
+  if(isPassed) {
+    statusContainer.innerHTML = `<div class="status-badge status-pass">PASSED 🎉</div>`;
+  } else {
+    statusContainer.innerHTML = `<div class="status-badge status-fail">FAILED ❌</div>`;
+  }
+
+  document.getElementById('test-screen').classList.add('hidden');
+  document.getElementById('result-screen').style.display = 'block';
+  window.scrollTo(0,0);
+}
+</script>
+
+</body>
+</html>
