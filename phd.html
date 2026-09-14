@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="or">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -123,7 +123,6 @@
 </div>
 
 <script>
-// 50 Questions Data directly populated from the PDF Document
 const quizData = [
   { q: "1. If a researcher conducts a research to find out which administrative style contributes more to institutional effectiveness, it is", options: ["(A) Action Research", "(B) Applied Research", "(C) Basic Research", "(D) Field Research"], correct: 1 },
   { q: "2. Which type of research helps to study the present status?", options: ["(A) Experimental Research", "(B) Evaluation Research", "(C) Descriptive Survey Research", "(D) Expost Facto Design"], correct: 2 },
@@ -178,7 +177,7 @@ const quizData = [
 ];
 
 let timerInterval;
-let timeLeft = 3600; // 60 minutes in seconds
+let timeLeft = 3600; 
 let candidateName = "";
 
 function startTest() {
@@ -250,4 +249,5 @@ function submitTest() {
   keyContainer.innerHTML = "";
 
   quizData.forEach((item, idx) => {
-
+    const selected = document.querySelector(`input[name="q${idx}"]:checked`);
+    cons
