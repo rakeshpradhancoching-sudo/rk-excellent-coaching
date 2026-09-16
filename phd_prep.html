@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Methodology Mock Test & Answer Key - PhD Entrance Exam</title>
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --accent-color: #319795;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+            --correct-color: #2f855a;
+            --correct-bg: #f0fff4;
+            --incorrect-color: #c53030;
+            --incorrect-bg: #fff5f5;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 26px;
+            margin-bottom: 8px;
+        }
+
+        .sub-header {
+            color: #4a5568;
+            font-size: 15px;
+        }
+
+        .test-info {
+            background-color: #ebf8ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 12px 18px;
+            margin-bottom: 25px;
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .question-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 18px;
+            margin-bottom: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .question-card:hover {
+            border-color: var(--secondary-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .question-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+        }
+
+        .options-list {
+            list-style-type: none;
+        }
+
+        .option-item {
+            margin-bottom: 8px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 10px 14px;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 14.5px;
+        }
+
+        .option-label:hover {
+            background: #edf2f7;
+        }
+
+        .option-label input[type="radio"] {
+            margin-right: 12px;
+            accent-color: var(--secondary-color);
+            width: 16px;
+            height: 16px;
+        }
+
+        .btn-submit, .btn-key {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover, .btn-key:hover {
+            background-color: var(--primary-color);
+        }
+
+        .btn-key {
+            background-color: var(--accent-color);
+        }
+
+        /* Results Modal / Section */
+        #score-card {
+            display: none;
+            background: #fff;
+            border: 2px solid var(--secondary-color);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .score-header {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .badge-pass {
+            background-color: #c6f6d5;
+            color: #22543d;
+        }
+
+        .badge-fail {
+            background-color: #fed7d7;
+            color: #742a2a;
+        }
+
+        .score-stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+            background: #f7fafc;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .stat-box {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .stat-value {
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #718096;
+        }
+
+        /* Answer Key Section */
+        #answer-key-section {
+            display: none;
+            margin-top: 30px;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .answer-key-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .answer-key-table th, .answer-key-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .answer-key-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .answer-key-table tr:nth-child(even) {
+            background-color: #edf2f7;
+        }
+
+        /* Styles for Answers Review */
+        .option-label.correct {
+            background-color: var(--correct-bg) !important;
+            border-color: var(--correct-color) !important;
+            color: var(--correct-color);
+            font-weight: bold;
+        }
+
+        .option-label.incorrect {
+            background-color: var(--incorrect-bg) !important;
+            border-color: var(--incorrect-color) !important;
+            color: var(--incorrect-color);
+        }
+
+        .btn-restart {
+            padding: 10px 20px;
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .btn-restart:hover {
+            background-color: #2d3748;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Research Methodology Practice Mock Test</h1>
+        <div class="sub-header">PhD Entrance Exam - Complete 50 Questions Practice Test</div>
+    </header>
+
+    <div class="test-info">
+        <span>Total Questions: 50</span>
+        <span>Passing Score: 80% (40 / 50 Marks)</span>
+        <span>Target: PhD Entrance / Arts & Social Sciences</span>
+    </div>
+
+    <form id="quizForm">
+        <div id="questions-container"></div>
+        <button type="button" class="btn-submit" onclick="calculateScore()">Submit Test & View Result</button>
+        <button type="button" class="btn-key" onclick="toggleAnswerKey()">Toggle Official Answer Key (उत्तर कुंजी देखें)</button>
+    </form>
+
+    <div id="score-card">
+        <div class="score-header">Test Result Summary</div>
+        <div id="pass-status" class="badge"></div>
+        
+        <div class="score-stats">
+            <div class="stat-box">
+                <div class="stat-value" id="total-score">0 / 50</div>
+                <div class="stat-label">Your Score</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="percentage">0%</div>
+                <div class="stat-label">Percentage</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="correct-count">0</div>
+                <div class="stat-label">Correct Answers</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="incorrect-count">0</div>
+                <div class="stat-label">Incorrect Answers</div>
+            </div>
+        </div>
+
+        <p id="feedback-text" style="margin-top: 10px; font-weight: 500;"></p>
+        <button class="btn-restart" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); location.reload();">Retake Test</button>
+    </div>
+
+    <div id="answer-key-section">
+        <h2 style="color: var(--primary-color); font-size: 20px; border-bottom: 2px solid var(--accent-color); padding-bottom: 8px;">Official Answer Key (उत्तर कुंजी)</h2>
+        <table class="answer-key-table">
+            <thead>
+                <tr>
+                    <th>Q.No</th>
+                    <th>Question Brief</th>
+                    <th>Correct Answer</th>
+                </tr>
+            </thead>
+            <tbody id="answer-key-body"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+const quizData = [
+    {
+        q: "1. scientific study ka ek essential criteria kya hai? / An essential criteria of scientific study is:",
+        options: ["Value (मूल्य)", "Objectivity (वस्तुनिष्ठता)", "Subjectivity (विषयनिष्ठा)", "Belief (विश्वास)"],
+        answer: 1
+    },
+    {
+        q: "2. 'Methods in Social Research' pustak ke lekhak kaun hain? / Who authored the book 'Methods in Social Research'?",
+        options: ["C.R. Kothari", "Kerlinger", "Wilkinson", "Goode and Hatt"],
+        answer: 3
+    },
+    {
+        q: "3. Vishleshana ke liye raw material kya hota hai? / What is the raw material for analysis?",
+        options: ["Data (आंकड़ा)", "Variable (चर)", "Sample (प्रतिदर्श)", "Problem (समस्या)"],
+        answer: 0
+    },
+    {
+        q: "4. Research kya hai? / Research is:",
+        options: ["Search again and again", "Finding solution to any problem", "Working in a scientific way to search for truth of any problem", "To understand a problem"],
+        answer: 2
+    },
+    {
+        q: "5. Survey kis prakar ka adhyayan hai? / Survey is a study of:",
+        options: ["Descriptive", "Fact-finding (तथ्य खोज)", "Analytical", "Systematic"],
+        answer: 1
+    },
+    {
+        q: "6. Prashnavali (Questionnaire) kiske dwara bhari jati hai? / Questionnaire is filled by:",
+        options: ["Everybody", "Respondent (उत्तरदाता)", "Enumerator", "Examiner"],
+        answer: 1
+    },
+    {
+        q: "7. Inme se kisse Non-Probability Sampling bhi kaha jata hai? / Which one is called Non-Probability Sampling?",
+        options: ["Quota Sampling (अभ्यांश निदर्शन)", "Cluster Sampling", "Systematic Sampling", "Stratified Random Sampling"],
+        answer: 0
+    },
+    {
+        q: "8. Shodh prakriya ka antim charan kya hai? / What is the final stage of the research process?",
+        options: ["Problem Formulation", "Data Collection", "Data Analysis", "Report Writing (प्रतिवेदन लेखन)"],
+        answer: 3
+    },
+    {
+        q: "9. Survey me ek enumerator ke alawa aur kaun hota hai? / In a survey, besides an enumerator, who else is present?",
+        options: ["Respondent (उत्तरदाता)", "Observer", "Analyst", "Guide"],
+        answer: 0
+    },
+    {
+        q: "10. Shodh karya ke blueprint (खाका) ko kya kehte hain? / A blueprint of research work is called:",
+        options: ["Research Design (शोध प्रारूप)", "Research Problem", "Research Proposal", "Research Hypothesis"],
+        answer: 0
+    },
+    {
+        q: "11. Prashnavali (Questionnaire) kya hai? / Questionnaire is a:",
+        options: ["Research Method", "Tool for Data Collection (आंकड़ा संकलन उपकरण)", "Research Design", "Data Analysis Technique"],
+        answer: 1
+    },
+    {
+        q: "12. Inme se kaun sa Research ka Method nahi hai? / Which of the following is NOT a method of research?",
+        options: ["Survey Method", "Historical Method", "Observation (अवलोकन)", "Philosophical Method"],
+        answer: 2
+    },
+    {
+        q: "13. Kisne kaha ki 'Research is an organized and systematic inquiry'? / Who said 'Research is an organized and systematic inquiry'?",
+        options: ["Marshall", "P.V. Young", "Kerlinger", "Emroy"],
+        answer: 3
+    },
+    {
+        q: "14. Kriyatmak Shodh (Action Research) ka tatparya kya hai? / What does Action Research mean?",
+        options: ["Longitudinal Research", "A research initiated to solve an immediate problem (तत्कालिक समस्या का समाधान)", "Applied Research", "Pure Research"],
+        answer: 1
+    },
+    {
+        q: "15. Anusandhan prakriya ki ek vistrit aur purna report kya kehlati hai? / A comprehensive full report of research process is called:",
+        options: ["Research Article", "Thesis / Dissertation (शोध प्रबंध)", "Synopsis", "Summary"],
+        answer: 1
+    },
+    {
+        q: "16. Hypothesis ka formulation kis prakaar ke adhyayan me aavashyak nahi ho sakta? / Formulation of hypothesis may not be necessary in:",
+        options: ["Survey Studies", "Historical Studies (ऐतिहासिक अध्ययन)", "Experimental Studies", "Normative Studies"],
+        answer: 1
+    },
+    {
+        q: "17. Ethical Neutrality (नैतिक तटस्थता) kiski visheshata hai? / Ethical neutrality is a feature of:",
+        options: ["Deductive Method", "Scientific Method (वैज्ञानिक विधि)", "Qualitative Method", "Empirical Method"],
+        answer: 1
+    },
+    {
+        q: "18. Scientific Method kiske prati committed hota hai? / Scientific method is committed to:",
+        options: ["Ethics", "Subjectivity", "Objectivity (वस्तुनिष्ठता)", "Neutrality"],
+        answer: 2
+    },
+    {
+        q: "19. Empirically verifiable observation ko kya kehte hain? / An empirically verifiable observation is called:",
+        options: ["Fact (तथ्य)", "Statement", "Value", "Theory"],
+        answer: 0
+    },
+    {
+        q: "20. Hypothesis ko kis form me state nahi kiya ja sakta? / A hypothesis CANNOT be stated in:",
+        options: ["Declarative Terms", "Null Form", "Directional Terms", "General Terms (सामान्य पद)"],
+        answer: 3
+    },
+    {
+        q: "21. Research Process ka pehla step kaun sa hai? / Which is the first step of research process?",
+        options: ["Formulation of Hypothesis", "Identification of Problem (समस्या ki pehchan)", "Data Collection", "Literature Review"],
+        answer: 1
+    },
+    {
+        q: "22. Web prashna jinse suchna prapt ki jati hai unhe kya kehte hain? / Questions which seek information are called:",
+        options: ["Analytical Questions", "Factual Questions (तथ्यपूर्ण प्रश्न)", "Structural Questions", "Opinion Questions"],
+        answer: 1
+    },
+    {
+        q: "23. ICSSR ka full form kya hai? / What does ICSSR stand for?",
+        options: ["Indian Council of Social Science Research", "Indian Council for Social Science Research", "International Council for Social Studies Research", "Indian Centre for Social Science Research"],
+        answer: 1
+    },
+    {
+        q: "24. Social Planning me inme se kaun madad karta hai? / Which helps in social planning?",
+        options: ["Social Science Research", "Diagnostic Study", "Problem Formulation", "Experience Survey"],
+        answer: 0
+    },
+    {
+        q: "25. 'The Romance of Research' pustak ke lekhak kaun hain? / Who authored 'The Romance of Research'?",
+        options: ["Redman and Mory", "Good and Hatt", "Kerlinger", "C.R. Kothari"],
+        answer: 0
+    },
+    {
+        q: "26. General se Particular ki or tark-purna prakriya kya kehlati hai? / Reasoning from General to Particular is called:",
+        options: ["Induction", "Deduction (निगमन)", "Observation", "Generalization"],
+        answer: 1
+    },
+    {
+        q: "27. Raw data ka saransh banana aur use statistical tables par pradarshit karna kya kehlata hai? / Summarizing raw data and displaying them on statistical tables is called:",
+        options: ["Coding", "Editing", "Transcription", "Tabulation (सारणीयन)"],
+        answer: 3
+    },
+    {
+        q: "28. Kaun sa research naturalism par aadharit hota hai? / Which research is based on naturalism?",
+        options: ["Field Research (क्षेत्र अनुसंधान)", "Descriptive Research", "Basic Research", "Applied Research"],
+        answer: 0
+    },
+    {
+        q: "29. Observation method me kaano aur dhwani ki apeksha kiska prayog adhik hota hai? / In observation method, what is used more than ears and sound?",
+        options: ["Hands", "Nose", "Eyes (नेत्र)", "Coding"],
+        answer: 2
+    },
+    {
+        q: "30. Reliability research ki fundamental quality hai jo kya darshati hai? / Reliability is the fundamental quality of research which reflects:",
+        options: ["Validity (वैधता)", "Superiority", "Purity of Data", "Verifiability"],
+        answer: 0
+    },
+    {
+        q: "31. Parikalpana (Hypothesis) me kya hona chahiye? / A hypothesis must have:",
+        options: ["Applicability", "Testability (परीक्षणयोग्यता)", "Durability", "Measurement"],
+        answer: 1
+    },
+    {
+        q: "32. Fact aur information ka analysis aur critical evaluation kis me kiya jata hai? / Facts/information are analyzed and critical evaluation is made in:",
+        options: ["Survey Research", "Analytical Research (विश्लेषणात्मक अनुसंधान)", "Action Research", "Pilot Study"],
+        answer: 1
+    },
+    {
+        q: "33. Research Questions ka uddeshya kiske kshetra ko paribhashit karna hai? / The purpose of research questions is to define the field of:",
+        options: ["Research", "Literature Review", "Report", "Pilot Study"],
+        answer: 0
+    },
+    {
+        q: "34. Explanatory Survey me kis shabd par sabse zyada mahatva diya jata hai? / In explanatory survey, importance is given to:",
+        options: ["What", "Why (क्यों)", "When", "Whom"],
+        answer: 1
+    },
+    {
+        q: "35. Gyan prapti ke liye kiya gaya shodh kya kehlaata hai? / Research undertaken for knowledge sake is:",
+        options: ["Pure Research (विशुद्ध अनुसंधान)", "Action Research", "Pilot Study", "Survey"],
+        answer: 0
+    },
+    {
+        q: "36. Research ka classic form kaun sa hai? / Which is the classic form of research?",
+        options: ["Experiment (प्रयोग / परीक्षण)", "Case Study", "Grounded Theory", "Observation"],
+        answer: 0
+    },
+    {
+        q: "37. Social Research ka mukhya lakshya (main goal) kya hai? / The main goal of social research is:",
+        options: ["Formulation of Problem", "Accumulation of Knowledge (ज्ञान का संचय)", "Formulation of Hypothesis", "Research Design"],
+        answer: 1
+    },
+    {
+        q: "38. Ek accha shodh (Good Research) kaisa hota hai? / A good research is:",
+        options: ["Non-logical", "Systematic only", "Logical (तार्किक)", "Narrow"],
+        answer: 2
+    },
+    {
+        q: "39. Kis vyavasthit tareeke se anusandhan samasya ko suljhaya jata hai? / The way to systematically solve a research problem is:",
+        options: ["Research Technique", "Research Process", "Research Methodology (शोध कार्यप्रणाली)", "Survey"],
+        answer: 2
+    },
+    {
+        q: "40. 'Father of Research on Teaching' kisse kaha jata hai? / Who is referred to as the Father of Research on Teaching?",
+        options: ["N.L. Gage", "David Berliner", "Donald T. Campbell", "Egon G. Guba"],
+        answer: 0
+    },
+    {
+        q: "41. Sample leena kyu labhdayak hota hai? / A sample is advantageous as it:",
+        options: ["Saves time and money (समय और धन बचाता है)", "Increases accuracy", "Is free from personal bias", "Ensures uniformity"],
+        answer: 0
+    },
+    {
+        q: "42. Survey research kis par nirbhar/aadhrit hota hai? / Survey research studies:",
+        options: ["Event", "Process", "Population (जनसंख्या)", "Circumstances"],
+        answer: 2
+    },
+    {
+        q: "43. Us conceptual framework ka naam kya hai jisme research kari jaati hai? / What is the name of the conceptual framework in which research is carried out?",
+        options: ["Hypothesis", "Synopsis", "Research Outline", "Research Design (शोध प्रारूप)"],
+        answer: 3
+    },
+    {
+        q: "44. Kis prakaar ke research ke nishkarsh ko anya sthitiyon me samanyikrit (generalized) nahi kiya ja sakta? / Conclusions of which type of research cannot be generalized to other situations?",
+        options: ["Historical Research / Case Study", "Experimental Research", "Causal Research", "Applied Research"],
+        answer: 0
+    },
+    {
+        q: "45. Anusandhan ki ghanta (depth of research) ka nireekshan kisse kiya ja sakta hai? / Depth of research can be judged by:",
+        options: ["Research Title", "Research Duration", "Research Objectives (अनुसंधान के उद्देश्य)", "Research Expenditure"],
+        answer: 2
+    },
+    {
+        q: "46. Abstract ideas ya concepts se sambandhit research ko kya kehte hain? / Research related to abstract ideas or concepts is:",
+        options: ["Empirical Research", "Conceptual Research (अवधारणात्मक अनुसंधान)", "Quantitative Research", "Historical Research"],
+        answer: 1
+    },
+    {
+        q: "47. Purani ghatnaon (Past events) ko ekatrit karne ke liye kiska prayog nahi hota? / Observation is of no use in collecting:",
+        options: ["Present Events", "Past Events (अतीत की घटनाएं)", "Future Events", "Evaluation of Events"],
+        answer: 1
+    },
+    {
+        q: "48. Motivation Research kis prakaar ka research hai? / Motivation research is a type of:",
+        options: ["Quantitative Research", "Qualitative Research (गुणात्मक अनुसंधान)", "Applied Research", "Experimental Research"],
+        answer: 1
+    },
+    {
+        q: "49. Fundamental Research ko aur kya kaha jata hai? / Fundamental research is also called:",
+        options: ["Pure Research (विशुद्ध अनुसंधान)", "Action Research", "Applied Research", "Survey"],
+        answer: 0
+    },
+    {
+        q: "50. Data collection tools ke roop me Schedule aur Questionnaire me mukhya antar kya hai? / Main difference between Schedule and Questionnaire is:",
+        options: ["Schedule is filled by respondent", "Schedule is filled by enumerator (गणनाकार द्वारा भरा जाता है)", "Questionnaire is filled by enumerator", "No difference"],
+        answer: 1
+    }
+];
+
+function renderQuiz() {
+    const container = document.getElementById('questions-container');
+    const tableBody = document.getElementById('answer-key-body');
+    container.innerHTML = '';
+    tableBody.innerHTML = '';
+
+    quizData.forEach((qData, qIndex) => {
+        // Render Questions
+        const qCard = document.createElement('div');
+        qCard.className = 'question-card';
+        qCard.id = `q-card-${qIndex}`;
+
+        const qTitle = document.createElement('div');
+        qTitle.className = 'question-title';
+        qTitle.innerText = qData.q;
+        qCard.appendChild(qTitle);
+
+        const optionsList = document.createElement('ul');
+        optionsList.className = 'options-list';
+
+        qData.options.forEach((optText, optIndex) => {
+            const li = document.createElement('li');
+            li.className = 'option-item';
+
+            const label = document.createElement('label');
+            label.className = 'option-label';
+            label.id = `label-${qIndex}-${optIndex}`;
+
+            const radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.name = `question-${qIndex}`;
+            radio.value = optIndex;
+
+            label.appendChild(radio);
+            label.appendChild(document.createTextNode(optText));
+            li.appendChild(label);
+            optionsList.appendChild(li);
+        });
+
+        qCard.appendChild(optionsList);
+        container.appendChild(qCard);
+
+        // Render Answer Key Table
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td><strong>Q${qIndex + 1}</strong></td>
+            <td>${qData.q.split('/')[0]}</td>
+            <td style="color: var(--correct-color); font-weight: bold;">${qData.options[qData.answer]}</td>
+        `;
+        tableBody.appendChild(tr);
+    });
+}
+
+function calculateScore() {
+    let score = 0;
+    let correctCount = 0;
+    let incorrectCount = 0;
+    const totalQuestions = quizData.length;
+
+    quizData.forEach((qData, qIndex) => {
+        const selectedRadio = document.querySelector(`input[name="question-${qIndex}"]:checked`);
+        const correctOptIndex = qData.answer;
+
+        qData.options.forEach((_, optIndex) => {
+            const label = document.getElementById(`label-${qIndex}-${optIndex}`);
+            label.classList.remove('correct', 'incorrect');
+        });
+
+        if (selectedRadio) {
+            const userAns = parseInt(selectedRadio.value);
+            if (userAns === correctOptIndex) {
+                score++;
+                correctCount++;
+                document.getElementById(`label-${qIndex}-${userAns}`).classList.add('correct');
+            } else {
+                incorrectCount++;
+                document.getElementById(`label-${qIndex}-${userAns}`).classList.add('incorrect');
+                document.getElementById(`label-${qIndex}-${correctOptIndex}`).classList.add('correct');
+            }
+        } else {
+            incorrectCount++;
+            document.getElementById(`label-${qIndex}-${correctOptIndex}`).classList.add('correct');
+        }
+    });
+
+    const percentage = ((score / totalQuestions) * 100).toFixed(1);
+    const passThreshold = 80;
+
+    document.getElementById('total-score').innerText = `${score} / ${totalQuestions}`;
+    document.getElementById('percentage').innerText = `${percentage}%`;
+    document.getElementById('correct-count').innerText = correctCount;
+    document.getElementById('incorrect-count').innerText = incorrectCount;
+
+    const passStatusElem = document.getElementById('pass-status');
+    const feedbackElem = document.getElementById('feedback-text');
+
+    if (percentage >= passThreshold) {
+        passStatusElem.innerText = "PASSED";
+        passStatusElem.className = "badge badge-pass";
+        feedbackElem.innerText = "Congratulations! Aapne 80% pass mark clear kar liya hai. PhD entrance ke liye aapki tayari acchi hai!";
+        feedbackElem.style.color = "green";
+    } else {
+        passStatusElem.innerText = "FAILED";
+        passStatusElem.className = "badge badge-fail";
+        feedbackElem.innerText = `Aapko pass hone ke liye kam se kam 80% (40 Marks) chahiye the. Kripya sabhi sahi uttar check karein aur punah prayas karein.`;
+        feedbackElem.style.color = "red";
+    }
+
+    const scoreCard = document.getElementById('score-card');
+    scoreCard.style.display = 'block';
+    scoreCard.scrollIntoView({ behavior: 'smooth' });
+}
+
+function toggleAnswerKey() {
+    const keySection = document.getElementById('answer-key-section');
+    if (keySection.style.display === 'block') {
+        keySection.style.display = 'none';
+    } else {
+        keySection.style.display = 'block';
+        keySection.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+window.onload = renderQuiz;
+</script>
+</body>
+</html>
