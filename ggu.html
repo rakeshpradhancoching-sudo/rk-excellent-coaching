@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GGU VRET & SSB Education Mock Test</title>
+    <title>GGU VRET & SSB Mock Test</title>
     <style>
         .mock-test-wrapper {
             font-family: Arial, sans-serif;
@@ -153,7 +153,7 @@
     </div>
 
     <form id="vretQuizForm">
-        <div id="vretQuestionsContainer"></div>
+        <div id="vretQuestionsContainer">Loading questions...</div>
         <button type="button" class="btn-submit" onclick="submitVretQuiz()">Submit Test & Get Score Card</button>
     </form>
 
@@ -174,95 +174,196 @@
 </div>
 
 <script>
-// Blogger Compatibility Wrapper
-(function() {
-    var quizItems = [
-        // Section A
-        { q: "1. Research undertaken for knowledge expansion without immediate practical application is:", opts: ["Applied Research", "Basic / Pure Research", "Action Research", "Evaluation Research"], ans: 1 },
-        { q: "2. Action Research is primarily aimed at:", opts: ["Developing new theories", "Solving immediate classroom/local problems", "Generalizing findings", "Historical analysis"], ans: 1 },
-        { q: "3. Which type of research deals with 'what was' in the past?", opts: ["Experimental Research", "Descriptive Research", "Historical Research", "Ex-Post Facto Research"], ans: 2 },
-        { q: "4. In Ex-Post Facto research, the researcher studies the effect:", opts: ["By manipulating independent variable", "After the event/effect has occurred", "Before event starts", "Under strict lab control"], ans: 1 },
-        { q: "5. A longitudinal study collects data:", opts: ["From different groups at one point", "From same group over an extended period", "Only once in a lab", "From documents"], ans: 1 },
-        { q: "6. Qualitative research is primarily characterized by:", opts: ["Numerical data", "Inductive reasoning & narrative descriptions", "Strict control of variables", "Large sample size"], ans: 1 },
-        { q: "7. Which paradigm assumes reality is objective and measurable?", opts: ["Positivism", "Constructivism", "Interpretivism", "Critical Theory"], ans: 0 },
-        { q: "8. Triangulation in research means:", opts: ["Using 3 statistical formulas", "Combining multiple methods/data sources", "Surveying 3 states", "Writing 3 chapters"], ans: 1 },
-        { q: "9. A variable manipulated by the researcher is called:", opts: ["Dependent Variable", "Independent Variable", "Extraneous Variable", "Moderating Variable"], ans: 1 },
-        { q: "10. 'There is no significant relationship between X and Y' is a:", opts: ["Directional Hypothesis", "Null Hypothesis", "Alternative Hypothesis", "Complex Hypothesis"], ans: 1 },
-        { q: "11. Type II error occurs when the researcher:", opts: ["Rejects a true null hypothesis", "Accepts a false null hypothesis", "Rejects a false null hypothesis", "Accepts a true null hypothesis"], ans: 1 },
-        { q: "12. Probability of committing Type I error is denoted by:", opts: ["Alpha (α)", "Beta (β)", "Gamma (γ)", "Sigma (σ)"], ans: 0 },
-        { q: "13. Power of a statistical test equals:", opts: ["1 - α", "1 - β", "α + β", "β / α"], ans: 1 },
-        { q: "14. Drawing names out of a hat is an example of:", opts: ["Stratified Sampling", "Simple Random Sampling", "Systematic Sampling", "Quota Sampling"], ans: 1 },
-        { q: "15. Selecting every kth individual from a list is:", opts: ["Cluster Sampling", "Systematic Sampling", "Quota Sampling", "Snowball Sampling"], ans: 1 },
-        { q: "16. Best sampling method when population is geographically scattered:", opts: ["Stratified Sampling", "Cluster Sampling", "Purposive Sampling", "Quota Sampling"], ans: 1 },
-        { q: "17. Snowball sampling is useful for studying:", opts: ["School students", "Hidden/hard-to-reach populations", "College professors", "Random trials"], ans: 1 },
-        { q: "18. Non-probability sampling does NOT guarantee:", opts: ["Low cost", "Equal chance of selection for all", "Ease of execution", "Specific criteria"], ans: 1 },
-        { q: "19. The degree to which a tool measures what it intends to measure:", opts: ["Reliability", "Validity", "Usability", "Objectivity"], ans: 1 },
-        { q: "20. Test-Retest method is used to measure:", opts: ["Content Validity", "Reliability", "Construct Validity", "Objectivity"], ans: 1 },
-        { q: "21. Cronbach’s Alpha is a measure of:", opts: ["External Validity", "Internal Consistency Reliability", "Factor Structure", "Sample Size"], ans: 1 },
-        { q: "22. A Likert Scale is an example of:", opts: ["Nominal Scale", "Ordinal Scale", "Interval Scale", "Ratio Scale"], ans: 1 },
-        { q: "23. Which scale of measurement has a true absolute zero point?", opts: ["Nominal", "Ordinal", "Interval", "Ratio"], ans: 3 },
-        { q: "24. Projective techniques (e.g., Rorschach Inkblot) measure:", opts: ["Intelligence", "Unconscious motives & personality", "Academic achievement", "Aptitude"], ans: 1 },
-        { q: "25. Central tendency measure most stable for normal distribution:", opts: ["Mode", "Median", "Mean", "Range"], ans: 2 },
-        { q: "26. Standard Deviation is a measure of:", opts: ["Central Tendency", "Dispersion / Variability", "Correlation", "Skewness"], ans: 1 },
-        { q: "27. In NPC, scores within ±1 SD from the mean cover:", opts: ["50%", "68.26%", "95.44%", "99.73%"], ans: 1 },
-        { q: "28. A distribution is positively skewed when the tail extends towards:", opts: ["Left (lower values)", "Right (higher values)", "Center", "Both sides"], ans: 1 },
-        { q: "29. In a positively skewed distribution:", opts: ["Mean < Median < Mode", "Mean > Median > Mode", "Mean = Median = Mode", "Mode > Mean > Median"], ans: 1 },
-        { q: "30. Chi-Square (χ²) test is a:", opts: ["Parametric test", "Non-Parametric test", "Central tendency measure", "Correlation coefficient"], ans: 1 },
-        { q: "31. Test comparing sample mean with population mean for n < 30:", opts: ["Z-test", "t-test", "ANOVA", "Chi-Square"], ans: 1 },
-        { q: "32. ANCOVA is used to:", opts: ["Increase sample size", "Statistically control extraneous covariates", "Test non-parametric data", "Measure qualitative data"], ans: 1 },
-        { q: "33. If correlation coefficient (r) = -0.85, it indicates:", opts: ["Weak positive", "Strong negative relationship", "No relationship", "Perfect positive"], ans: 1 },
-        { q: "34. Square of correlation coefficient (r²) is called:", opts: ["Coefficient of Determination", "Coefficient of Alienation", "Standard Error", "Regression Coefficient"], ans: 0 },
-        { q: "35. Presenting another person's work as one's own without credit:", opts: ["Citation", "Plagiarism", "Paraphrasing", "Indexing"], ans: 1 },
-        { q: "36. UGC similarity permissible limit without penalty is up to:", opts: ["0%", "10%", "20%", "30%"], ans: 1 },
-        { q: "37. Software widely used for detecting plagiarism in academic research:", opts: ["SPSS", "Turnitin / Urkund", "MS Excel", "AMOS"], ans: 1 },
-        { q: "38. In APA 7th Edition, in-text citation for two authors is:", opts: ["(Sharma & Verma, 2020)", "(Sharma and Verma, 2020)", "(Sharma, Verma, 2020)", "(Sharma et al., 2020)"], ans: 0 },
-        { q: "39. Abbreviation 'ibid.' stands for:", opts: ["In the same place", "In another book", "As cited elsewhere", "For example"], ans: 0 },
-        { q: "40. ISBN is a unique identifier assigned to:", opts: ["Journals", "Books", "Articles", "Websites"], ans: 1 },
-        { q: "41. ISSN stands for:", opts: ["International Standard Serial Number", "Indian Standard Scientific Network", "International System for Study Notes", "Integrated Serial Network"], ans: 0 },
-        { q: "42. H-index of an author measures:", opts: ["Total papers published", "Both productivity and citation impact", "Journal impact factor", "Years of experience"], ans: 1 },
-        { q: "43. Impact Factor of a journal is published annually by:", opts: ["UGC", "Clarivate Analytics (Web of Science)", "Google Scholar", "Scopus"], ans: 1 },
-        { q: "44. A research proposal or synopsis is essentially a:", opts: ["Final research report", "Blueprint/Plan of proposed research", "Summary of published papers", "Ethics certificate"], ans: 1 },
-        { q: "45. SPSS stands for:", opts: ["Statistical Package for the Social Sciences", "Standard Program for Social Studies", "System for Psychological Survey", "Software Package for Statistics"], ans: 0 },
-        { q: "46. In experimental research, a 'placebo group' receives:", opts: ["Active experimental treatment", "An inert/fake treatment", "Double dose", "No observation"], ans: 1 },
-        { q: "47. External validity refers to:", opts: ["Generalizability of results to real world", "Control over variables", "Tool reliability", "Statistical application"], ans: 0 },
-        { q: "48. Which of the following is a parametric test?", opts: ["Mann-Whitney U test", "Wilcoxon Signed-Rank test", "Two-sample independent t-test", "Kruskal-Wallis test"], ans: 2 },
-        { q: "49. A pilot study is conducted to:", opts: ["Draw final conclusions", "Test tools and procedures on small scale first", "Publish papers immediately", "Calculate variance"], ans: 1 },
-        { q: "50. Literature review primarily helps to:", opts: ["Identify research gaps and refine questions", "Increase word count", "Avoid primary data", "Select software"], ans: 0 },
+var quizItems = [
+    { q: "1. Research undertaken for knowledge expansion without immediate practical application is:", opts: ["Applied Research", "Basic / Pure Research", "Action Research", "Evaluation Research"], ans: 1 },
+    { q: "2. Action Research is primarily aimed at:", opts: ["Developing new theories", "Solving immediate classroom/local problems", "Generalizing findings", "Historical analysis"], ans: 1 },
+    { q: "3. Which type of research deals with 'what was' in the past?", opts: ["Experimental Research", "Descriptive Research", "Historical Research", "Ex-Post Facto Research"], ans: 2 },
+    { q: "4. In Ex-Post Facto research, the researcher studies the effect:", opts: ["By manipulating independent variable", "After the event/effect has occurred", "Before event starts", "Under strict lab control"], ans: 1 },
+    { q: "5. A longitudinal study collects data:", opts: ["From different groups at one point", "From same group over an extended period", "Only once in a lab", "From documents"], ans: 1 },
+    { q: "6. Qualitative research is primarily characterized by:", opts: ["Numerical data", "Inductive reasoning & narrative descriptions", "Strict control of variables", "Large sample size"], ans: 1 },
+    { q: "7. Which paradigm assumes reality is objective and measurable?", opts: ["Positivism", "Constructivism", "Interpretivism", "Critical Theory"], ans: 0 },
+    { q: "8. Triangulation in research means:", opts: ["Using 3 statistical formulas", "Combining multiple methods/data sources", "Surveying 3 states", "Writing 3 chapters"], ans: 1 },
+    { q: "9. A variable manipulated by the researcher is called:", opts: ["Dependent Variable", "Independent Variable", "Extraneous Variable", "Moderating Variable"], ans: 1 },
+    { q: "10. 'There is no significant relationship between X and Y' is a:", opts: ["Directional Hypothesis", "Null Hypothesis", "Alternative Hypothesis", "Complex Hypothesis"], ans: 1 },
+    { q: "11. Type II error occurs when the researcher:", opts: ["Rejects a true null hypothesis", "Accepts a false null hypothesis", "Rejects a false null hypothesis", "Accepts a true null hypothesis"], ans: 1 },
+    { q: "12. Probability of committing Type I error is denoted by:", opts: ["Alpha (α)", "Beta (β)", "Gamma (γ)", "Sigma (σ)"], ans: 0 },
+    { q: "13. Power of a statistical test equals:", opts: ["1 - α", "1 - β", "α + β", "β / α"], ans: 1 },
+    { q: "14. Drawing names out of a hat is an example of:", opts: ["Stratified Sampling", "Simple Random Sampling", "Systematic Sampling", "Quota Sampling"], ans: 1 },
+    { q: "15. Selecting every kth individual from a list is:", opts: ["Cluster Sampling", "Systematic Sampling", "Quota Sampling", "Snowball Sampling"], ans: 1 },
+    { q: "16. Best sampling method when population is geographically scattered:", opts: ["Stratified Sampling", "Cluster Sampling", "Purposive Sampling", "Quota Sampling"], ans: 1 },
+    { q: "17. Snowball sampling is useful for studying:", opts: ["School students", "Hidden/hard-to-reach populations", "College professors", "Random trials"], ans: 1 },
+    { q: "18. Non-probability sampling does NOT guarantee:", opts: ["Low cost", "Equal chance of selection for all", "Ease of execution", "Specific criteria"], ans: 1 },
+    { q: "19. The degree to which a tool measures what it intends to measure:", opts: ["Reliability", "Validity", "Usability", "Objectivity"], ans: 1 },
+    { q: "20. Test-Retest method is used to measure:", opts: ["Content Validity", "Reliability", "Construct Validity", "Objectivity"], ans: 1 },
+    { q: "21. Cronbach’s Alpha is a measure of:", opts: ["External Validity", "Internal Consistency Reliability", "Factor Structure", "Sample Size"], ans: 1 },
+    { q: "22. A Likert Scale is an example of:", opts: ["Nominal Scale", "Ordinal Scale", "Interval Scale", "Ratio Scale"], ans: 1 },
+    { q: "23. Which scale of measurement has a true absolute zero point?", opts: ["Nominal", "Ordinal", "Interval", "Ratio"], ans: 3 },
+    { q: "24. Projective techniques (e.g., Rorschach Inkblot) measure:", opts: ["Intelligence", "Unconscious motives & personality", "Academic achievement", "Aptitude"], ans: 1 },
+    { q: "25. Central tendency measure most stable for normal distribution:", opts: ["Mode", "Median", "Mean", "Range"], ans: 2 },
+    { q: "26. Standard Deviation is a measure of:", opts: ["Central Tendency", "Dispersion / Variability", "Correlation", "Skewness"], ans: 1 },
+    { q: "27. In NPC, scores within ±1 SD from the mean cover:", opts: ["50%", "68.26%", "95.44%", "99.73%"], ans: 1 },
+    { q: "28. A distribution is positively skewed when the tail extends towards:", opts: ["Left (lower values)", "Right (higher values)", "Center", "Both sides"], ans: 1 },
+    { q: "29. In a positively skewed distribution:", opts: ["Mean < Median < Mode", "Mean > Median > Mode", "Mean = Median = Mode", "Mode > Mean > Median"], ans: 1 },
+    { q: "30. Chi-Square (χ²) test is a:", opts: ["Parametric test", "Non-Parametric test", "Central tendency measure", "Correlation coefficient"], ans: 1 },
+    { q: "31. Test comparing sample mean with population mean for n < 30:", opts: ["Z-test", "t-test", "ANOVA", "Chi-Square"], ans: 1 },
+    { q: "32. ANCOVA is used to:", opts: ["Increase sample size", "Statistically control extraneous covariates", "Test non-parametric data", "Measure qualitative data"], ans: 1 },
+    { q: "33. If correlation coefficient (r) = -0.85, it indicates:", opts: ["Weak positive", "Strong negative relationship", "No relationship", "Perfect positive"], ans: 1 },
+    { q: "34. Square of correlation coefficient (r²) is called:", opts: ["Coefficient of Determination", "Coefficient of Alienation", "Standard Error", "Regression Coefficient"], ans: 0 },
+    { q: "35. Presenting another person's work as one's own without credit:", opts: ["Citation", "Plagiarism", "Paraphrasing", "Indexing"], ans: 1 },
+    { q: "36. UGC similarity permissible limit without penalty is up to:", opts: ["0%", "10%", "20%", "30%"], ans: 1 },
+    { q: "37. Software widely used for detecting plagiarism in academic research:", opts: ["SPSS", "Turnitin / Urkund", "MS Excel", "AMOS"], ans: 1 },
+    { q: "38. In APA 7th Edition, in-text citation for two authors is:", opts: ["(Sharma & Verma, 2020)", "(Sharma and Verma, 2020)", "(Sharma, Verma, 2020)", "(Sharma et al., 2020)"], ans: 0 },
+    { q: "39. Abbreviation 'ibid.' stands for:", opts: ["In the same place", "In another book", "As cited elsewhere", "For example"], ans: 0 },
+    { q: "40. ISBN is a unique identifier assigned to:", opts: ["Journals", "Books", "Articles", "Websites"], ans: 1 },
+    { q: "41. ISSN stands for:", opts: ["International Standard Serial Number", "Indian Standard Scientific Network", "International System for Study Notes", "Integrated Serial Network"], ans: 0 },
+    { q: "42. H-index of an author measures:", opts: ["Total papers published", "Both productivity and citation impact", "Journal impact factor", "Years of experience"], ans: 1 },
+    { q: "43. Impact Factor of a journal is published annually by:", opts: ["UGC", "Clarivate Analytics (Web of Science)", "Google Scholar", "Scopus"], ans: 1 },
+    { q: "44. A research proposal or synopsis is essentially a:", opts: ["Final research report", "Blueprint/Plan of proposed research", "Summary of published papers", "Ethics certificate"], ans: 1 },
+    { q: "45. SPSS stands for:", opts: ["Statistical Package for the Social Sciences", "Standard Program for Social Studies", "System for Psychological Survey", "Software Package for Statistics"], ans: 0 },
+    { q: "46. In experimental research, a 'placebo group' receives:", opts: ["Active experimental treatment", "An inert/fake treatment", "Double dose", "No observation"], ans: 1 },
+    { q: "47. External validity refers to:", opts: ["Generalizability of results to real world", "Control over variables", "Tool reliability", "Statistical application"], ans: 0 },
+    { q: "48. Which of the following is a parametric test?", opts: ["Mann-Whitney U test", "Wilcoxon Signed-Rank test", "Two-sample independent t-test", "Kruskal-Wallis test"], ans: 2 },
+    { q: "49. A pilot study is conducted to:", opts: ["Draw final conclusions", "Test tools and procedures on small scale first", "Publish papers immediately", "Calculate variance"], ans: 1 },
+    { q: "50. Literature review primarily helps to:", opts: ["Identify research gaps and refine questions", "Increase word count", "Avoid primary data", "Select software"], ans: 0 },
+    { q: "51. Ultimate goal of education according to Idealism:", opts: ["Self-realization & spiritual development", "Physical adaptation", "Vocational efficiency", "Scientific experiment"], ans: 0 },
+    { q: "52. Slogan 'Back to Nature' was given by:", opts: ["John Dewey", "Rousseau", "Swami Vivekananda", "Froebel"], ans: 1 },
+    { q: "53. Pragmatism places maximum emphasis on:", opts: ["Eternal values", "Practical experience and utility", "Strict discipline", "Religious texts"], ans: 1 },
+    { q: "54. Philosophy of 'Integral Education' was introduced by:", opts: ["Mahatma Gandhi", "Rabindranath Tagore", "Sri Aurobindo", "Jiddu Krishnamurti"], ans: 2 },
+    { q: "55. Wardha Scheme of Education (1937) is also known as:", opts: ["Nai Talim / Basic Education", "Distance Education", "Technical Education", "Comprehensive Education"], ans: 0 },
+    { q: "56. Visva-Bharati at Santiniketan was founded by:", opts: ["Swami Vivekananda", "Rabindranath Tagore", "Raja Ram Mohan Roy", "Dayanand Saraswati"], ans: 1 },
+    { q: "57. Which Indian philosophy accepts 'Anumana' along with 'Pratyaksha'?", opts: ["Carvaka", "Nyaya", "Advaita Vedanta", "Both Nyaya & Advaita Vedanta"], ans: 3 },
+    { q: "58. Philosophical school that rejects God and Soul completely:", opts: ["Samkhya", "Carvaka", "Yoga", "Mimamsa"], ans: 1 },
+    { q: "59. State of freedom from suffering in Buddhist philosophy:", opts: ["Moksha", "Nirvana", "Kaivalya", "Samadhi"], ans: 1 },
+    { q: "60. Existentialism in education emphasizes:", opts: ["Universal curriculum", "Individual freedom, choice, & responsibility", "Social conformity", "Rote learning"], ans: 1 },
+    { q: "61. Social stratification refers to:", opts: ["Hierarchical division of society", "Cultural mixing", "Rural to urban migration", "School admission"], ans: 0 },
+    { q: "62. Cultural Lag hypothesis was propounded by:", opts: ["Emile Durkheim", "W.F. Ogburn", "Talcott Parsons", "Karl Marx"], ans: 1 },
+    { q: "63. RTE Act came into force in India on:", opts: ["1st April 2009", "1st April 2010", "15th August 2009", "26th January 2010"], ans: 1 },
+    { q: "64. NEP 2020 replaced 10+2 structure with:", opts: ["5+3+3+4", "8+4", "10+2+3", "5+3+2"], ans: 0 },
+    { q: "65. Education Commission (1964-66) is popularly known as:", opts: ["Mudaliar Commission", "Kothari Commission", "Radhakrishnan Commission", "Yashpal Committee"], ans: 1 },
+    { q: "66. UGC became a statutory body in:", opts: ["1948", "1953", "1956", "1964"], ans: 2 },
+    { q: "67. Constitutional amendment for Article 21A (Free Education):", opts: ["42nd Amendment", "86th Amendment", "44th Amendment", "92nd Amendment"], ans: 1 },
+    { q: "68. Thorndike’s 'Law of Effect' laid foundation for:", opts: ["Classical Conditioning", "Operant Conditioning", "Insightful Learning", "Social Learning"], ans: 1 },
+    { q: "69. Operant Conditioning was developed by:", opts: ["Ivan Pavlov", "B.F. Skinner", "J.B. Watson", "Clark Hull"], ans: 1 },
+    { q: "70. Kohler experimented with Sultan to prove:", opts: ["Trial and Error", "Insightful Learning (Gestalt)", "Conditioning", "Latent Learning"], ans: 1 },
+    { q: "71. Social Learning Theory was proposed by:", opts: ["Albert Bandura", "Lev Vygotsky", "Carl Rogers", "Abraham Maslow"], ans: 0 },
+    { q: "72. Gap between actual and potential development in Vygotsky's theory:", opts: ["Scaffolding", "Zone of Proximal Development (ZPD)", "Schema", "Assimilation"], ans: 1 },
+    { q: "73. Stage of cognitive development where 'Object Permanence' occurs:", opts: ["Sensorimotor Stage (0-2 yrs)", "Pre-operational Stage", "Concrete Operational Stage", "Formal Operational Stage"], ans: 0 },
+    { q: "74. IQ formula proposed by William Stern:", opts: ["IQ = (MA / CA) * 100", "IQ = (CA / MA) * 100", "IQ = MA + CA", "IQ = (MA * CA) / 100"], ans: 0 },
+    { q: "75. Two-Factor Theory of Intelligence was propounded by:", opts: ["Howard Gardner", "Charles Spearman", "Louis Thurstone", "J.P. Guilford"], ans: 1 },
+    { q: "76. Guilford’s original Structure of Intellect (SOI) had how many factors?", opts: ["120", "150", "180", "8"], ans: 0 },
+    { q: "77. Hierarchy of Human Needs theory of motivation proposed by:", opts: ["Herzberg", "Abraham Maslow", "McClelland", "Vroom"], ans: 1 },
+    { q: "78. Psychoanalytic theory of personality was developed by:", opts: ["Carl Jung", "Sigmund Freud", "Alfred Adler", "Gordon Allport"], ans: 1 },
+    { q: "79. Personality component working on 'Reality Principle':", opts: ["Id", "Ego", "Superego", "Libido"], ans: 1 },
+    { q: "80. NCTE became a statutory body in:", opts: ["1973", "1993", "1995", "2005"], ans: 2 },
+    { q: "81. Flanders Interaction Analysis (FIACS) analyzes:", opts: ["Student writing", "Classroom verbal interaction", "Infrastructure", "Curriculum"], ans: 1 },
+    { q: "82. Total categories in Flanders Interaction Analysis:", opts: ["7", "10", "12", "5"], ans: 1 },
+    { q: "83. Microteaching originated at Stanford University by:", opts: ["Dwight W. Allen", "B.K. Passi", "N.L. Gage", "Robert Mager"], ans: 0 },
+    { q: "84. Standard Microteaching cycle duration in India (NCERT):", opts: ["15 minutes", "36 minutes", "45 minutes", "60 minutes"], ans: 1 },
+    { q: "85. Bloom's Taxonomy domains:", opts: ["Cognitive, Affective, Psychomotor", "Intellectual, Physical, Social", "Memory, Understanding, Reflective", "Philosophical, Sociological, Psychological"], ans: 0 },
+    { q: "86. Highest cognitive level in revised Bloom’s Taxonomy:", opts: ["Evaluating", "Creating", "Analyzing", "Applying"], ans: 1 },
+    { q: "87. ADDIE Model stands for:", opts: ["Analysis, Design, Development, Implementation, Evaluation", "Assessment, Diagnosis, Design, Interaction, Education", "Application, Demonstration, Design, Integration, Evaluation", "Aim, Development, Direction, Implementation, Evaluation"], ans: 0 },
+    { q: "88. SWAYAM is an Indian initiative for:", opts: ["Free offline books", "Massive Open Online Courses (MOOCs)", "Scholarships", "Lab equipment"], ans: 1 },
+    { q: "89. Curriculum design model focusing on behavioral objectives:", opts: ["Tyler Model", "Stenhouse Model", "Freirean Model", "Wheeler Model"], ans: 0 },
+    { q: "90. Inclusive Education refers to:", opts: ["Teaching disabled separately", "Educating ALL children together in mainstream classrooms", "Teaching gifted only", "Vocational training"], ans: 1 },
+    { q: "91. Dyslexia is a learning disability associated with:", opts: ["Writing difficulties", "Reading difficulties", "Math calculations", "Motor skills"], ans: 1 },
+    { q: "92. Dyscalculia is related to difficulty in:", opts: ["Reading", "Writing", "Mathematical operations", "Speech"], ans: 2 },
+    { q: "93. RPwD Act was passed in India in:", opts: ["1995", "2006", "2016", "2020"], ans: 2 },
+    { q: "94. Salamanca Statement (1994) is associated with:", opts: ["Environmental Education", "Inclusive Education", "Primary Education", "Higher Education"], ans: 1 },
+    { q: "95. Non-directive counseling technique was propounded by:", opts: ["E.G. Williamson", "Carl Rogers", "F.C. Thorne", "Sigmund Freud"], ans: 1 },
+    { q: "96. Directive Counseling is primarily centered on:", opts: ["The Counselor", "The Counselee", "Both equally", "Environment"], ans: 0 },
+    { q: "97. Assessment FOR Learning is essentially:", opts: ["Summative Assessment", "Formative Assessment", "Diagnostic Assessment", "Placement Assessment"], ans: 1 },
+    { q: "98. Test measuring potential capacity to learn a future skill:", opts: ["Achievement Test", "Aptitude Test", "Diagnostic Test", "Personality Inventory"], ans: 1 },
+    { q: "99. Percentile Rank indicates:", opts: ["Percentage of correct answers", "Percentage of scores falling below a given score", "Grade assigned", "Mean difference"], ans: 1 },
+    { q: "100. CCE emphasizes:", opts: ["Co-scholastic only", "Scholastic only", "Both scholastic & co-scholastic aspects continuously", "Annual exams"], ans: 2 }
+];
 
-        // Section B
-        { q: "51. Ultimate goal of education according to Idealism:", opts: ["Self-realization & spiritual development", "Physical adaptation", "Vocational efficiency", "Scientific experiment"], ans: 0 },
-        { q: "52. Slogan 'Back to Nature' was given by:", opts: ["John Dewey", "Rousseau", "Swami Vivekananda", "Froebel"], ans: 1 },
-        { q: "53. Pragmatism places maximum emphasis on:", opts: ["Eternal values", "Practical experience and utility", "Strict discipline", "Religious texts"], ans: 1 },
-        { q: "54. Philosophy of 'Integral Education' was introduced by:", opts: ["Mahatma Gandhi", "Rabindranath Tagore", "Sri Aurobindo", "Jiddu Krishnamurti"], ans: 2 },
-        { q: "55. Wardha Scheme of Education (1937) is also known as:", opts: ["Nai Talim / Basic Education", "Distance Education", "Technical Education", "Comprehensive Education"], ans: 0 },
-        { q: "56. Visva-Bharati at Santiniketan was founded by:", opts: ["Swami Vivekananda", "Rabindranath Tagore", "Raja Ram Mohan Roy", "Dayanand Saraswati"], ans: 1 },
-        { q: "57. Which Indian philosophy accepts 'Anumana' along with 'Pratyaksha'?", opts: ["Carvaka", "Nyaya", "Advaita Vedanta", "Both Nyaya & Advaita Vedanta"], ans: 3 },
-        { q: "58. Philosophical school that rejects God and Soul completely:", opts: ["Samkhya", "Carvaka", "Yoga", "Mimamsa"], ans: 1 },
-        { q: "59. State of freedom from suffering in Buddhist philosophy:", opts: ["Moksha", "Nirvana", "Kaivalya", "Samadhi"], ans: 1 },
-        { q: "60. Existentialism in education emphasizes:", opts: ["Universal curriculum", "Individual freedom, choice, & responsibility", "Social conformity", "Rote learning"], ans: 1 },
-        { q: "61. Social stratification refers to:", opts: ["Hierarchical division of society", "Cultural mixing", "Rural to urban migration", "School admission"], ans: 0 },
-        { q: "62. Cultural Lag hypothesis was propounded by:", opts: ["Emile Durkheim", "W.F. Ogburn", "Talcott Parsons", "Karl Marx"], ans: 1 },
-        { q: "63. RTE Act came into force in India on:", opts: ["1st April 2009", "1st April 2010", "15th August 2009", "26th January 2010"], ans: 1 },
-        { q: "64. NEP 2020 replaced 10+2 structure with:", opts: ["5+3+3+4", "8+4", "10+2+3", "5+3+2"], ans: 0 },
-        { q: "65. Education Commission (1964-66) is popularly known as:", opts: ["Mudaliar Commission", "Kothari Commission", "Radhakrishnan Commission", "Yashpal Committee"], ans: 1 },
-        { q: "66. UGC became a statutory body in:", opts: ["1948", "1953", "1956", "1964"], ans: 2 },
-        { q: "67. Constitutional amendment for Article 21A (Free Education):", opts: ["42nd Amendment", "86th Amendment", "44th Amendment", "92nd Amendment"], ans: 1 },
-        { q: "68. Thorndike’s 'Law of Effect' laid foundation for:", opts: ["Classical Conditioning", "Operant Conditioning", "Insightful Learning", "Social Learning"], ans: 1 },
-        { q: "69. Operant Conditioning was developed by:", opts: ["Ivan Pavlov", "B.F. Skinner", "J.B. Watson", "Clark Hull"], ans: 1 },
-        { q: "70. Kohler experimented with Sultan to prove:", opts: ["Trial and Error", "Insightful Learning (Gestalt)", "Conditioning", "Latent Learning"], ans: 1 },
-        { q: "71. Social Learning Theory was proposed by:", opts: ["Albert Bandura", "Lev Vygotsky", "Carl Rogers", "Abraham Maslow"], ans: 0 },
-        { q: "72. Gap between actual and potential development in Vygotsky's theory:", opts: ["Scaffolding", "Zone of Proximal Development (ZPD)", "Schema", "Assimilation"], ans: 1 },
-        { q: "73. Stage of cognitive development where 'Object Permanence' occurs:", opts: ["Sensorimotor Stage (0-2 yrs)", "Pre-operational Stage", "Concrete Operational Stage", "Formal Operational Stage"], ans: 0 },
-        { q: "74. IQ formula proposed by William Stern:", opts: ["IQ = (MA / CA) * 100", "IQ = (CA / MA) * 100", "IQ = MA + CA", "IQ = (MA * CA) / 100"], ans: 0 },
-        { q: "75. Two-Factor Theory of Intelligence was propounded by:", opts: ["Howard Gardner", "Charles Spearman", "Louis Thurstone", "J.P. Guilford"], ans: 1 },
-        { q: "76. Guilford’s original Structure of Intellect (SOI) had how many factors?", opts: ["120", "150", "180", "8"], ans: 0 },
-        { q: "77. Hierarchy of Human Needs theory of motivation proposed by:", opts: ["Herzberg", "Abraham Maslow", "McClelland", "Vroom"], ans: 1 },
-        { q: "78. Psychoanalytic theory of personality was developed by:", opts: ["Carl Jung", "Sigmund Freud", "Alfred Adler", "Gordon Allport"], ans: 1 },
-        { q: "79. Personality component working on 'Reality Principle':", opts: ["Id", "Ego", "Superego", "Libido"], ans: 1 },
-        { q: "80. NCTE became a statutory body in:", opts: ["1973", "1993", "1995", "2005"], ans: 2 },
-        { q: "81. Flanders Interaction Analysis (FIACS) analyzes:", opts: ["Student writing", "Classroom verbal interaction", "Infrastructure", "Curriculum"], ans: 1 },
-        { q: "82. Total categories in Flanders Interaction Analysis:", opts: ["7", "10", "12", "5"], ans: 1 },
-        { q: "83. Microteaching originated at Stanford University by:", opts: ["Dwight W. Allen", "B.K. Passi", "N.L. Gage", "Robert Mager"], ans: 0 },
-        { q: "84. Standard Microteaching cycle duration in India (NCERT):", opts: ["15 minutes", "36 minutes", "45 minutes", "60 minutes"], ans: 1 },
-        { q: "85. Bloom's Taxonomy domains:", opts: ["Cognitive, Affective, Psychomotor", "Intellectual, Physical, Social", "Memory, Understanding, Reflective", "Philosophical, Sociological, Psychological"], ans: 0 },
-        { q: "86. Highest cognitive level in revised Bloom’s Taxonomy:", opts: ["Evaluating", "Creating", "Analyzing",
+function renderVretQuiz() {
+    var container = document.getElementById('vretQuestionsContainer');
+    if (!container) return;
+    
+    var htmlStr = '';
+    for (var i = 0; i < quizItems.length; i++) {
+        if (i === 0) {
+            htmlStr += '<div class="sec-header">SECTION - A: Research Methodology (Q1 - Q50)</div>';
+        } else if (i === 50) {
+            htmlStr += '<div class="sec-header">SECTION - B: Education Core Subject (Q51 - Q100)</div>';
+        }
+
+        var item = quizItems[i];
+        htmlStr += '<div class="q-card">';
+        htmlStr += '<div class="q-title">' + item.q + '</div>';
+        
+        for (var j = 0; j < item.opts.length; j++) {
+            var letter = String.fromCharCode(65 + j);
+            htmlStr += '<label class="opt-label">';
+            htmlStr += '<input type="radio" name="vq' + i + '" value="' + j + '"> ';
+            htmlStr += letter + ') ' + item.opts[j];
+            htmlStr += '</label>';
+        }
+        htmlStr += '</div>';
+    }
+    container.innerHTML = htmlStr;
+}
+
+function submitVretQuiz() {
+    var score = 0, correct = 0, wrong = 0;
+    var reviewHtml = '';
+
+    for (var i = 0; i < quizItems.length; i++) {
+        var item = quizItems[i];
+        var radios = document.getElementsByName('vq' + i);
+        var selectedVal = -1;
+
+        for (var r = 0; r < radios.length; r++) {
+            if (radios[r].checked) {
+                selectedVal = parseInt(radios[r].value);
+                break;
+            }
+        }
+
+        var isCorrect = (selectedVal === item.ans);
+        if (isCorrect) {
+            score++; correct++;
+        } else if (selectedVal !== -1) {
+            wrong++;
+        }
+
+        var userText = (selectedVal !== -1) ? String.fromCharCode(65 + selectedVal) + ') ' + item.opts[selectedVal] : 'Not Answered';
+        var correctText = String.fromCharCode(65 + item.ans) + ') ' + item.opts[item.ans];
+
+        reviewHtml += '<div class="q-card" style="border-left: 4px solid ' + (isCorrect ? '#16a34a' : '#dc2626') + ';">';
+        reviewHtml += '<div class="q-title">' + item.q + '</div>';
+        reviewHtml += '<p>Your Answer: <span class="' + (isCorrect ? 'ans-correct' : 'ans-wrong') + '">' + userText + '</span></p>';
+        reviewHtml += '<p>Correct Answer: <span class="ans-correct">' + correctText + '</span></p>';
+        reviewHtml += '</div>';
+    }
+
+    var percent = (score / 100) * 100;
+    var isPass = percent >= 50;
+
+    var scoreBox = document.getElementById('scoreBox');
+    scoreBox.className = 'score-box ' + (isPass ? 'pass' : 'fail');
+    document.getElementById('statusText').innerText = isPass ? "QUALIFIED 🎉" : "NOT QUALIFIED ❌";
+    document.getElementById('statusDesc').innerText = isPass ? "Congratulations! You scored above 50% cutoff." : "You scored below 50%. Practice more for better results.";
+    
+    document.getElementById('mScore').innerText = score + " / 100";
+    document.getElementById('mPercent').innerText = percent.toFixed(1) + "%";
+    document.getElementById('mCorrect').innerText = correct;
+    document.getElementById('mWrong').innerText = wrong;
+
+    document.getElementById('answerKeyList').innerHTML = reviewHtml;
+    document.getElementById('resultModal').style.display = 'block';
+    document.getElementById('resultModal').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Auto-run when DOM is loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderVretQuiz);
+} else {
+    renderVretQuiz();
+}
+</script>
+
+</body>
+</html>
+
