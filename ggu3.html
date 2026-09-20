@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ph.D. Statistics Entrance Mock Test | GGU VRET</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #0d6efd;
+    --dark: #1a1a1a;
+    --bg: #f4f7fe;
+    --success: #198754;
+    --danger: #dc3545;
+  }
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg);
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+  header {
+    background: linear-gradient(135deg, #1a1a1a, #0d6efd);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  }
+  .timer-box {
+    background: #ffc107;
+    color: #000;
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight: 700;
+    margin-top: 10px;
+  }
+  .container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 20px;
+  }
+  .q-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  }
+  .q-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  .pyq-tag {
+    background: #e7f1ff;
+    color: var(--primary);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .options-group label {
+    display: block;
+    background: #f8f9fa;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    transition: 0.2s;
+  }
+  .options-group label:hover {
+    background: #eef4ff;
+    border-color: var(--primary);
+  }
+  .options-group input {
+    margin-right: 10px;
+  }
+  .btn-submit {
+    background: var(--primary);
+    color: white;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 30px 0 50px;
+  }
+  .btn-submit:hover {
+    background: #0b5ed7;
+  }
+  #score-card {
+    display: none;
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .score-val {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--primary);
+  }
+  .ans-key {
+    text-align: left;
+    margin-top: 30px;
+    border-top: 2px solid #eee;
+    padding-top: 20px;
+  }
+  .correct-ans { color: var(--success); font-weight: 600; }
+  .wrong-ans { color: var(--danger); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>GGU Ph.D. Statistics Entrance Test</h1>
+  <p>Research Methodology & Core Statistics PYQs</p>
+  <div class="timer-box">Time Remaining: <span id="timer">60:00</span></div>
+</header>
+
+<div class="container">
+
+  <!-- Score Card Display -->
+  <div id="score-card">
+    <h2>🎉 Exam Result & Score Card</h2>
+    <div class="score-val" id="final-score">0 / 100</div>
+    <p id="score-status"></p>
+    
+    <div class="ans-key" id="ans-analysis">
+      <h3>Review & Answer Key</h3>
+      <div id="analysis-list"></div>
+    </div>
+    <button onclick="location.reload()" class="btn-submit" style="background:var(--dark);">Retake Test</button>
+  </div>
+
+  <!-- Test Form -->
+  <form id="quiz-form">
+    <div id="questions-container"></div>
+    <button type="button" onclick="calculateScore()" class="btn-submit">Submit Test & View Results</button>
+  </form>
+
+</div>
+
+<script>
+const questionsData = [
+  // SECTION A: RESEARCH METHODOLOGY
+  { q: "1. Research design ka mukhya uddeshya kya hai?", pyq: "GGU VRET 2023", options: ["Data collect karna", "Hypothesis test karne ke liye plan banana", "Result publish karna", "None"], ans: 1 },
+  { q: "2. Primary data ka example kaun sa hai?", pyq: "GGU VRET 2022", options: ["Census Report", "Questionnaire Dwara Data Collection", "Journal Article", "Books"], ans: 1 },
+  { q: "3. Continuous variable ko measure karne ke liye sabse suitable scale kaun sa hai?", pyq: "GGU VRET 2021", options: ["Nominal", "Ordinal", "Ratio / Interval", "Categorical"], ans: 2 },
+  { q: "4. Null Hypothesis (H0) ko reject karna jabki woh true ho, ise kya kehte hain?", pyq: "GGU VRET 2023", options: ["Type I Error", "Type II Error", "Correct Decision", "Power of test"], ans: 0 },
+  { q: "5. Probability Sampling ka example kya hai?", pyq: "GGU VRET 2020", options: ["Quota Sampling", "Convenience Sampling", "Stratified Random Sampling", "Purposive Sampling"], ans: 2 },
+  { q: "6. Non-probability sampling method kaun sa hai?", pyq: "GGU VRET 2022", options: ["Simple Random", "Systematic", "Snowball Sampling", "Cluster Sampling"], ans: 2 },
+  { q: "7. Research Problem identify karne ke liye pehla step kya hota hai?", pyq: "GGU VRET 2021", options: ["Data Analysis", "Literature Review", "Hypothesis Formulation", "Report Writing"], ans: 1 },
+  { q: "8. p-value 0.03 hai aur Level of Significance α = 0.05 hai, toh H0 ka kya hoga?", pyq: "GGU VRET 2023", options: ["Accept H0", "Reject H0", "Insufficient data", "None"], ans: 1 },
+  { q: "9. Qualitative Research ka feature kaun sa hai?", pyq: "GGU VRET 2020", options: ["Numerical data", "In-depth understanding", "Large sample size", "Statistical tests"], ans: 1 },
+  { q: "10. Research Ethics me Data Fabrication ka matlab kya hai?", pyq: "GGU VRET 2022", options: ["Plagiarism", "Making up data/results", "Misquoting", "Copying format"], ans: 1 },
+  { q: "11. Sample Size badhane par Standard Error par kya phark padta hai?", pyq: "GGU VRET 2021", options: ["Badhta hai", "Ghat-ta hai", "Constant rehta hai", "Zero hota hai"], ans: 1 },
+  { q: "12. Plagiarism software kaun sa hai?", pyq: "GGU VRET 2023", options: ["SPSS", "Turnitin", "R-Studio", "MATLAB"], ans: 1 },
+  { q: "13. Descriptive Research ka mukhya uddeshya kya hota hai?", pyq: "GGU VRET 2020", options: ["Cause-and-effect dhundhna", "State of affairs ko describe karna", "Hypothesis create karna", "None"], ans: 1 },
+  { q: "14. Independent variable wo hai jo:", pyq: "GGU VRET 2022", options: ["Measure hota hai", "Manipulate/Change kiya jata hai", "Constant rehta hai", "Error cause karta hai"], ans: 1 },
+  { q: "15. Deductive approach me reasoning kis taraf jati hai?", pyq: "GGU VRET 2021", options: ["Specific to General", "General to Specific", "Qualitative to Quantitative", "Sample to Population"], ans: 1 },
+  { q: "16. Inductive approach me reasoning kis taraf jati hai?", pyq: "GGU VRET 2020", options: ["Specific to General", "General to Specific", "Theory to Hypothesis", "None"], ans: 0 },
+  { q: "17. Empirical research kis par aadharit hoti hai?", pyq: "GGU VRET 2023", options: ["Opinion", "Direct observation & experiment", "Tradition", "Intuition"], ans: 1 },
+  { q: "18. Likert Scale kis type ka scale hai?", pyq: "GGU VRET 2021", options: ["Nominal", "Ordinal", "Interval", "Ratio"], ans: 1 },
+  { q: "19. Research proposal ko aur kya kaha jata hai?", pyq: "GGU VRET 2022", options: ["Synopsis", "Thesis", "Abstract", "Manuscript"], ans: 0 },
+  { q: "20. Systematic Sampling me k-th item select karne ke liye k kya hai?", pyq: "GGU VRET 2020", options: ["N/n", "n/N", "N * n", "N - n"], ans: 0 },
+  { q: "21. Confounding Variable kya karta hai?", pyq: "GGU VRET 2023", options: ["Direct relationship show karta hai", "Independent aur Dependent dono ko affect karta hai", "Error zero karta hai", "None"], ans: 1 },
+  { q: "22. Cross-sectional study me data kab collect hota hai?", pyq: "GGU VRET 2021", options: ["Over a long period", "At a single point in time", "In future", "Repeatedly"], ans: 1 },
+  { q: "23. Longitudinal study me data kab collect hota hai?", pyq: "GGU VRET 2022", options: ["Multiple times over a period", "Single time", "Retrospectively", "Randomly"], ans: 0 },
+  { q: "24. Pilot Study kyun ki jati hai?", pyq: "GGU VRET 2020", options: ["Final result ke liye", "Main study se pehle feasibility check karne ke liye", "Thesis submission ke liye", "None"], ans: 1 },
+  { q: "25. Citation Index kya measure karta hai?", pyq: "GGU VRET 2023", options: ["Number of pages", "Impact & references of a research paper", "Quality of journal cover", "Price"], ans: 1 },
+  { q: "26. H-index kis cheez ko represent karta hai?", pyq: "GGU VRET 2021", options: ["Author ki productivity aur citation impact", "University rank", "Total books", "Years of experience"], ans: 0 },
+  { q: "27. Bibliography aur References me kya difference hai?", pyq: "GGU VRET 2022", options: ["Koi difference nahi hai", "Bibliography me extra un-cited works bhi hote hain", "Reference me extra books hoti hain", "None"], ans: 1 },
+  { q: "28. Double-blind review me kaun anonymous hota hai?", pyq: "GGU VRET 2020", options: ["Author only", "Reviewer only", "Author and Reviewer both", "Publisher"], ans: 2 },
+  { q: "29. Extraneous variables ko control karne ke liye kaun sa design use hota hai?", pyq: "GGU VRET 2023", options: ["Randomized Block Design", "Survey", "Case Study", "Historical"], ans: 0 },
+  { q: "30. Applied Research ka main goal kya hai?", pyq: "GGU VRET 2021", options: ["New theory banana", "Practical problems ka immediate solution", "Knowledge expansion", "Fundamental principles"], ans: 1 },
+  { q: "31. Fundamental/Pure Research ka mukhya uddeshya:", pyq: "GGU VRET 2022", options: ["Instant problem solve karna", "New knowledge & general theory develop karna", "Policy making", "None"], ans: 1 },
+  { q: "32. Content Analysis kis type ki research methodology hai?", pyq: "GGU VRET 2020", options: ["Quantitative & Qualitative text analysis", "Pure Mathematical", "Experimental", "Physical Science"], ans: 0 },
+  { q: "33. Cronbach's Alpha kis cheez ke liye use hota hai?", pyq: "GGU VRET 2023", options: ["Validity", "Internal Consistency Reliability", "Correlation", "Regression"], ans: 1 },
+  { q: "34. Face Validity kya check karti hai?", pyq: "GGU VRET 2021", options: ["Statistical test score", "Standard Deviation", "Whether test appears to measure what it claims", "Sample size"], ans: 2 },
+  { q: "35. ANOVA test me total variance test karne ke liye kya measure hota hai?", pyq: "GGU VRET 2022", options: ["Means between groups", "Variances ratio (F-ratio)", "Standard error", "Median difference"], ans: 1 },
+  { q: "36. Focus Group Discussion (FGD) me kitne participants ideal mane jate hain?", pyq: "GGU VRET 2020", options: ["1-2", "6-12", "50-100", "500+"], ans: 1 },
+  { q: "37. Research Methodology section paper me kyun include kiya jata hai?", pyq: "GGU VRET 2023", options: ["Word count badhane ke liye", "Reproducibility ke liye", "Decoration", "Mandatory page fill up"], ans: 1 },
+  { q: "38. Grounded Theory methodology me data collection ke sath kya chalta hai?", pyq: "GGU VRET 2021", options: ["Literature Review end me", "Continuous Data Analysis & Theory Generation", "Hypothesis testing first", "Fixed Sample"], ans: 1 },
+  { q: "39. Mixed-Method Research me kya combine hota hai?", pyq: "GGU VRET 2022", options: ["Primary & Secondary", "Qualitative & Quantitative methods", "Two software", "Two researchers"], ans: 1 },
+  { q: "40. Ph.D. coursework me Research Ethics ka kitne credit ka subject compulsory hai?", pyq: "GGU VRET 2023", options: ["2 Credits (CPE)", "10 Credits", "0 Credit", "6 Credits"], ans: 0 },
+  { q: "41. Open Access Journals ka kya matlab hai?", pyq: "GGU VRET 2020", options: ["Free to read for everyone", "Free to publish always", "Printed journals", "Confidential journals"], ans: 0 },
+  { q: "42. DOI ka full form kya hai?", pyq: "GGU VRET 2021", options: ["Digital Object Identifier", "Data Online Indexing", "Document Object Interface", "Digital Open Index"], ans: 0 },
+  { q: "43. ORCID iD kya hai?", pyq: "GGU VRET 2022", options: ["Unique identifier for researchers", "Book registration number", "University code", "Patent number"], ans: 0 },
+  { q: "44. Peer-reviewed journal ka kya matlab hai?", pyq: "GGU VRET 2020", options: ["Editors Dwara Checked", "Experts/Peers in the field dwara evaluate kiya hua", "Students dwara checked", "Government approved"], ans: 1 },
+  { q: "45. Standard Normal Distribution ka Mean aur Variance kya hota hai?", pyq: "GGU VRET 2023", options: ["Mean = 1, Var = 0", "Mean = 0, Var = 1", "Mean = 0, Var = 0", "Mean = 1, Var = 1"], ans: 1 },
+  { q: "46. Research Report me Abstract ka kya role hai?", pyq: "GGU VRET 2021", options: ["Full text copy", "Brief summary of entire research", "Conclusion only", "References list"], ans: 1 },
+  { q: "47. Action Research mostly kahan use hoti hai?", pyq: "GGU VRET 2022", options: ["Educational/Local practical settings me immediate improvement", "Space Research", "Historical Analysis", "Pure Physics"], ans: 0 },
+  { q: "48. Type II Error ko kaise represent kiya jata hai?", pyq: "GGU VRET 2020", options: ["α", "β", "1-β", "1-α"], ans: 1 },
+  { q: "49. Power of Test kya hota hai?", pyq: "GGU VRET 2023", options: ["α", "β", "1 - β", "1 - α"], ans: 2 },
+  { q: "50. Meta-Analysis kya hai?", pyq: "GGU VRET 2021", options: ["Single experiment", "Statistical combination of results from multiple studies", "Survey method", "Interview strategy"], ans: 1 },
+
+  // SECTION B: CORE STATISTICS
+  { q: "51. Agar X ~ Binomial(n, p) hai, toh E(X) aur Var(X) kya honge?", pyq: "GGU VRET 2023 / CSIR NET", options: ["np, npq", "npq, np", "n, p", "p, q"], ans: 0 },
+  { q: "52. Poisson distribution me Mean aur Variance ka relationship kya hota hai?", pyq: "GGU VRET 2022", options: ["Mean > Variance", "Mean < Variance", "Mean = Variance = λ", "None"], ans: 2 },
+  { q: "53. Binomial Distribution Poisson me convert hota hai jab:", pyq: "GGU VRET 2021", options: ["n → ∞, p → 0 and np = λ", "n → 0, p → 1", "n=10, p=0.5", "p → 1"], ans: 0 },
+  { q: "54. Exponential Distribution ki Memoryless Property kya hai?", pyq: "CSIR NET / GGU 2023", options: ["P(X > s+t | X > s) = P(X > t)", "P(X < t) = 0", "E(X) = Var(X)", "None"], ans: 0 },
+  { q: "55. Central Limit Theorem ke anusar large sample size n ke liye sample mean kya hota hai?", pyq: "GGU VRET 2020", options: ["Binomial", "Normal", "Uniform", "Poisson"], ans: 1 },
+  { q: "56. Normal distribution ka Skewness aur Kurtosis kitna hota hai?", pyq: "GGU VRET 2022", options: ["0 and 3", "1 and 0", "0 and 0", "3 and 0"], ans: 0 },
+  { q: "57. Cramer-Rao Inequality kisse related hai?", pyq: "CSIR NET / GGU 2021", options: ["Lower bound for variance of unbiased estimator", "Upper bound of mean", "Probability calculation", "Hypothesis testing"], ans: 0 },
+  { q: "58. Minimum Variance Unbiased Estimator (MVUE) hota hai agar:", pyq: "GGU VRET 2023", options: ["Rao-Blackwell Theorem satisfy kare", "High variance rakhe", "Biased ho", "None"], ans: 0 },
+  { q: "59. Likelihood Function ko maximize karne wale estimator ko kya kehte hain?", pyq: "GGU VRET 2020", options: ["MLE (Maximum Likelihood Estimator)", "UMVUE", "Method of Moments", "OLS"], ans: 0 },
+  { q: "60. MLE estimator ki property kaun si hoti hai?", pyq: "GGU VRET 2022", options: ["Asymptotically Normal", "Invariant under transformation", "Consistent", "All of the above"], ans: 3 },
+  { q: "61. Neyman-Pearson Lemma kiske liye Most Powerful (MP) Test deta hai?", pyq: "CSIR NET / GGU 2023", options: ["Simple vs Simple Hypothesis", "Composite vs Composite", "Non-parametric test", "ANOVA"], ans: 0 },
+  { q: "62. Chi-square test of Independence me degrees of freedom for r x c table kya hota hai?", pyq: "GGU VRET 2021", options: ["(r-1)(c-1)", "r x c - 1", "r + c - 2", "r - c"], ans: 0 },
+  { q: "63. t-distribution N(0,1) ko approach karta hai jab degrees of freedom (n):", pyq: "GGU VRET 2020", options: ["n → 0", "n → ∞", "n = 30", "n = 1"], ans: 1 },
+  { q: "64. Two Variance ko compare karne ke liye kaun sa test use hota hai?", pyq: "GGU VRET 2022", options: ["z-test", "t-test", "F-test", "Chi-square test"], ans: 2 },
+  { q: "65. Two Regression Coefficients byx aur bxy ka Geometric Mean kya hota hai?", pyq: "GGU VRET 2023", options: ["Correlation Coefficient (r)", "Variance", "Standard Error", "Covariance"], ans: 0 },
+  { q: "66. Agar r = 0.8 hai, toh Coefficient of Determination (r²) kitna hoga?", pyq: "GGU VRET 2021", options: ["0.8", "0.64", "0.16", "0.40"], ans: 1 },
+  { q: "67. Multiple Linear Regression model Y = Xβ + ε me OLS Estimator β̂ kya hota hai?", pyq: "CSIR NET / GGU 2022", options: ["(X'X)⁻¹ X'Y", "X'Y (X'X)", "(XX')⁻¹ Y", "X'Y"], ans: 0 },
+  { q: "68. Gauss-Markov Theorem ke anusar OLS estimators kya hote hain?", pyq: "GGU VRET 2020", options: ["BLUE (Best Linear Unbiased Estimator)", "MLE", "Biased", "Nonlinear"], ans: 0 },
+  { q: "69. Multicollinearity ki vajah se regression me kya problem aati hai?", pyq: "GGU VRET 2023", options: ["Standard Error badh jata hai", "Estimators biased hote hain", "R² zero ho jata hai", "None"], ans: 0 },
+  { q: "70. Autocorrelation ko detect karne ke liye kaun sa test use hota hai?", pyq: "GGU VRET 2021", options: ["Durbin-Watson Test", "Goldfeld-Quandt Test", "Shapiro-Wilk Test", "Student t-test"], ans: 0 },
+  { q: "71. Heteroscedasticity ka matlab kya hai?", pyq: "GGU VRET 2022", options: ["Error term ka variance constant nahi hona", "Errors correlated hona", "Mean zero nahi hona", "Non-normal data"], ans: 0 },
+  { q: "72. Completely Randomized Design (CRD) kis Principle par work karta hai?", pyq: "GGU VRET 2020", options: ["Replication and Randomization only", "Local Control only", "All three principles", "None"], ans: 0 },
+  { q: "73. Randomized Block Design (RBD) me Local Control kis liye use hota hai?", pyq: "GGU VRET 2023", options: ["Experimental error kam karne ke liye", "Sample size badhane ke liye", "Means compare karne ke liye", "None"], ans: 0 },
+  { q: "74. p x p Latin Square Design (LSD) me Error Degrees of Freedom kitna hota hai?", pyq: "CSIR NET / GGU 2021", options: ["(p-1)(p-2)", "p² - 1", "p(p-1)", "(p-1)²"], ans: 0 },
+  { q: "75. Missing Plot Technique me value estimate karne ke baad error df me kya change hota hai?", pyq: "GGU VRET 2022", options: ["Error df 1 se reduce ho jata hai", "1 add hota hai", "Same rehta hai", "Double hota hai"], ans: 0 },
+  { q: "76. Stratified Random Sampling me Proportional Allocation me sample size nh kiske proportional hota hai?", pyq: "GGU VRET 2020", options: ["Stratum size Nh", "Variance Sh²", "Cost Ch", "Nh Sh"], ans: 0 },
+  { q: "77. Neyman Allocation me sample size nh kiske proportional hota hai?", pyq: "GGU VRET 2023", options: ["Nh Sh", "Nh", "Sh / √Ch", "Nh / Sh"], ans: 0 },
+  { q: "78. Ratio Estimator unbiased tab hota hai jab:", pyq: "GGU VRET 2021", options: ["Y aur X me straight line passing through origin ho", "Always", "Never", "X constant ho"], ans: 0 },
+  { q: "79. Systematic Sampling simple random sampling se zyada efficient hoti hai jab:", pyq: "GGU VRET 2022", options: ["Ordered/Trended na hon", "Periodic variations hon", "Randomly ordered hon", "None"], ans: 0 },
+  { q: "80. Markov Chain me continuous state space aur discrete time ko kya kehte hain?", pyq: "CSIR NET / GGU 2020", options: ["Stochastic Process", "Random Walk", "Poisson Process", "Renewal Process"], ans: 0 },
+  { q: "81. A state i in a Markov Chain is called 'Absorbing' if transition probability p_ii is:", pyq: "GGU VRET 2023", options: ["1", "0", "0.5", "∞"], ans: 0 },
+  { q: "82. Stationary Distribution π for a Markov chain with transition matrix P satisfies:", pyq: "CSIR NET / GGU 2021", options: ["π P = π", "P π = 0", "π P = 1", "P² = P"], ans: 0 },
+  { q: "83. Hazard Rate / Failure Rate function h(t) kya hota hai?", pyq: "GGU VRET 2022", options: ["f(t) / S(t)", "S(t) / f(t)", "1 - F(t)", "F(t)/f(t)"], ans: 0 },
+  { q: "84. Weibull Distribution shape parameter β = 1 par kisme convert hota hai?", pyq: "GGU VRET 2020", options: ["Exponential Distribution", "Normal", "Gamma", "Uniform"], ans: 0 },
+  { q: "85. Non-parametric test kaun sa hai?", pyq: "GGU VRET 2023", options: ["Mann-Whitney U Test", "Two-sample t-test", "F-test", "Paired t-test"], ans: 0 },
+  { q: "86. Kolmogorov-Smirnov (K-S) Test kis ke liye use hota hai?", pyq: "GGU VRET 2021", options: ["Goodness of fit for continuous distributions", "Mean comparison", "Variance ratio", "Regression"], ans: 0 },
+  { q: "87. Wilcoxon Signed-Rank Test kis parametric test ka alternative hai?", pyq: "GGU VRET 2022", options: ["Paired t-test", "Two-sample t-test", "One-way ANOVA", "Chi-square"], ans: 0 },
+  { q: "88. Kruskal-Wallis Test kis parametric test ka non-parametric equivalent hai?", pyq: "GGU VRET 2020", options: ["One-Way ANOVA", "Two-way ANOVA", "t-test", "Pearson correlation"], ans: 0 },
+  { q: "89. Joint Distribution f(x,y) = f1(x) f2(y) tabhi hoga jab X aur Y:", pyq: "GGU VRET 2023", options: ["Independent hon", "Mutually exclusive hon", "Correlated hon", "Identical hon"], ans: 0 },
+  { q: "90. Characteristic Function ϕ_X(t) ka formula kya hota hai?", pyq: "CSIR NET / GGU 2021", options: ["E(e^(itX))", "E(e^(tX))", "E(X^t)", "E(t^X)"], ans: 0 },
+  { q: "91. Moment Generating Function (MGF) M_X(t) me r-th moment about origin nikalne ke liye:", pyq: "GGU VRET 2022", options: ["d^r M_X(t) / dt^r | t=0", "M_X(0)", "∫ M_X(t) dt", "None"], ans: 0 },
+  { q: "92. Uniform Distribution U(a, b) ka Variance kya hota hai?", pyq: "GGU VRET 2020", options: ["(b-a)² / 12", "(b-a) / 2", "(b+a)² / 12", "(b-a) / 12"], ans: 0 },
+  { q: "93. Cauchy Distribution ka Mean kya hota hai?", pyq: "CSIR NET / GGU 2023", options: ["Undefined / Does not exist", "0", "1", "∞"], ans: 0 },
+  { q: "94. Central Chi-square distribution ka Variance kitna hota hai jab df = n ho?", pyq: "GGU VRET 2021", options: ["2n", "n", "n²", "√n"], ans: 0 },
+  { q: "95. F(v1, v2) distribution me 1/F ka distribution kya hota hai?", pyq: "GGU VRET 2022", options: ["F(v2, v1)", "t(v1)", "χ²(v2)", "Normal"], ans: 0 },
+  { q: "96. Time Series Analysis me Multiplicative Model kya hota hai?", pyq: "GGU VRET 2020", options: ["Y = T x S x C x I", "Y = T + S + C + I", "Y = T / (S x C)", "Y = T + S x I"], ans: 0 },
+  { q: "97. Laspeyres Index Number me base year quantities ko kya mana jata hai?", pyq: "GGU VRET 2023", options: ["Weights (q0)", "q1", "p0", "p1"], ans: 0 },
+  { q: "98. Fisher's Ideal Index Number kis test ko satisfy karta hai?", pyq: "GGU VRET 2021", options: ["Time Reversal & Factor Reversal Test", "Circular Test only", "Unit Test only", "None"], ans: 0 },
+  { q: "99. Statistical Quality Control (SQC) me Control limits (μ ± 3σ) kitna percent data cover karti hain?", pyq: "GGU VRET 2022", options: ["99.73%", "95%", "68.27%", "90%"], ans: 0 },
+  { q: "100. c-chart kis cheez ke liye control chart hota hai?", pyq: "GGU VRET 2020", options: ["Number of defects per unit", "Fraction defectives", "Mean", "Range"], ans: 0 }
+];
+
+// Render Questions
+const container = document.getElementById('questions-container');
+questionsData.forEach((q, index) => {
+  let qHtml = `
+    <div class="q-card" id="q-card-${index}">
+      <div class="q-header">
+        <strong>Question ${index + 1}</strong>
+        <span class="pyq-tag">${q.pyq}</span>
+      </div>
+      <p style="font-weight:600; font-size:16px;">${q.q}</p>
+      <div class="options-group">
+  `;
+  q.options.forEach((opt, optIdx) => {
+    qHtml += `
+      <label>
+        <input type="radio" name="q${index}" value="${optIdx}">
+        ${opt}
+      </label>
+    `;
+  });
+  qHtml += `</div></div>`;
+  container.innerHTML += qHtml;
+});
+
+// Timer Functionality (60 Minutes)
+let timeLeft = 3600;
+const timerElem = document.getElementById('timer');
+const timerInterval = setInterval(() => {
+  let minutes = Math.floor(timeLeft / 60);
+  let seconds = timeLeft % 60;
+  seconds = seconds < 10 ? '0' + seconds : seconds;
+  timerElem.innerHTML = `${minutes}:${seconds}`;
+  if (timeLeft <= 0) {
+    clearInterval(timerInterval);
+    alert('Time is up! Submitting test automatically.');
+    calculateScore();
+  }
+  timeLeft--;
+}, 1000);
+
+// Score Calculation and Answer Analysis
+function calculateScore() {
+  clearInterval(timerInterval);
+  let score = 0;
+  let analysisHtml = "";
+
+  questionsData.forEach((q, index) => {
+    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+    let userAns = selected ? parseInt(selected.value) : -1;
+    
+    if (userAns === q.ans) {
+      score++;
+    }
+
+    let userAnsText = userAns !== -1 ? q.options[userAns] : "Not Attempted";
+    let correctAnsText = q.options[q.ans];
+
+    analysisHtml += `
+      <div style="margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+        <p style="margin: 0 0 5px 0;"><strong>${q.q}</strong> <span style="font-size:11px; color:#888;">(${q.pyq})</span></p>
+        <p style="margin: 0; font-size: 14px;">Your Answer: <span class="${userAns === q.ans ? 'correct-ans' : 'wrong-ans'}">${userAnsText}</span></p>
+        ${userAns !== q.ans ? `<p style="margin: 0; font-size: 14px;">Correct Answer: <span class="correct-ans">${correctAnsText}</span></p>` : ''}
+      </div>
+    `;
+  });
+
+  // Hide Quiz Form, Show Score Card
+  document.getElementById('quiz-form').style.display = 'none';
+  const scoreCard = document.getElementById('score-card');
+  scoreCard.style.display = 'block';
+
+  document.getElementById('final-score').innerHTML = `${score} / 100`;
+
+  let statusMsg = "";
+  if(score >= 70) {
+    statusMsg = "<strong style='color:var(--success);'>Excellent Performance! High chance of qualifying VRET JRF.</strong>";
+  } else if(score >= 50) {
+    statusMsg = "<strong style='color:#ff9800;'>Good Effort! Needs a little more revision on Core Statistics.</strong>";
+  } else {
+    statusMsg = "<strong style='color:var(--danger);'>Keep practicing! Focus more on Research Methodology & basic formulas.</strong>";
+  }
+  document.getElementById('score-status').innerHTML = statusMsg;
+  document.getElementById('analysis-list').innerHTML = analysisHtml;
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
