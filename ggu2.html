@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ph.D. Entrance Examination - Education Mock Test</title>
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --accent-color: #3182ce;
+            --success-color: #2f855a;
+            --danger-color: #c53030;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-main: #2d3748;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: #4a5568;
+            font-size: 0.95rem;
+        }
+
+        /* Sticky Timer Bar */
+        .timer-bar {
+            position: sticky;
+            top: 10px;
+            z-index: 1000;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            margin-bottom: 25px;
+        }
+
+        .timer-display {
+            font-size: 1.25rem;
+            letter-spacing: 1px;
+            color: #fbd38d;
+        }
+
+        .question-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: #fff;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .options-list {
+            list-style: none;
+        }
+
+        .option-item {
+            margin-bottom: 10px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+
+        .option-label:hover {
+            background-color: #ebf8ff;
+            border-color: var(--accent-color);
+        }
+
+        .option-label input[type="radio"] {
+            margin-right: 12px;
+            width: 16px;
+            height: 16px;
+            accent-color: var(--secondary-color);
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.15rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            margin-top: 30px;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Score Card Styling */
+        #score-card {
+            display: none;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+            background: #fff;
+            text-align: center;
+        }
+
+        .score-card-header {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .pass-badge {
+            color: var(--success-color);
+        }
+
+        .fail-badge {
+            color: var(--danger-color);
+        }
+
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .score-box {
+            background: var(--bg-color);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .score-box .number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .score-box .label {
+            font-size: 0.85rem;
+            color: #718096;
+            text-transform: uppercase;
+        }
+
+        /* Answer Key Section */
+        #answer-key-section {
+            display: none;
+            margin-top: 40px;
+            border-top: 2px solid var(--border-color);
+            padding-top: 25px;
+        }
+
+        .key-title {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .key-card {
+            background: #faf5ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .key-card.correct {
+            border-left-color: var(--success-color);
+            background: #f0fff4;
+        }
+
+        .key-card.incorrect {
+            border-left-color: var(--danger-color);
+            background: #fff5f5;
+        }
+
+        .key-q-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .ans-detail {
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
+        .txt-correct {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .txt-wrong {
+            color: var(--danger-color);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Ph.D. Entrance Mock Test - Education</h1>
+        <p>Total Questions: 100 | Time Allowed: 120 Minutes | Passing Marks: 86%</p>
+    </header>
+
+    <div class="timer-bar">
+        <span>Time Remaining:</span>
+        <span class="timer-display" id="timer">02:00:00</span>
+    </div>
+
+    <form id="quiz-form">
+        <div id="questions-container"></div>
+        <button type="submit" class="submit-btn">Submit Examination</button>
+    </form>
+
+    <div id="score-card">
+        <div class="score-card-header" id="status-badge"></div>
+        <div class="score-grid">
+            <div class="score-box">
+                <div class="number" id="sc-total">100</div>
+                <div class="label">Total Questions</div>
+            </div>
+            <div class="score-box">
+                <div class="number" id="sc-attempted">0</div>
+                <div class="label">Attempted</div>
+            </div>
+            <div class="score-box">
+                <div class="number" id="sc-correct">0</div>
+                <div class="label">Correct</div>
+            </div>
+            <div class="score-box">
+                <div class="number" id="sc-score">0%</div>
+                <div class="label">Percentage</div>
+            </div>
+            <div class="score-box">
+                <div class="number" id="sc-time-taken">00:00</div>
+                <div class="label">Time Taken</div>
+            </div>
+        </div>
+        <p id="pass-message" style="font-size: 0.95rem; color: #4a5568;"></p>
+    </div>
+
+    <div id="answer-key-section">
+        <h2 class="key-title">Detailed Answer Key & Analysis</h2>
+        <div id="answer-key-container"></div>
+    </div>
+</div>
+
+<script>
+    const questionsData = [
+        { id: 1, q: "Research can be defined as:", options: ["A solution oriented process.", "A process of collecting data and arriving at solutions.", "A process of arriving at the solution of a problem.", "A systematic process where activities are carried out scientifically to find solution to the problem."], correct: 3 },
+        { id: 2, q: "Which among the following tools cannot be standardized?", options: ["Tests.", "Inventories.", "Questionnaire.", "Scales."], correct: 2 },
+        { id: 3, q: "Which is the first step of research?", options: ["Review of related literature.", "Identification of problem.", "Defining the problem.", "Statement of the problem."], correct: 1 },
+        { id: 4, q: "In an experimental research which variable is manipulated?", options: ["Continuous variable.", "Dependent variable.", "Independent variable.", "Intervening variable."], correct: 2 },
+        { id: 5, q: "Both independent and dependent variables are ______ terms.", options: ["Relative.", "Absolute.", "Discrete.", "Vague."], correct: 0 },
+        { id: 6, q: "Which among the following is/are a source of research problem?", options: ["Review of related literature.", "Theories.", "Seminars.", "All of the above."], correct: 3 },
+        { id: 7, q: "The researcher has to select ______ for research.", options: ["Problem.", "Variables.", "Both (a) and (b).", "Neither (a) nor (b)."], correct: 2 },
+        { id: 8, q: "Identify the correctly worded objective:", options: ["To compare environmental awareness of post graduate students.", "To differentiate environmental awareness of post graduate students.", "To compare environmental awareness of male and female post graduate students.", "To compare mean scores of environmental awareness of male and female post graduate students."], correct: 3 },
+        { id: 9, q: "Hypotheses are:", options: ["Solutions to the problem.", "Tentative solution to the problem.", "Fixed solutions to the problem.", "Definite solution to the problem."], correct: 1 },
+        { id: 10, q: "Hypothesis provides the basis for selecting:", options: ["Sample.", "Statistical technique.", "Method.", "All of the above."], correct: 3 },
+        { id: 11, q: "Sample is a representative portion of:", options: ["Universe.", "Population.", "Frame.", "All the above."], correct: 1 },
+        { id: 12, q: "Reliability is the property of:", options: ["Test.", "Scores.", "Examiner.", "Examinee."], correct: 1 },
+        { id: 13, q: "Test items measure student's:", options: ["Ability.", "Achievement.", "Personality.", "All the above."], correct: 1 },
+        { id: 14, q: "Which of the following is not a quality of test items?", options: ["Relevance.", "Comprehensible.", "Ambiguous.", "Independent."], correct: 2 },
+        { id: 15, q: "Which of the following is not a feature of objective type test item?", options: ["Seeks very very short answers.", "Ensures objectivity.", "Focuses on critical thinking.", "No need for the skill of organization."], correct: 2 },
+        { id: 16, q: "Measurement is significant in:", options: ["Education.", "Psychology.", "Physical sciences.", "All the above."], correct: 3 },
+        { id: 17, q: "What is micro teaching?", options: ["A teaching technique.", "A scaled down training technique.", "A teaching programme.", "A simulation technique."], correct: 1 },
+        { id: 18, q: "Teaching skills are:", options: ["Observable.", "Measurable.", "Trainable.", "All the above."], correct: 3 },
+        { id: 19, q: "Cognitive domain of behaviour is related to human:", options: ["Thinking.", "Feeling.", "Doing.", "Both (a) and (b)."], correct: 0 },
+        { id: 20, q: "Identify the probability sampling strategy from among those given:", options: ["Convenient sampling.", "Purposive sampling.", "Systematic sampling.", "Quota sampling."], correct: 2 },
+        { id: 21, q: "Identify the null hypothesis from among those given:", options: ["There will be a positive relationship between individuals' intelligence and creativity.", "There will be a relationship between individuals' intelligence and creativity.", "There is no significant difference between the mean scores of individuals' intelligence and creativity.", "There will be a difference between individuals' intelligence and creativity."], correct: 2 },
+        { id: 22, q: "Higher Education in India today suffers from:", options: ["Rigid separation of disciplines.", "Limited teacher autonomy.", "Outdated curriculum.", "All the above."], correct: 3 },
+        { id: 23, q: "Expected deadline for all HEIs in India to be transformed to multidisciplinary institutions as per NEP 2020 is:", options: ["2035.", "2040.", "2045.", "2050."], correct: 1 },
+        { id: 24, q: "Identify the full form of SWAYAM:", options: ["Students Web of Active Learners For Young Aspiring Minds.", "Study Webs of Active Learning for Young Aspiring Minds.", "Study Websites of Attractive Learning for Young Aspiring Minds.", "Student Web of Active Learners for Young Aspiring Minds."], correct: 1 },
+        { id: 25, q: "'Integrated Education' was propounded by:", options: ["Mahatma Gandhi.", "Swami Vivekananda.", "Sri Aurobindo Ghosh.", "Sri Jiddunath Krishnamurti."], correct: 2 },
+        { id: 26, q: "'Nothing can be taught to the child', was preached by Sri Aurobindo because:", options: ["Child is born a blank slate.", "Knowledge is within oneself.", "Self interest is important.", "Children need to learn by doing."], correct: 1 },
+        { id: 27, q: "Satyagraha means:", options: ["Walking on the path of truth.", "Truthfulness.", "Speaking the truth.", "Clinging to truth."], correct: 3 },
+        { id: 28, q: "To educate according to 'nature' means:", options: ["To teach in the midst of nature.", "To educate according to the natural laws of human development.", "To study natural laws and apply them to the educational process.", "All the above are correct."], correct: 3 },
+        { id: 29, q: "Identify the Non-parametric tests from among the following:", options: ["T test.", "F test.", "Mann Whitney test.", "Pearson correlation."], correct: 2 },
+        { id: 30, q: "The range of coefficient of correlation between two variables is:", options: ["0 to +1.", "0 to 1.", "+1 to -1.", "0 to -1."], correct: 2 },
+        { id: 31, q: "A researcher is studying the relationship between students' environmental awareness and naturalistic intelligence. This is an example of:", options: ["Experimental research.", "Ethnographic research.", "Descriptive research.", "Field experiment."], correct: 2 },
+        { id: 32, q: "Punishment is:", options: ["A positive reinforcer.", "A negative reinforcer.", "Not a reinforcer at all.", "None of the above."], correct: 2 },
+        { id: 33, q: "The Banking System of education was recognized by:", options: ["Paulo Freire.", "Bertrand Russell.", "John Dewey.", "J Krishnamurty."], correct: 0 },
+        { id: 34, q: "Which of the following level of teaching emphasizes on students Higher order Thinking skills?", options: ["Memory level.", "Understanding level.", "Reflective level.", "Creative level."], correct: 2 },
+        { id: 35, q: "Using 'initial statement' is a component skill of which of the following teaching skills:", options: ["Skill of Introducing a lesson.", "Skill of Explaining a lesson.", "Skill of questioning.", "Skill of recapitulating."], correct: 1 },
+        { id: 36, q: "Identify the taxonomical category that belongs to psychomotor domain:", options: ["Remembering.", "Creating.", "Valuing.", "Naturalization."], correct: 3 },
+        { id: 37, q: "Active participation of learners is ensured by which of the following methods:", options: ["Lecture method.", "Project method.", "Historical method.", "Demonstration method."], correct: 1 },
+        { id: 38, q: "Identify the socially exceptional children:", options: ["Underprivileged children.", "Orthopedically handicapped children.", "Mentally retarded children.", "Emotionally deprived children."], correct: 0 },
+        { id: 39, q: "Both face to face traditional classroom methods and e-learning are used together to create a hybrid teaching approach known as:", options: ["Blended learning.", "Distance learning.", "Synchronous learning.", "Asynchronous learning."], correct: 0 },
+        { id: 40, q: "The second step in the 5 E model of instruction is:", options: ["Explore.", "Engage.", "Elaborate.", "Evaluate."], correct: 0 },
+        { id: 41, q: "Identify the co-operative learning strategy/strategies:", options: ["Flipped classrooms.", "Jigsaw learning.", "Fishbowl learning.", "All the above."], correct: 3 },
+        { id: 42, q: "Modern educationist believes in ______ aim of education.", options: ["Individual aim.", "Social aim.", "Economic aim.", "Multiple aim."], correct: 3 },
+        { id: 43, q: "The different aspects of education is determined by:", options: ["Philosophy.", "Psychology.", "Sociology.", "Anthropology."], correct: 0 },
+        { id: 44, q: "The branch of philosophy which deals with knowledge is called:", options: ["Epistemology.", "Axiology.", "Metaphysics.", "Sociology."], correct: 0 },
+        { id: 45, q: "Which of the following is primary to learning?", options: ["Thinking.", "Reflecting.", "Interacting with environment.", "Remaining confined to one's thought."], correct: 2 },
+        { id: 46, q: "Memory traces are referred to as:", options: ["Engram.", "Enogram.", "Ingram.", "None of the above."], correct: 0 },
+        { id: 47, q: "In thinking objects are manipulated:", options: ["Physically.", "Mentally.", "Objectively.", "Virtually."], correct: 1 },
+        { id: 48, q: "Incubation in thinking means:", options: ["Sleeping.", "Brooding.", "Solving problems at the unconscious level.", "Heating."], correct: 2 },
+        { id: 49, q: "According to Kohlberg which of the following influences one's moral development:", options: ["Environment.", "Parental influence.", "Intelligence.", "Education."], correct: 0 },
+        { id: 50, q: "Physical manipulation of objects is required in which of the following stages of development:", options: ["Sensory motor stage.", "Enactive mode.", "Iconic stage.", "Both (a) and (b)."], correct: 3 },
+        { id: 51, q: "'Education is the manifestation of perfection already in man' was stated by:", options: ["Mahatma Gandhi", "Rabindranath Tagore", "Swami Vivekananda", "Sri Aurobindo"], correct: 2 },
+        { id: 52, q: "A variable that can take any value within a given range is called a:", options: ["Discrete Variable", "Continuous Variable", "Categorical Variable", "Dummy Variable"], correct: 1 },
+        { id: 53, q: "In an experiment, the variable measured to check the effect of manipulation is:", options: ["Independent Variable", "Dependent Variable", "Control Variable", "Extraneous Variable"], correct: 1 },
+        { id: 54, q: "Sampling where every element in the population has a known non-zero chance of selection:", options: ["Snowball Sampling", "Simple Random Sampling", "Judgmental Sampling", "Convenience Sampling"], correct: 1 },
+        { id: 55, q: "Selecting a sample based on ease of access is known as:", options: ["Purposive Sampling", "Convenience Sampling", "Quota Sampling", "Stratified Sampling"], correct: 1 },
+        { id: 56, q: "Dividing population into homogenous subgroups and sampling randomly from each is:", options: ["Cluster Sampling", "Stratified Random Sampling", "Systematic Sampling", "Multi-stage Sampling"], correct: 1 },
+        { id: 57, q: "Drawing conclusions about a population based on sample data is called:", options: ["Descriptive Statistics", "Inferential Statistics", "Qualitative Analysis", "Factor Analysis"], correct: 1 },
+        { id: 58, q: "Which measure of central tendency is most affected by extreme values?", options: ["Mean", "Median", "Mode", "Quartile"], correct: 0 },
+        { id: 59, q: "In a perfectly normal distribution (NPC), the relationship between Mean, Median, Mode is:", options: ["Mean > Median > Mode", "Mean < Median < Mode", "Mean = Median = Mode", "Mean != Median != Mode"], correct: 2 },
+        { id: 60, q: "The standard deviation of a sampling distribution is known as:", options: ["Standard Error", "Variance", "Mean Absolute Deviation", "Sampling Variance"], correct: 0 },
+        { id: 61, q: "Degree of freedom (df) for a single sample t-test with sample size N is:", options: ["N", "N - 1", "N - 2", "N + 1"], correct: 1 },
+        { id: 62, q: "ANOVA (Analysis of Variance) is used to compare the means of:", options: ["Only two groups", "Three or more groups", "Qualitatively categorized groups only", "Single group over time"], correct: 1 },
+        { id: 63, q: "Chi-square test is primarily a test of:", options: ["Difference between means", "Goodness of fit and independence", "Linear regression", "Homogeneity of variance"], correct: 1 },
+        { id: 64, q: "Validity of a test means:", options: ["Consistency of test scores", "Measuring what the test claims to measure", "Ease of test administration", "Objectivity of scoring"], correct: 1 },
+        { id: 65, q: "Split-half method is used to measure which type of reliability?", options: ["Inter-rater Reliability", "Test-Retest Reliability", "Internal Consistency Reliability", "Equivalent Forms Reliability"], correct: 2 },
+        { id: 66, q: "Statistical tool used to predict the value of a dependent variable based on an independent variable:", options: ["Correlation", "Regression Analysis", "Factor Analysis", "Chi-Square Test"], correct: 1 },
+        { id: 67, q: "A study conducted over a long period to observe changes in the same group of subjects is:", options: ["Cross-sectional Study", "Longitudinal Study", "Case Study", "Trend Study"], correct: 1 },
+        { id: 68, q: "Deep, immersive study of a culture or social group through participant observation is:", options: ["Phenomenology", "Ethnography", "Grounded Theory", "Narrative Research"], correct: 1 },
+        { id: 69, q: "Qualitative research approach aimed at developing a theory grounded in data is:", options: ["Historical Method", "Grounded Theory", "Experimental Method", "Case Study"], correct: 1 },
+        { id: 70, q: "Triangulation in research refers to:", options: ["Using three different samples", "Using multiple methods/sources to cross-verify findings", "Testing three hypotheses together", "Conducting research in three phases"], correct: 1 },
+        { id: 71, q: "Plagiarism in academic writing refers to:", options: ["Citing original authors accurately", "Using someone else's work without proper attribution", "Writing in a formal tone", "Translating research papers"], correct: 1 },
+        { id: 72, q: "Reference style most commonly used in Educational & Psychological research:", options: ["MLA", "APA", "Chicago", "IEEE"], correct: 1 },
+        { id: 73, q: "In APA format, 'DOI' stands for:", options: ["Digital Object Identifier", "Data Object Index", "Direct Online Index", "Document Organization Identity"], correct: 0 },
+        { id: 74, q: "Fundamental aim of Pragmatism in education is:", options: ["Search for absolute truth", "Learning through practical experience and utility", "Strict discipline and traditional values", "Self-realization through spiritual growth"], correct: 1 },
+        { id: 75, q: "Who is considered the father of Educational Pragmatism?", options: ["Jean-Jacques Rousseau", "John Dewey", "Immanuel Kant", "Friedrich Froebel"], correct: 1 },
+        { id: 76, q: "Naturalism in education lays maximum emphasis on:", options: ["Teacher's central role", "Freedom of the child and natural development", "Textbooks and strict curriculum", "Religious instructions"], correct: 1 },
+        { id: 77, q: "'Kindergarten' system of education was introduced by:", options: ["Maria Montessori", "Friedrich Froebel", "John Dewey", "Pestalozzi"], correct: 1 },
+        { id: 78, q: "Wardha Scheme of Basic Education (1937) was proposed by:", options: ["Dr. S. Radhakrishnan", "Mahatma Gandhi", "Maulana Abul Kalam Azad", "Jawaharlal Nehru"], correct: 1 },
+        { id: 79, q: "Primary focus of Basic Education (Nai Talim) was on:", options: ["Craft-centered education and mother tongue instruction", "English medium instruction", "Purely theoretical scientific knowledge", "Computer education"], correct: 0 },
+        { id: 80, q: "Who propounded the theory of Multiple Intelligences?", options: ["Charles Spearman", "Howard Gardner", "Robert Sternberg", "Alfred Binet"], correct: 1 },
+        { id: 81, q: "According to Piaget, stage characterized by abstract logical thinking is:", options: ["Sensorimotor Stage", "Pre-operational Stage", "Concrete Operational Stage", "Formal Operational Stage"], correct: 3 },
+        { id: 82, q: "The concept of 'Zone of Proximal Development' (ZPD) was given by:", options: ["Jean Piaget", "Lev Vygotsky", "Jerome Bruner", "B.F. Skinner"], correct: 1 },
+        { id: 83, q: "Scaffolding in teaching refers to:", options: ["Permanent physical support", "Temporary support provided by a More Knowledgeable Other", "Punishing students", "Standardized testing"], correct: 1 },
+        { id: 84, q: "Ivan Pavlov is known for his work on:", options: ["Operant Conditioning", "Classical Conditioning", "Insight Learning", "Social Learning"], correct: 1 },
+        { id: 85, q: "Trial and Error theory of learning was propounded by:", options: ["E.L. Thorndike", "B.F. Skinner", "Wolfgang Kohler", "Albert Bandura"], correct: 0 },
+        { id: 86, q: "Insightful learning theory was demonstrated using chimpanzees by:", options: ["Pavlov", "Kohler", "Watson", "Tolman"], correct: 1 },
+        { id: 87, q: "Albert Bandura is famous for introducing:", options: ["Drive Reduction Theory", "Social Learning / Observational Learning Theory", "Field Theory", "Sign Learning"], correct: 1 },
+        { id: 88, q: "Maslow's Hierarchy of Needs places which need at the highest level?", options: ["Safety Needs", "Esteem Needs", "Self-Actualization Needs", "Belongingness Needs"], correct: 2 },
+        { id: 89, q: "Formative Assessment is primarily used for:", options: ["Grading and certification at the end", "Monitoring student learning progress and ongoing feedback", "Selecting candidates for jobs", "Rank ordering students"], correct: 1 },
+        { id: 90, q: "Summative Assessment is conducted:", options: ["Continuous during session", "At the end of an instructional unit or session", "Before starting a unit", "Every day"], correct: 1 },
+        { id: 91, q: "Diagnostic Evaluation helps teachers to:", options: ["Assign grades", "Identify persistent learning difficulties and underlying causes", "Select textbook content", "Arrange seating"], correct: 1 },
+        { id: 92, q: "Norm-Referenced Test (NRT) compares student performance against:", options: ["Pre-defined learning standards", "Performance of other students (peer group)", "Student's past performance", "Teacher's expectations"], correct: 1 },
+        { id: 93, q: "Criterion-Referenced Test (CRT) measures student performance against:", options: ["Class average score", "Clearly defined domain/criterion of mastery", "National percentile ranks", "Speed of completion"], correct: 1 },
+        { id: 94, q: "Educational Sociology is primarily concerned with:", options: ["Individual psychological traits", "Interaction between education and social structure/culture", "Historical events in education", "Biological growth"], correct: 1 },
+        { id: 95, q: "Social Mobility refers to:", options: ["Physical movement between cities", "Shift in an individual's or group's social status/class", "Changing school subjects", "Joining political parties"], correct: 1 },
+        { id: 96, q: "Commission that recommended the 10+2+3 pattern of education in India:", options: ["Radhakrishnan Commission (1948)", "Secondary Education Commission (1952)", "Kothari Commission (1964-66)", "National Knowledge Commission (2005)"], correct: 2 },
+        { id: 97, q: "NEP 2020 replaced the 10+2 structure with which new pedagogical structure?", options: ["5+3+3+4", "5+4+3+3", "3+5+3+4", "4+3+3+5"], correct: 0 },
+        { id: 98, q: "In NEP 2020, PARAKH is established as a:", options: ["Teacher training portal", "National Assessment Centre", "Higher education scholarship scheme", "Distance learning platform"], correct: 1 },
+        { id: 99, q: "Regulatory body that oversees Teacher Education programs in India:", options: ["UGC", "NCERT", "NCTE", "AICTE"], correct: 2 },
+        { id: 100, q: "RUSA (Rashtriya Uchchatar Shiksha Abhiyan) focuses on funding for:", options: ["Primary Education", "Secondary Education", "State Higher Education Institutions", "Adult Education"], correct: 2 }
+    ];
+
+    let timerInterval;
+    let totalSeconds = 120 * 60; // 120 Minutes
+    let timeTakenSeconds = 0;
+
+    function startTimer() {
+        timerInterval = setInterval(() => {
+            totalSeconds--;
+            timeTakenSeconds++;
+
+            if (totalSeconds <= 0) {
+                clearInterval(timerInterval);
+                document.getElementById('quiz-form').dispatchEvent(new Event('submit'));
+            }
+
+            const hrs = Math.floor(totalSeconds / 3600);
+            const mins = Math.floor((totalSeconds % 3600) / 60);
+            const secs = totalSeconds % 60;
+
+            document.getElementById('timer').innerText = 
+                `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }, 1000);
+    }
+
+    function renderQuestions() {
+        const container = document.getElementById('questions-container');
+        questionsData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            
+            let optionsHTML = '';
+            q.options.forEach((opt, optIdx) => {
+                optionsHTML += `
+                    <li class="option-item">
+                        <label class="option-label">
+                            <input type="radio" name="q${q.id}" value="${optIdx}">
+                            (${String.fromCharCode(97 + optIdx)}) ${opt}
+                        </label>
+                    </li>
+                `;
+            });
+
+            card.innerHTML = `
+                <div class="question-text">${index + 1}. ${q.q}</div>
+                <ul class="options-list">${optionsHTML}</ul>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    document.getElementById('quiz-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        clearInterval(timerInterval);
+
+        let correctCount = 0;
+        let attemptedCount = 0;
+        const userAnswers = [];
+
+        questionsData.forEach((q) => {
+            const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+            if (selected) {
+                attemptedCount++;
+                const val = parseInt(selected.value);
+                userAnswers.push(val);
+                if (val === q.correct) {
+                    correctCount++;
+                }
+            } else {
+                userAnswers.push(null);
+            }
+        });
+
+        const total = questionsData.length;
+        const percentage = (correctCount / total) * 100;
+        const passTarget = 86;
+
+        // Populate Scorecard
+        document.getElementById('sc-total').innerText = total;
+        document.getElementById('sc-attempted').innerText = attemptedCount;
+        document.getElementById('sc-correct').innerText = correctCount;
+        document.getElementById('sc-score').innerText = `${percentage.toFixed(1)}%`;
+
+        const tMins = Math.floor(timeTakenSeconds / 60);
+        const tSecs = timeTakenSeconds % 60;
+        document.getElementById('sc-time-taken').innerText = `${tMins}m ${tSecs}s`;
+
+        const statusBadge = document.getElementById('status-badge');
+        const passMessage = document.getElementById('pass-message');
+
+        if (percentage >= passTarget) {
+            statusBadge.innerText = "PASSED";
+            statusBadge.className = "score-card-header pass-badge";
+            passMessage.innerText = `Congratulations! You met the passing criteria of ${passTarget}%.`;
+        } else {
+            statusBadge.innerText = "FAILED";
+            statusBadge.className = "score-card-header fail-badge";
+            passMessage.innerText = `You needed ${passTarget}% (86/100) to pass. Keep revising!`;
+        }
+
+        document.getElementById('score-card').style.display = 'block';
+
+        // Render Answer Key
+        renderAnswerKey(userAnswers);
+
+        // Scroll to Scorecard
+        document.getElementById('score-card').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    function renderAnswerKey(userAnswers) {
+        const keyContainer = document.getElementById('answer-key-container');
+        keyContainer.innerHTML = '';
+
+        questionsData.forEach((q, idx) => {
+            const uAns = userAnswers[idx];
+            const isCorrect = uAns === q.correct;
+
+            const card = document.createElement('div');
+            card.className = `key-card ${isCorrect ? 'correct' : 'incorrect'}`;
+
+            const userText = uAns !== null ? `(${String.fromCharCode(97 + uAns)}) ${q.options[uAns]}` : "Not Attempted";
+            const correctText = `(${String.fromCharCode(97 + q.correct)}) ${q.options[q.correct]}`;
+
+            card.innerHTML = `
+                <div class="key-q-title">${idx + 1}. ${q.q}</div>
+                <div class="ans-detail">Your Selection: <span class="${isCorrect ? 'txt-correct' : 'txt-wrong'}">${userText}</span></div>
+                <div class="ans-detail">Correct Answer: <span class="txt-correct">${correctText}</span></div>
+            `;
+
+            keyContainer.appendChild(card);
+        });
+
+        document.getElementById('answer-key-section').style.display = 'block';
+    }
+
+    // Initialize
+    renderQuestions();
+    startTimer();
+</script>
+
+</body>
+</html>
